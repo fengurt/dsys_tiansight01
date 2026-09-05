@@ -3,22 +3,96 @@ from pathlib import Path
 import hashlib
 import json
 import re
+import sys
 
 root = Path(__file__).resolve().parents[1]
 brand = root / 'brand'
 source = json.loads((brand / 'source.json').read_text())
-css = (brand / 'tokens.css').read_text()
+guide = (brand / 'guide.md').read_text()
+tokens = (brand / 'tokens.css').read_text()
+base = (brand / 'base.css').read_text()
+components = (brand / 'components.css').read_text()
+specimen = (brand / 'index.html').read_text()
+problems = []
+
+
+def token_value(name):
+    match = re.search(r'--' + re.escape(name) + r':\s*([^;]+);', tokens)
+    return match[1].strip() if match else None
+
+
+# 1. Published theme → tokens.css
 mapping = {'surface': 'surface', 'paper': 'paper', 'ink-primary': 'primary',
            'charcoal': 'ink', 'gold': 'accent', 'ink-muted': 'muted', 'seal': 'secondary'}
 for token, key in mapping.items():
-    value = re.search(r'--' + token + r':\s*([^;]+);', css)
-    assert value and value[1].lower() == source['theme'][key].lower(), token
-assert hashlib.sha256((brand / 'logo.png').read_bytes()).hexdigest() == source['logo']['sha256']
-assert 'Serif everywhere' in (brand / 'guide.md').read_text()
+    value = token_value(token)
+    if not value or value.lower() != source['theme'][key].lower():
+        problems.append(f'tokens.css --{token} != theme.{key}')
+line = token_value('line')
+if not line or re.sub(r'\s', '', line) != re.sub(r'\s', '', source['theme']['line']):
+    problems.append('tokens.css --line != theme.line')
+
+# 2. Guide colour table → tokens.css (every row of §1)
+guide_rows = re.findall(r'^\| `--([a-z-]+)` \|[^|]*\| `(#[0-9A-Fa-f]{6})` \|', guide, re.M)
+if len(guide_rows) < 9:
+    problems.append('guide colour table not found')
+for token, hexval in guide_rows:
+    if (token_value(token) or '').lower() != hexval.lower():
+        problems.append(f'tokens.css --{token} != guide {hexval}')
+
+# 3. Official logo
+if hashlib.sha256((brand / 'logo.png').read_bytes()).hexdigest() != source['logo']['sha256']:
+    problems.append('logo.png hash mismatch')
+if 'Serif everywhere' not in guide:
+    problems.append('guide.md missing "Serif everywhere"')
+
+# 4. Foundation policy: serif fallbacks only, no banned families, no raw colour outside tokens.css
+for name, css in (('tokens.css', tokens), ('base.css', base), ('components.css', components)):
+    for family in re.findall(r'--font-[a-z]+:\s*([^;]+);', css):
+        if 'sans-serif' in family:
+            problems.append(f'{name}: sans-serif fallback in font stack')
+    if re.search(r'\b(Inter|Roboto|Arial|Helvetica)\b', css):
+        problems.append(f'{name}: banned font family')
+    if name != 'tokens.css' and re.search(r'#[0-9A-Fa-f]{3,8}\b|rgba?\(', css):
+        problems.append(f'{name}: raw colour value, use a token')
+    for radius in re.findall(r'border-radius:\s*([^;]+);', css):
+        if radius not in ('var(--radius)', 'var(--radius-pill)', '50%'):
+            problems.append(f'{name}: border-radius {radius} (only 2px, pill, 50%)')
+    if 'linear-gradient' in css or 'radial-gradient' in css:
+        problems.append(f'{name}: gradient')
+
+# 5. Every var(--x) used in base/components/specimen is declared in tokens.css
+declared = set(re.findall(r'--([a-z0-9-]+):', tokens + base + components + specimen))
+declared |= {'span', 'span-md', 'swatch-color', 'mark-size', 'stamp-size', 'compass-size'}
+used = set(re.findall(r'var\(--([a-z0-9-]+)', base + components + specimen))
+for missing in sorted(used - declared):
+    problems.append(f'undeclared token --{missing}')
+
+# 6. Specimen is offline: no remote scripts, styles, fonts, or images
+for url in re.findall(r'(?:src|href)="(https?://[^"]+)"', specimen):
+    problems.append(f'index.html loads remote resource {url}')
+if '<script' in specimen:
+    problems.append('index.html contains script')
+for ref in re.findall(r'(?:src|href)="([^"#:]+)"', specimen):
+    if not (brand / ref).is_file():
+        problems.append(f'index.html references missing file {ref}')
+if re.search(r'[\U0001F300-\U0001FAFF☀-➿]', specimen.replace('✓', '').replace('✕', '')):
+    problems.append('index.html contains emoji')
+
+# 7. Supplied export is intact
 export = root / 'TIANSIGHT 侍天 Design System'
 manifest = json.loads((export / '_ds_manifest.json').read_text())
 for entry in manifest['components']:
-    assert (export / entry['sourcePath']).is_file(), entry['sourcePath']
+    if not (export / entry['sourcePath']).is_file():
+        problems.append(f'export missing {entry["sourcePath"]}')
 for entry in manifest['cards']:
-    assert (export / entry['path']).is_file(), entry['path']
-print(f"PASS: official palette, logo hash, guide, {len(manifest['components'])} component exports and {len(manifest['cards'])} cards")
+    if not (export / entry['path']).is_file():
+        problems.append(f'export missing {entry["path"]}')
+
+if problems:
+    print('FAIL')
+    for problem in problems:
+        print(' -', problem)
+    sys.exit(1)
+print(f"PASS: official palette, {len(guide_rows)} guide tokens, logo hash, foundation policy, "
+      f"offline specimen, {len(manifest['components'])} component exports and {len(manifest['cards'])} cards")
