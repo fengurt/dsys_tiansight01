@@ -80,7 +80,7 @@ if re.search(r'[\U0001F300-\U0001FAFF☀-➿]', specimen.replace('✓', '').repl
     problems.append('index.html contains emoji')
 
 # 7. Consumers (deck, website) follow the same policy and stay offline
-for consumer in ('deck', 'website'):
+for consumer in ('deck', 'website', 'report'):
     folder = root / consumer
     html = (folder / 'index.html').read_text()
     css = ''.join(f.read_text() for f in folder.glob('*.css'))
@@ -111,7 +111,13 @@ for consumer in ('deck', 'website'):
             if word in html:
                 problems.append(f'website: avoided lexicon "{word}"')
 
-# 8. Supplied export is intact
+# 8. report/index.html is generated: it must match the builder's output
+sys.path.insert(0, str(root / 'scripts'))
+import build_report  # noqa: E402
+if build_report.render() != (root / 'report' / 'index.html').read_text():
+    problems.append('report/index.html is stale: run python3 scripts/build_report.py')
+
+# 9. Supplied export is intact
 export = root / 'TIANSIGHT 侍天 Design System'
 manifest = json.loads((export / '_ds_manifest.json').read_text())
 for entry in manifest['components']:
@@ -127,4 +133,4 @@ if problems:
         print(' -', problem)
     sys.exit(1)
 print(f"PASS: official palette, {len(guide_rows)} guide tokens, logo hash, foundation policy, "
-      f"offline specimen, deck and website, {len(manifest['components'])} component exports and {len(manifest['cards'])} cards")
+      f"offline specimen, deck, website and generated report, {len(manifest['components'])} component exports and {len(manifest['cards'])} cards")

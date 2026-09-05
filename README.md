@@ -58,6 +58,9 @@ Placeholders that need real assets: expert portraits and names, the WeChat QR, p
 - **Charts** follow guide §5: one series bright gold, two adds charcoal, three adds vermillion; ticks in ink muted. The export's growth/loss/caution/datum colours are not in the guide and are not in the foundation.
 - **Fonts** are not bundled. Stacks fall back to local serifs, never sans-serif. Noto Serif SC, Noto Serif and IBM Plex Mono are OFL and can be self-hosted once the target and subset strategy are chosen.
 - **Vermillion seal stamp** is a CSS placeholder. The real 朱印 needs calligraphy artwork.
+- **Offer.** The consumers use the guide's four priced tiers, not the export's unpriced 三层+X ladder. The export's 经营五问, promise line, partner names and testimonials are reused where they do not conflict.
+- **Lexicon.** "增长在何处" stays verbatim in the promise; elsewhere 增长 becomes 增利 to follow the guide's avoided-word list.
+- **Report charts** stay within the three-series rule: vermillion marks warnings and losses only, and the heatmap's negative side. The export's four semantic chart colours are not used.
 
 ## Open questions for the brand owner
 

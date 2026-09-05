@@ -312,7 +312,8 @@
 /* ── Chart chrome: hairline axes, ink-muted ticks ─────────── */
 .ts-chart { position: relative; }
 .ts-chart svg { overflow: visible; }
-.ts-chart polyline, .ts-chart path.line { fill: none; }
+.ts-chart polyline, .ts-chart path.line,
+.ts-chart polyline.series-1, .ts-chart polyline.series-2, .ts-chart polyline.series-3, .ts-chart polyline.benchmark { fill: none; }
 .ts-chart .axis { stroke: var(--chart-grid); }
 .ts-chart .axis-base { stroke: var(--line-strong); }
 .ts-chart .tick {
