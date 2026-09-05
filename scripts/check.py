@@ -79,7 +79,39 @@ for ref in re.findall(r'(?:src|href)="([^"#:]+)"', specimen):
 if re.search(r'[\U0001F300-\U0001FAFF☀-➿]', specimen.replace('✓', '').replace('✕', '')):
     problems.append('index.html contains emoji')
 
-# 7. Supplied export is intact
+# 7. Consumers (deck, website) follow the same policy and stay offline
+for consumer in ('deck', 'website'):
+    folder = root / consumer
+    html = (folder / 'index.html').read_text()
+    css = ''.join(f.read_text() for f in folder.glob('*.css'))
+    if re.search(r'#[0-9A-Fa-f]{3,8}\b|rgba?\(', css):
+        problems.append(f'{consumer}: raw colour value in CSS, use a token')
+    for style in re.findall(r'style="([^"]*)"', html):
+        if re.search(r'#[0-9A-Fa-f]{3,8}\b|rgba?\(', style):
+            problems.append(f'{consumer}: raw colour value in inline style')
+            break
+    for radius in re.findall(r'border-radius:\s*([^;]+);', css):
+        if radius not in ('var(--radius)', 'var(--radius-pill)', '50%'):
+            problems.append(f'{consumer}: border-radius {radius}')
+    if re.search(r'\b(Inter|Roboto|Arial|Helvetica)\b', css) or 'sans-serif' in css:
+        problems.append(f'{consumer}: banned or sans-serif font family')
+    for url in re.findall(r'(?:src|href)="(https?://[^"]+)"', html):
+        problems.append(f'{consumer}: loads remote resource {url}')
+    for ref in re.findall(r'(?:src|href)="([^"#:]+)"', html):
+        if not (folder / ref).is_file():
+            problems.append(f'{consumer}: references missing file {ref}')
+    if re.search(r'[\U0001F300-\U0001FAFF☀-➿]', html.replace('✓', '').replace('✕', '')):
+        problems.append(f'{consumer}: contains emoji')
+    used = set(re.findall(r'var\(--([a-z0-9-]+)', css + html))
+    local = set(re.findall(r'--([a-z0-9-]+):', css + html))
+    for missing in sorted(used - declared - local - {'h'}):
+        problems.append(f'{consumer}: undeclared token --{missing}')
+    if consumer == 'website':
+        for word in ('赋能', '抓手', '闭环', '包治百病', '颠覆', '爆款', '裂变', '解决方案', '打法'):
+            if word in html:
+                problems.append(f'website: avoided lexicon "{word}"')
+
+# 8. Supplied export is intact
 export = root / 'TIANSIGHT 侍天 Design System'
 manifest = json.loads((export / '_ds_manifest.json').read_text())
 for entry in manifest['components']:
@@ -95,4 +127,4 @@ if problems:
         print(' -', problem)
     sys.exit(1)
 print(f"PASS: official palette, {len(guide_rows)} guide tokens, logo hash, foundation policy, "
-      f"offline specimen, {len(manifest['components'])} component exports and {len(manifest['cards'])} cards")
+      f"offline specimen, deck and website, {len(manifest['components'])} component exports and {len(manifest['cards'])} cards")

@@ -88,6 +88,7 @@ th {
 tbody tr:last-child td { border-bottom: 1px solid var(--line); }
 td.ts-num, th.ts-num { text-align: right; }
 
+[id] { scroll-margin-top: 80px; }
 ::selection { background: var(--ink-primary); color: var(--charcoal); }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
