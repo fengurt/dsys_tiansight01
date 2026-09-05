@@ -47,7 +47,26 @@ Both consumers use the published tiers and prices from guide section 6 and reuse
 
 Placeholders that need real assets: expert portraits and names, the WeChat QR, partner logos (names are set in type), the proposal target and date on the deck cover. All figures are sample data and are labelled as such.
 
-`scripts/check.py` verifies: tokens match the published theme and every row of the guide's colour table; the logo hash; serif-only font stacks with no Inter/Roboto; no raw colours or gradients outside `tokens.css`; radius limited to 2px, pill or circle; every `var(--x)` is declared; the specimen loads no remote resource, script or emoji; the deck and website obey the same colour, radius, font and offline rules with no undeclared tokens; the website avoids the guide's avoided lexicon; and the export manifest is intact. Run it before committing.
+`scripts/check.py` verifies the same rules for `deck/`, `website/`, `report/` and `people/`, that generated outputs match their builders, and: tokens match the published theme and every row of the guide's colour table; the logo hash; serif-only font stacks with no Inter/Roboto; no raw colours or gradients outside `tokens.css`; radius limited to 2px, pill or circle; every `var(--x)` is declared; the specimen loads no remote resource, script or emoji; the deck and website obey the same colour, radius, font and offline rules with no undeclared tokens; the website avoids the guide's avoided lexicon; and the export manifest is intact. Run it before committing.
+
+## People layer (`people/`)
+
+One data file drives every co-founder surface. `people/people.json` holds the five entries (name, English name, title, focus, one-line bio, quotable line, contact) plus company strings; every value is a placeholder until the founders confirm them. Portraits go in `people/photos/founder-01.png` to `founder-05.png` in the order supplied; the portrait tile multiplies the photo onto the ink field so a white background disappears without editing, and shows a labelled tile while a file is missing.
+
+```sh
+python3 scripts/build_people.py      # renders the surfaces below from the templates
+node scripts/export_people.mjs       # people/export/: 20 social PNGs and namecards.pdf (needs playwright)
+```
+
+| Output | Surface |
+|---|---|
+| `website/team.html` | 团队 page: five profile cards, three quoted voices, full profiles, contact band. Linked from the site nav. |
+| `deck/index.html` | Six generated slides between the `people:start` and `people:end` markers: a team slide and one spotlight per founder. |
+| `people/blocks.html` | Block specimen with usage: portrait tile sizes, profile card, compact row, byline, voice, signature with seal, team grid. |
+| `people/namecards.html` | 90 × 54 mm cards, three faces per founder (front, portrait, back); print gives one face per page. |
+| `people/social.html` | Four artboards per founder: 1080 × 1080, 1200 × 628, 900 × 383 公众号 cover, 1080 × 1920 story. |
+
+`people/people.css` carries the `.ts-portrait`, `.ts-identity` and block classes and is loaded after the brand stylesheets.
 
 ## Decisions taken in the foundation
 

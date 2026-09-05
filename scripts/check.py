@@ -80,9 +80,12 @@ if re.search(r'[\U0001F300-\U0001FAFF☀-➿]', specimen.replace('✓', '').repl
     problems.append('index.html contains emoji')
 
 # 7. Consumers (deck, website) follow the same policy and stay offline
-for consumer in ('deck', 'website', 'report'):
+PHOTO = re.compile(r'photos/(founder-0[1-5]|missing)\.png$')
+missing_photos = set()
+for consumer in ('deck', 'website', 'report', 'people'):
     folder = root / consumer
-    html = (folder / 'index.html').read_text()
+    pages = sorted(folder.glob('*.html'))
+    html = ''.join(p.read_text() for p in pages)
     css = ''.join(f.read_text() for f in folder.glob('*.css'))
     if re.search(r'#[0-9A-Fa-f]{3,8}\b|rgba?\(', css):
         problems.append(f'{consumer}: raw colour value in CSS, use a token')
@@ -91,14 +94,18 @@ for consumer in ('deck', 'website', 'report'):
             problems.append(f'{consumer}: raw colour value in inline style')
             break
     for radius in re.findall(r'border-radius:\s*([^;]+);', css):
-        if radius not in ('var(--radius)', 'var(--radius-pill)', '50%'):
+        if radius not in ('var(--radius)', 'var(--radius-pill)', '50%', '0'):
             problems.append(f'{consumer}: border-radius {radius}')
     if re.search(r'\b(Inter|Roboto|Arial|Helvetica)\b', css) or 'sans-serif' in css:
         problems.append(f'{consumer}: banned or sans-serif font family')
     for url in re.findall(r'(?:src|href)="(https?://[^"]+)"', html):
         problems.append(f'{consumer}: loads remote resource {url}')
-    for ref in re.findall(r'(?:src|href)="([^"#:]+)"', html):
-        if not (folder / ref).is_file():
+    for ref in set(re.findall(r'(?:src|href)="([^"#:]+)"', html)):
+        if (folder / ref).is_file():
+            continue
+        if PHOTO.search(ref):
+            missing_photos.add(ref.split('/')[-1])
+        else:
             problems.append(f'{consumer}: references missing file {ref}')
     if re.search(r'[\U0001F300-\U0001FAFF☀-➿]', html.replace('✓', '').replace('✕', '')):
         problems.append(f'{consumer}: contains emoji')
@@ -111,11 +118,15 @@ for consumer in ('deck', 'website', 'report'):
             if word in html:
                 problems.append(f'website: avoided lexicon "{word}"')
 
-# 8. report/index.html is generated: it must match the builder's output
+# 8. Generated outputs must match their builders
 sys.path.insert(0, str(root / 'scripts'))
 import build_report  # noqa: E402
+import build_people  # noqa: E402
 if build_report.render() != (root / 'report' / 'index.html').read_text():
     problems.append('report/index.html is stale: run python3 scripts/build_report.py')
+for path, out in build_people.render_all().items():
+    if not path.exists() or path.read_text() != out:
+        problems.append(f'{path.relative_to(root)} is stale: run python3 scripts/build_people.py')
 
 # 9. Supplied export is intact
 export = root / 'TIANSIGHT 侍天 Design System'
@@ -132,5 +143,7 @@ if problems:
     for problem in problems:
         print(' -', problem)
     sys.exit(1)
+if missing_photos:
+    print('note: portraits not yet supplied: ' + ', '.join(sorted(missing_photos)))
 print(f"PASS: official palette, {len(guide_rows)} guide tokens, logo hash, foundation policy, "
-      f"offline specimen, deck, website and generated report, {len(manifest['components'])} component exports and {len(manifest['cards'])} cards")
+      f"offline specimen, deck, website, report and people, {len(manifest['components'])} component exports and {len(manifest['cards'])} cards")
