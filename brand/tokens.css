@@ -1,0 +1,35 @@
+/* Published Tiansight guide; provenance: source.json. */
+:root {
+  color-scheme: light;
+  --surface: #F4F0E7;
+  --paper: #FFFDF8;
+  --ink-primary: #EFE6D2;
+  --charcoal: #17130D;
+  --gold: #76551F;
+  --gold-hi: #D4A862;
+  --gold-deep: #76551F;
+  --ink-muted: #706758;
+  --seal: #8C3228;
+  --line: rgba(23, 19, 13, 0.18);
+  --line-strong: rgba(23, 19, 13, 0.34);
+  --font-cn: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", serif;
+  --font-en: "Noto Serif", "Source Han Serif", "Songti SC", serif;
+  --font-mono: "IBM Plex Mono", monospace;
+  --text-display: clamp(3rem, 8vw, 6rem);
+  --text-h1: 3.5rem;
+  --text-h2: 2.5rem;
+  --text-h3: 1.75rem;
+  --text-body: 1.125rem;
+  --text-small: 0.875rem;
+  --text-caption: 0.8125rem;
+  --radius: 2px;
+  --container: 1280px;
+  --gutter: 48px;
+  --section-gap: 96px;
+}
+@media (max-width: 640px) {
+  :root {
+    --gutter: 24px;
+    --section-gap: 64px;
+  }
+}
