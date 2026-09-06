@@ -70,6 +70,17 @@ node scripts/export_people.mjs       # people/export/: 20 social PNGs and nameca
 
 `people/people.css` carries the `.ts-portrait`, `.ts-identity` and block classes and is loaded after the brand stylesheets.
 
+## HTML report system and skills (`html-system/`, `skills/`, `reference/`)
+
+Three delivered decks were reviewed and catalogued (`reference/catalogue.md`, `reference/inventory.json`, sources under `reference/source/`). From them `html-system/` re-implements the slide system on the brand foundation: one `manifest.json` per report declares sources with evidence grades, fields, metrics with formulas, slides with their sources and explanation panel, quality results and versions; `build_deck.py` renders the deck (or a long-scroll report) with generated cover, TOC, evidence base, evidence map, change log, quality, limitations, source log, glossary and a drill-down appendix; `charts.py` draws eleven chart families as inline SVG with data roles; `report.js` adds drill-down, tooltips, keyboard and URL state; `check_report.py` is the gate (provenance links, grades, footer versions, offline, slide overflow); `dq_checks.py` and `version_diff.py` support the data-quality and versioning skills.
+
+```sh
+python3 html-system/build_deck.py html-system/sample
+python3 html-system/check_report.py html-system/sample --layout
+```
+
+`skills/` holds six skills for agents: `ts-html-report` (workflow), `ts-dataviz-modules`, `ts-data-provenance`, `ts-data-quality`, `ts-report-versioning`, `ts-webapp-interactive`. Start at `skills/README.md`.
+
 ## Decisions taken in the foundation
 
 - **Primary button** is the ink field (`#EFE6D2`) with charcoal text and a gold hairline border, because ink against the canvas is only 1.09:1 and needs an edge. Press moves it down 1px, like a stamp.

@@ -3,6 +3,7 @@ from pathlib import Path
 import hashlib
 import json
 import re
+import subprocess
 import sys
 
 root = Path(__file__).resolve().parents[1]
@@ -138,8 +139,21 @@ for path, out in build_people.render_all().items():
     if not path.exists() or path.read_text() != out:
         problems.append(f'{path.relative_to(root)} is stale: run python3 scripts/build_people.py')
 
+# 8b. HTML report system: sample deck fresh and passing its gate; report.css follows the policy
+rep_css = (root / 'html-system' / 'report.css').read_text()
+if re.search(r'#[0-9A-Fa-f]{3,8}\b', rep_css):
+    problems.append('html-system/report.css: raw hex colour')
+if re.search(r'\b(Inter|Roboto|Arial|Helvetica)\b', rep_css) or 'sans-serif' in rep_css:
+    problems.append('html-system/report.css: banned font family')
+gate = subprocess.run([sys.executable, str(root / 'html-system' / 'check_report.py'), str(root / 'html-system' / 'sample')], capture_output=True, text=True)
+if gate.returncode != 0:
+    problems.append('html-system/sample: ' + gate.stdout.strip().replace('\n', ' '))
+for rel in ('html-system/sample/index.html',):
+    text = (root / rel).read_text()
+    for url in re.findall(r'(?:src|href)="(https?://[^"]+)"', text):
+        problems.append(f'{rel}: loads remote resource {url}')
+
 # 8c. Inline icon sprites match brand/icons.svg
-import subprocess  # noqa: E402
 sync = subprocess.run([sys.executable, str(root / 'scripts' / 'sync_icons.py'), '--check'], capture_output=True, text=True)
 if sync.returncode != 0:
     problems.append(sync.stdout.strip())

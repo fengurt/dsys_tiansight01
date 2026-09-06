@@ -81,7 +81,13 @@
       <p>一份 people.json 驱动区块、名片与社媒人物卡。</p>
       <div class="links"><a href="people/blocks.html"><svg class="ts-icon ts-icon-sm"><use href="#ts-arrow-right"/></svg> 区块</a><a href="people/namecards.html">名片</a><a href="people/social.html">社媒</a></div>
     </article>
-    <article class="ts-card ts-card-charcoal" data-index="陆">
+    <article class="ts-card" data-index="陆">
+      <span class="ts-caption">HTML report system</span>
+      <h3 class="ts-card-title">报告系统与技能集</h3>
+      <p>一份 manifest 驱动的幻灯片与长卷报告：证据分级、口径、公式、数据附录与下钻。六个技能。</p>
+      <div class="links"><a href="html-system/sample/index.html"><svg class="ts-icon ts-icon-sm"><use href="#ts-arrow-right"/></svg> 样例提案</a><a href="skills/README.md">技能</a><a href="reference/catalogue.md">资产盘点</a></div>
+    </article>
+    <article class="ts-card ts-card-charcoal" data-index="柒">
       <span class="ts-caption">Checks</span>
       <h3 class="ts-card-title">校验与构建</h3>
       <p class="ts-muted">每次改动后运行；任何偏离指南的色值、字体、圆角或远程资源都会失败。</p>
@@ -95,6 +101,8 @@
 python3 scripts/build_people.py     # team page, blocks, name cards, social, deck slides
 python3 scripts/sync_icons.py       # inline brand/icons.svg into pages with markers
 node scripts/export_people.mjs      # social PNGs and name card PDF
+python3 html-system/build_deck.py html-system/sample   # manifest → report
+python3 html-system/check_report.py html-system/sample --layout
 python3 scripts/check.py            # guide conformance and build freshness</pre>
   </div>
 </main>
