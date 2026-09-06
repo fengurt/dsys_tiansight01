@@ -1,0 +1,336 @@
+/* Tiansight 侍天 — CSS components on the published foundation (guide §5, §7).
+   Requires tokens.css and base.css. Prefix: .ts-  No raw hex here: every color is a token. */
+
+/* ── Layout ───────────────────────────────────────────────── */
+.ts-container {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.ts-section { padding-block: var(--section-gap); scroll-margin-top: 72px; }
+.ts-section + .ts-section { border-top: 1px solid var(--line); }
+.ts-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+  gap: var(--space-6);
+}
+.ts-grid > * { grid-column: span var(--span, 12); }
+@media (max-width: 900px) { .ts-grid > * { grid-column: span var(--span-md, 12); } }
+@media (max-width: 640px) { .ts-grid > * { grid-column: span 12; } }
+.ts-stack > * + * { margin-top: var(--space-4); }
+.ts-center { text-align: center; }
+
+/* ── Heading pair: CN heading + UPPERCASE EN caption ───────── */
+.ts-heading { display: flex; flex-direction: column; gap: var(--space-2); }
+.ts-heading .ts-caption { order: -1; }
+.ts-heading .ts-sub {
+  color: var(--text-muted);
+  font-weight: var(--weight-aux);
+  max-width: var(--measure-cn);
+}
+
+/* ── Display lockup / tagline (cover pattern, guide §7) ───── */
+.ts-lockup {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  gap: var(--space-5);
+  position: relative;
+}
+.ts-display {
+  font-family: var(--font-cn);
+  font-size: var(--text-display);
+  font-weight: var(--weight-title);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+  margin-inline-end: calc(-1 * var(--tracking-display)); /* optical centre with tracking */
+  color: var(--text);
+}
+.ts-tagline {
+  font-family: var(--font-cn);
+  font-size: var(--text-body);
+  font-weight: var(--weight-body);
+  letter-spacing: var(--tracking-tagline);
+  margin-inline-end: calc(-1 * var(--tracking-tagline));
+  color: var(--text-key);
+}
+.ts-lockup > hr, .ts-divider {
+  width: 72px; margin: 0; border-top: 1px solid var(--rule);
+}
+
+/* ── Rules & framing: hairlines, double rules, corner ticks ── */
+.ts-rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
+.ts-rule-double { border: 0; border-top: 3px double var(--rule); margin: 0; }
+.ts-frame {
+  position: relative;
+  border: 1px solid var(--card-border);
+  padding: var(--card-pad-lg);
+  background: var(--paper);
+}
+.ts-frame::before, .ts-frame::after {
+  content: ""; position: absolute; width: 14px; height: 14px; pointer-events: none;
+  border-color: var(--gold); border-style: solid;
+}
+.ts-frame::before { top: 6px; left: 6px; border-width: 1px 0 0 1px; }
+.ts-frame::after { bottom: 6px; right: 6px; border-width: 0 1px 1px 0; }
+.ts-frame-double { outline: 1px solid var(--card-border); outline-offset: 4px; }
+
+/* ── Compass-ring watermark (concentric circles + crosshair) ─ */
+.ts-compass {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0;
+}
+.ts-compass svg {
+  position: absolute; width: var(--compass-size, 560px); height: var(--compass-size, 560px);
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  color: var(--watermark);
+}
+.ts-compass ~ * { position: relative; z-index: 1; }
+
+/* ── Card ─────────────────────────────────────────────────── */
+.ts-card {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--card-pad);
+  color: var(--text);
+}
+.ts-card > .ts-caption { margin-bottom: var(--space-2); }
+.ts-card-title {
+  font-size: 1.25rem; /* 18–20px */
+  font-weight: var(--weight-title);
+  line-height: var(--leading-h3);
+  margin: 0 0 var(--space-3);
+}
+.ts-card p:last-child { margin-bottom: 0; }
+.ts-card[data-index]::after {   /* 天干 index: 壹 貳 叁 … top-right, vermillion */
+  content: attr(data-index);
+  position: absolute; top: var(--space-4); right: var(--space-4);
+  font-family: var(--font-cn); font-size: var(--text-small); font-weight: var(--weight-title);
+  color: var(--seal); line-height: 1;
+}
+.ts-card-field { background: var(--ink-primary); border-color: var(--card-border); }
+.ts-card-charcoal { background: var(--charcoal); color: var(--text-on-charcoal); border-color: var(--gold); }
+.ts-card-charcoal .ts-card-title, .ts-card-charcoal h3 { color: var(--text-on-charcoal); }
+.ts-card-charcoal .ts-caption { color: var(--text-on-charcoal-key); }
+.ts-card-charcoal .ts-muted { color: var(--gold-hi); }
+.ts-card-charcoal[data-index]::after { color: var(--gold-hi); }
+.ts-card-interactive { transition: border-color var(--dur-base) var(--ease); cursor: pointer; }
+.ts-card-interactive:hover { border-color: var(--gold); }
+.ts-card-interactive:active { transform: translateY(1px); }
+
+/* ── Token / table row: hairline top, swatch, mono hex, usage ─ */
+.ts-token-row {
+  display: grid;
+  grid-template-columns: var(--swatch) minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1.6fr);
+  gap: var(--space-4);
+  align-items: center;
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--line);
+}
+.ts-token-row:last-child { border-bottom: 1px solid var(--line); }
+.ts-swatch {
+  width: var(--swatch); height: var(--swatch);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--swatch-color, var(--ink-primary));
+}
+.ts-token-row .ts-token-name { font-size: var(--text-small); font-weight: var(--weight-body); line-height: var(--leading-caption); }
+.ts-token-row .ts-token-name small { display: block; color: var(--text-muted); }
+.ts-token-row .ts-hex { color: var(--gold-hi); }
+.ts-token-row .ts-hex[data-small] { color: var(--gold-deep); }
+.ts-token-row .ts-usage { font-size: var(--text-small); color: var(--text-muted); line-height: var(--leading-caption); }
+@media (max-width: 640px) {
+  .ts-token-row { grid-template-columns: var(--swatch) 1fr; }
+  .ts-token-row .ts-usage { grid-column: 2; }
+}
+
+/* ── Badges ───────────────────────────────────────────────── */
+.ts-badge {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  padding: 3px 10px;
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  line-height: var(--leading-mono);
+  letter-spacing: 0;
+  white-space: nowrap;
+  border-radius: var(--radius);
+  background: var(--ink-primary);
+  color: var(--charcoal);
+  border: 1px solid transparent;
+}
+.ts-badge-outline {                    /* status: pill, gold border, bright-gold text */
+  background: transparent;
+  color: var(--gold-hi);
+  border-color: var(--gold);
+  border-radius: var(--radius-pill);
+}
+.ts-badge-seal { background: var(--seal); color: var(--paper); }
+
+/* ── ✓ / ✕ list ───────────────────────────────────────────── */
+.ts-check-list { list-style: none; margin: 0; padding: 0; }
+.ts-check-list li {
+  position: relative; padding-left: 1.6em; margin-bottom: var(--space-2);
+}
+.ts-check-list li::before {
+  content: "✓"; position: absolute; left: 0; top: 0;
+  font-family: var(--font-en); font-weight: var(--weight-strong);
+  color: var(--positive);
+}
+.ts-check-list li[data-no]::before, .ts-check-list li.no::before {
+  content: "✕"; color: var(--negative);
+}
+
+/* ── Buttons: ink field carries the key action ─────────────── */
+.ts-button {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  min-height: 44px;
+  padding: 10px 24px;
+  font-family: var(--font-cn);
+  font-size: var(--text-small);
+  font-weight: var(--weight-medium);
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  color: var(--charcoal);
+  background: var(--ink-primary);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.ts-button:hover { border-color: var(--gold); background: var(--paper); color: var(--charcoal); }
+.ts-button:active { transform: translateY(1px); }                     /* stamp press */
+.ts-button-secondary { background: transparent; border-color: var(--gold); color: var(--gold); }
+.ts-button-secondary:hover { background: var(--ink-primary); }
+.ts-button-quiet { background: transparent; border-color: transparent; color: var(--gold); padding-inline: var(--space-3); }
+.ts-button-quiet:hover { background: transparent; border-color: transparent; color: var(--charcoal); }
+.ts-button-charcoal { background: var(--charcoal); border-color: var(--charcoal); color: var(--surface); }
+.ts-button-charcoal:hover { background: var(--charcoal); border-color: var(--gold); color: var(--gold-hi); }
+.ts-button-lg { min-height: 52px; padding: 14px 32px; font-size: var(--text-body); }
+.ts-button-sm { min-height: 36px; padding: 6px 16px; font-size: var(--text-caption); }
+.ts-button[disabled], .ts-button[aria-disabled="true"] { opacity: 0.4; cursor: not-allowed; }
+.ts-button .ts-latin { font-size: var(--text-caption); letter-spacing: var(--tracking-caps-tight); text-transform: uppercase; }
+
+/* ── Form fields: ink field, hairline, 2px ────────────────── */
+.ts-field { display: flex; flex-direction: column; gap: var(--space-2); }
+.ts-label {
+  font-size: var(--text-small); font-weight: var(--weight-medium); color: var(--text);
+}
+.ts-input, .ts-select, .ts-textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 14px;
+  font: inherit;
+  font-size: var(--text-small);
+  color: var(--charcoal);
+  background: var(--paper);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  transition: border-color var(--dur-fast) var(--ease);
+}
+.ts-input::placeholder, .ts-textarea::placeholder { color: var(--text-muted); font-weight: var(--weight-aux); }
+.ts-input:hover, .ts-select:hover, .ts-textarea:hover { border-color: var(--gold); }
+.ts-input:focus, .ts-select:focus, .ts-textarea:focus { outline: 2px solid var(--focus); outline-offset: 0; border-color: var(--gold); }
+.ts-input[aria-invalid="true"] { border-color: var(--seal); }
+.ts-hint { font-size: var(--text-caption); color: var(--text-muted); }
+.ts-error { font-size: var(--text-caption); color: var(--seal); }
+
+/* ── Stat: key number in mono, label as caption ───────────── */
+.ts-stat { display: flex; flex-direction: column; gap: var(--space-1); }
+.ts-stat .ts-value {
+  font-family: var(--font-mono);
+  font-size: 2.5rem;                 /* 40px: bright gold is legible only at display sizes */
+  font-weight: var(--weight-medium);
+  line-height: 1.1;
+  color: var(--text-key);
+  font-variant-numeric: tabular-nums;
+}
+.ts-stat .ts-value small { font-family: var(--font-cn); font-size: var(--text-body); color: var(--text); margin-left: 0.25em; font-weight: var(--weight-body); }
+.ts-stat .ts-value.ts-charcoal { color: var(--charcoal); }
+.ts-stat .ts-boundary { font-size: var(--text-small); color: var(--text-muted); font-weight: var(--weight-aux); }
+
+/* ── Quote: editorial, hairline, seal mark ────────────────── */
+.ts-quote {
+  margin: 0; padding: var(--space-5) 0 var(--space-5) var(--space-6);
+  border-left: 1px solid var(--gold);
+  font-size: 1.25rem; line-height: 1.6; color: var(--text);
+}
+.ts-quote footer { margin-top: var(--space-3); font-size: var(--text-small); color: var(--text-muted); }
+
+/* ── Step marker: Chinese numeral in a hairline circle ─────── */
+.ts-step {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; flex: none;
+  border: 1px solid var(--gold); border-radius: 50%;
+  font-family: var(--font-cn); font-size: var(--text-small); font-weight: var(--weight-title);
+  color: var(--gold);
+}
+.ts-step[aria-current="step"] { background: var(--ink-primary); color: var(--charcoal); border-color: var(--charcoal); }
+
+/* ── Seal stamp: vermillion square containing 侍 / 侍天 ─────── */
+.ts-seal-stamp {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: var(--stamp-size, 56px); height: var(--stamp-size, 56px);
+  background: var(--seal); color: var(--surface);
+  font-family: var(--font-cn); font-weight: var(--weight-title);
+  font-size: calc(var(--stamp-size, 56px) * 0.5); line-height: 1;
+  border-radius: var(--radius);
+  box-shadow: inset 0 0 0 2px var(--surface), inset 0 0 0 3px var(--seal);
+  letter-spacing: 0.04em;
+}
+.ts-seal-stamp[data-two] { flex-direction: column; font-size: calc(var(--stamp-size, 56px) * 0.36); line-height: 1.05; }
+
+/* ── Mark: the published logo with its clear-space rule ───── */
+.ts-mark { display: inline-block; height: var(--mark-size, 40px); width: auto; }
+.ts-mark img { height: 100%; width: auto; }
+.ts-mark-clear { box-sizing: content-box; padding: calc(var(--mark-size, 40px) * 0.5); }   /* ≥ one ring radius */
+.ts-lockup-row { display: inline-flex; align-items: center; gap: var(--space-4); }
+.ts-lockup-row .ts-wordmark {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.ts-lockup-row .ts-wordmark b { font-family: var(--font-cn); font-size: 1.25rem; font-weight: var(--weight-title); letter-spacing: var(--tracking-display); line-height: 1; }
+.ts-lockup-row .ts-alliance { border-left: 1px solid var(--gold); padding-left: var(--space-4); margin-left: var(--space-2); }
+
+/* ── Navigation: hairline, gold rules, active = bright gold rule ─ */
+.ts-nav { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); align-items: center; }
+.ts-nav a {
+  border-bottom: 1px solid transparent; padding-block: var(--space-2);
+  color: var(--text); font-size: var(--text-small);
+}
+.ts-nav a:hover { border-bottom-color: var(--gold); color: var(--gold); }
+.ts-nav a[aria-current="page"] { border-bottom-color: var(--gold-hi); color: var(--charcoal); }
+.ts-header {
+  position: sticky; top: 0; z-index: var(--z-sticky);
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+/* ── Ledger table variants ────────────────────────────────── */
+.ts-table-ledger td:first-child { color: var(--text-muted); font-size: var(--text-small); }
+.ts-table-ledger tr[data-total] td { border-top: 1px solid var(--gold); font-weight: var(--weight-title); }
+
+/* ── Chart chrome: hairline axes, ink-muted ticks ─────────── */
+.ts-chart { position: relative; }
+.ts-chart svg { overflow: visible; }
+.ts-chart polyline, .ts-chart path.line,
+.ts-chart polyline.series-1, .ts-chart polyline.series-2, .ts-chart polyline.series-3, .ts-chart polyline.benchmark { fill: none; }
+.ts-chart .axis { stroke: var(--chart-grid); }
+.ts-chart .axis-base { stroke: var(--line-strong); }
+.ts-chart .tick {
+  font-family: var(--font-mono); font-size: 11px; fill: var(--chart-axis);
+}
+.ts-chart .series-1 { stroke: var(--chart-1); fill: var(--chart-1); }
+.ts-chart .series-2 { stroke: var(--chart-2); fill: var(--chart-2); }
+.ts-chart .series-3 { stroke: var(--chart-3); fill: var(--chart-3); }
+.ts-chart .benchmark { stroke: var(--chart-benchmark); stroke-dasharray: 3 4; fill: none; }
+.ts-chart .label { font-family: var(--font-cn); font-size: var(--text-caption); fill: var(--text); }
+.ts-chart .source { font-size: var(--text-caption); color: var(--text-muted); margin-top: var(--space-2); }
+
+/* ── Reveal motion: fade + ≤ 12px rise, once ─────────────── */
+@keyframes ts-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.ts-reveal { animation: ts-rise var(--dur-reveal) var(--ease-out) both; }
+
+/* ── Do / Don't specimen helper ───────────────────────────── */
+.ts-verdict { display: flex; flex-direction: column; gap: var(--space-3); }
+.ts-verdict > .ts-caption { display: flex; align-items: center; gap: var(--space-2); }
+.ts-verdict[data-no] > .ts-caption { color: var(--seal); }
