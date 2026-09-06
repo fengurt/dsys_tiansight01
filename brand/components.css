@@ -334,3 +334,45 @@
 .ts-verdict { display: flex; flex-direction: column; gap: var(--space-3); }
 .ts-verdict > .ts-caption { display: flex; align-items: center; gap: var(--space-2); }
 .ts-verdict[data-no] > .ts-caption { color: var(--seal); }
+
+/* ── Icons: circles and lines, stroke 1.5, currentColor (brand/icons.svg) ── */
+.ts-icon {
+  display: inline-block; width: 1.25em; height: 1.25em; flex: none; vertical-align: -0.3em;
+  fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: square; stroke-linejoin: miter;
+}
+.ts-icon-sm { width: 1em; height: 1em; vertical-align: -0.15em; }
+.ts-icon-lg { width: 1.75em; height: 1.75em; }
+.ts-button .ts-icon { width: 1.1em; height: 1.1em; vertical-align: -0.2em; }
+
+/* ── Charcoal ground: one scope class inverts every component for an opener, closer or one card ── */
+.ts-ground-charcoal, .ts-card-charcoal {
+  background: var(--charcoal); color: var(--text-on-charcoal);
+}
+.ts-ground-charcoal h1, .ts-ground-charcoal h2, .ts-ground-charcoal h3, .ts-ground-charcoal h4,
+.ts-card-charcoal h1, .ts-card-charcoal h2, .ts-card-charcoal h3, .ts-card-charcoal h4, .ts-card-charcoal .ts-card-title { color: var(--text-on-charcoal); }
+.ts-ground-charcoal .ts-caption, .ts-ground-charcoal .ts-eyebrow, .ts-ground-charcoal .ts-muted, .ts-ground-charcoal .ts-tagline,
+.ts-card-charcoal .ts-caption, .ts-card-charcoal .ts-muted, .ts-card-charcoal[data-index]::after { color: var(--gold-hi); }
+.ts-ground-charcoal a { color: var(--gold-hi); border-bottom-color: var(--gold); }
+.ts-ground-charcoal a:hover { color: var(--surface); }
+.ts-ground-charcoal hr, .ts-ground-charcoal .ts-rule, .ts-ground-charcoal .ts-divider { border-top-color: var(--gold); }
+.ts-ground-charcoal .ts-card { background: var(--charcoal); border-color: var(--gold); color: var(--text-on-charcoal); }
+.ts-ground-charcoal .ts-card-field { background: var(--ink-primary); color: var(--charcoal); }
+.ts-ground-charcoal .ts-card-field .ts-caption { color: var(--gold-deep); }
+.ts-ground-charcoal .ts-badge { background: var(--ink-primary); color: var(--charcoal); }
+.ts-ground-charcoal .ts-badge-outline { background: transparent; color: var(--gold-hi); border-color: var(--gold); }
+.ts-ground-charcoal .ts-button { background: var(--ink-primary); color: var(--charcoal); border-color: var(--gold); }
+.ts-ground-charcoal .ts-button:hover { background: var(--surface); }
+.ts-ground-charcoal .ts-button-secondary { background: transparent; color: var(--gold-hi); border-color: var(--gold); }
+.ts-ground-charcoal .ts-button-secondary:hover { background: var(--charcoal); color: var(--surface); }
+.ts-ground-charcoal .ts-button-quiet { background: transparent; border-color: transparent; color: var(--gold-hi); }
+.ts-ground-charcoal .ts-check-list li::before { color: var(--gold-hi); }
+.ts-ground-charcoal .ts-check-list li[data-no]::before { color: var(--seal); }
+.ts-ground-charcoal .ts-step { border-color: var(--gold); color: var(--gold-hi); }
+.ts-ground-charcoal .ts-stat .ts-value { color: var(--gold-hi); }
+.ts-ground-charcoal .ts-stat .ts-value small, .ts-ground-charcoal .ts-stat .ts-boundary { color: var(--surface); }
+.ts-ground-charcoal th, .ts-ground-charcoal td { border-color: var(--gold); }
+.ts-ground-charcoal th { color: var(--gold-hi); }
+.ts-ground-charcoal .ts-compass svg { color: var(--gold); opacity: 0.35; }
+.ts-ground-charcoal .ts-seal-stamp { box-shadow: inset 0 0 0 2px var(--charcoal), inset 0 0 0 3px var(--seal); }
+.ts-ground-charcoal .ts-mark { display: inline-grid; place-items: center; background: var(--ink-primary); border-radius: var(--radius); padding: 10%; }
+.ts-ground-charcoal ::selection { background: var(--gold-hi); color: var(--charcoal); }

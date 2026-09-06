@@ -5,12 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>侍天 TIANSIGHT · 智慧领航者</title>
 <meta name="description" content="侍天：中高端餐饮连锁的智慧领航者。交 6 个月经营数据，7 日内取得经营诊断。">
+<link rel="stylesheet" href="../brand/fonts.css">
 <link rel="stylesheet" href="../brand/tokens.css">
 <link rel="stylesheet" href="../brand/base.css">
 <link rel="stylesheet" href="../brand/components.css">
 <link rel="stylesheet" href="site.css">
 </head>
 <body>
+<!-- icons:start -->
+<svg style="display:none" aria-hidden="true">
+<symbol id="ts-arrow-right" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></symbol>
+  <symbol id="ts-arrow-up-right" viewBox="0 0 24 24"><path d="M6 18L18 6M9 6h9v9"/></symbol>
+  <symbol id="ts-arrow-left" viewBox="0 0 24 24"><path d="M20 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="ts-arrow-down" viewBox="0 0 24 24"><path d="M12 4v15M6 13l6 6 6-6"/></symbol>
+  <symbol id="ts-chevron-down" viewBox="0 0 24 24"><path d="M5 9l7 7 7-7"/></symbol>
+  <symbol id="ts-check" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></symbol>
+  <symbol id="ts-cross" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="ts-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="ts-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 13v6H5V6h6"/></symbol>
+  <symbol id="ts-print" viewBox="0 0 24 24"><path d="M7 9V4h10v5M5 9h14v8h-3M8 14h8v6H8z"/></symbol>
+  <symbol id="ts-chart" viewBox="0 0 24 24"><path d="M4 20h16M6 16l4-5 4 3 5-7"/></symbol>
+  <symbol id="ts-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="1"/><path d="M12 3.5v4M12 16.5v4M3.5 12h4M16.5 12h4"/></symbol>
+  <symbol id="ts-route" viewBox="0 0 24 24"><circle cx="5" cy="18" r="2"/><circle cx="19" cy="6" r="2"/><path d="M7 18h6a4 4 0 0 0 0-8H11a4 4 0 0 1 0-8"/></symbol>
+  <symbol id="ts-correction" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="ts-store" viewBox="0 0 24 24"><path d="M4 10l1.5-5h13L20 10M5 10v10h14V10M10 20v-6h4v6"/></symbol>
+  <symbol id="ts-data" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="2.5"/><path d="M5 6v12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V6M5 12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/></symbol>
+  <symbol id="ts-seal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5"/></symbol>
+</svg>
+<!-- icons:end -->
 
 <header class="ts-header site-header">
   <div class="ts-container">
@@ -18,7 +40,7 @@
       <span class="ts-mark" style="--mark-size:36px"><img src="../brand/logo.png" alt="" width="34" height="36"></span>
       <span class="ts-wordmark"><b>侍天</b><span class="ts-caption" style="letter-spacing:var(--tracking-caps-tight)">Tiansight</span></span>
     </a>
-    <button class="ts-button ts-button-sm ts-button-secondary menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">菜单</button>
+    <button class="ts-button ts-button-sm ts-button-secondary menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><svg class="ts-icon"><use href="#ts-menu"/></svg> 菜单</button>
     <nav class="ts-nav" id="site-nav" aria-label="主导航">
       <a href="#proof">报告样张</a>
       <a href="#five">经营五问</a>
@@ -43,8 +65,8 @@
       <h1>拍板之前，<br>问侍天</h1>
       <p class="lead">交 6 个月经营数据，7 日内取得经营诊断：增长在何处、利润失于何处、先改哪三件、由谁执行、以何验收。</p>
       <div class="actions">
-        <a class="ts-button ts-button-lg" href="#contact">申请经营体检</a>
-        <a class="ts-button ts-button-lg ts-button-secondary" href="#proof">查看报告样张</a>
+        <a class="ts-button ts-button-lg" href="#contact">申请经营体检 <svg class="ts-icon"><use href="#ts-arrow-right"/></svg></a>
+        <a class="ts-button ts-button-lg ts-button-secondary" href="#proof">查看报告样张 <svg class="ts-icon"><use href="#ts-arrow-down"/></svg></a>
       </div>
       <div class="stats">
         <div class="ts-stat"><span class="ts-caption">Delivery</span><span class="ts-value">7<small>日内</small></span><span class="ts-boundary">自数据交付起</span></div>
@@ -357,7 +379,7 @@
           <label><input type="checkbox" name="data" value="platform" checked><span>平台数据<small>外卖与团购结算单</small></span></label>
           <label><input type="checkbox" name="data" value="crm"><span>会员数据<small>会员消费与复购明细</small></span></label>
         </div>
-        <button class="ts-button ts-button-lg" type="submit" style="width:100%">提交，取得经营诊断</button>
+        <button class="ts-button ts-button-lg" type="submit" style="width:100%">提交，取得经营诊断 <svg class="ts-icon"><use href="#ts-arrow-right"/></svg></button>
         <span class="ts-hint">本页表单仅作演示，未接入后端；提交不会发送任何数据。</span>
       </form>
       <div id="apply-success" class="success ts-stack" hidden tabindex="-1">

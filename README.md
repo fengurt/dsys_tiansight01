@@ -29,9 +29,11 @@ The export is a separate proposal: parchment `#EFE6D2` page background, sans-ser
 
 | File | Role |
 |---|---|
+| `fonts.css` | `@font-face` for Noto Serif SC, Noto Serif and IBM Plex Mono: local font first, then `brand/fonts/*.woff2` (not bundled, see `brand/fonts/README.md`). Load first. |
+| `icons.svg` | Seventeen line icons, circles and lines only, 1.5 stroke, `currentColor`. Pages inline the sprite between `icons:start` and `icons:end` markers so `<use href="#ts-…">` works on `file://`; `scripts/sync_icons.py` keeps the copies identical. |
 | `tokens.css` | Published palette plus derived surfaces, text roles, chart series, type scale, spacing, layout, radius, motion. Load first. |
 | `base.css` | Element defaults on the foundation: serif everywhere, body 18/1.7, headings 600, captions uppercase in deep gold, mono only for data, reduced motion, print. |
-| `components.css` | CSS-only components with the `.ts-` prefix: container/grid/section, heading pair, display lockup, rules and frames, compass watermark, card (with 天干 index), token row, badges, ✓/✕ list, buttons, form fields, stat, quote, step marker, seal stamp, mark lockup, nav/header, ledger table, chart chrome, reveal. No raw colour values. |
+| `components.css` | CSS-only components with the `.ts-` prefix, plus `.ts-icon` and the `.ts-ground-charcoal` scope that inverts every component for an opener, closer or a single card: container/grid/section, heading pair, display lockup, rules and frames, compass watermark, card (with 天干 index), token row, badges, ✓/✕ list, buttons, form fields, stat, quote, step marker, seal stamp, mark lockup, nav/header, ledger table, chart chrome, reveal. No raw colour values. |
 | `index.html` | Offline specimen of everything above, in brand voice, bilingual. |
 | `guide.md`, `source.json`, `logo.png` | Published guide, provenance snapshot, official mark. |
 
@@ -75,7 +77,7 @@ node scripts/export_people.mjs       # people/export/: 20 social PNGs and nameca
 - **`--gold` and `--gold-deep`** are both `#76551F` in v0.6. Both tokens are kept so they can diverge later.
 - **Mark.** The guide describes a compass ring with 侍; the published asset is the circular 侍天 seal. The foundation uses the published asset and draws the compass only as a watermark.
 - **Charts** follow guide §5: one series bright gold, two adds charcoal, three adds vermillion; ticks in ink muted. The export's growth/loss/caution/datum colours are not in the guide and are not in the foundation.
-- **Fonts** are not bundled. Stacks fall back to local serifs, never sans-serif. Noto Serif SC, Noto Serif and IBM Plex Mono are OFL and can be self-hosted once the target and subset strategy are chosen.
+- **Fonts** are declared in `brand/fonts.css` but not bundled. Drop the woff2 files listed in `brand/fonts/README.md` into `brand/fonts/`; until then stacks fall back to local serifs, never sans-serif, and the check script lists the missing files.
 - **Vermillion seal stamp** is a CSS placeholder. The real 朱印 needs calligraphy artwork.
 - **Offer.** The consumers use the guide's four priced tiers, not the export's unpriced 三层+X ladder. The export's 经营五问, promise line, partner names and testimonials are reused where they do not conflict.
 - **Lexicon.** "增长在何处" stays verbatim in the promise; elsewhere 增长 becomes 增利 to follow the guide's avoided-word list.
