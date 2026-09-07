@@ -1,0 +1,3541 @@
+{
+ "generated_from": [
+  "subangyuan-member-repurchase.html",
+  "tings-jinyuan-model-scroll.html",
+  "tings-qianhu-strategy-v6109.html"
+ ],
+ "assets": [
+  {
+   "file": "subangyuan-member-repurchase.html",
+   "bytes": 320202,
+   "system": "slide-deck",
+   "title": "苏帮袁 · 会员菜品复购数据分析 · 侍天 TIANSIGHT",
+   "fonts": [
+    "\"IBM Plex Mono\",\"Roboto Mono\",ui-monospace,Menlo,\"Noto Sans Mono CJK SC\",monospace",
+    "\"Noto Serif SC\",\"Source Han Serif SC\",\"Songti SC\",\"Songti TC\",Georgia,serif",
+    "11.5px",
+    "11px",
+    "12.5px",
+    "12px"
+   ],
+   "css_vars": [
+    "c-paper",
+    "c-surface",
+    "c-primary",
+    "c-ink",
+    "c-ink-72",
+    "c-ink-55",
+    "c-ink-28",
+    "c-ink-14",
+    "c-teal",
+    "c-teal-l",
+    "c-gold",
+    "c-gold-l",
+    "c-slate",
+    "c-vermil",
+    "c-green",
+    "c-muted",
+    "c-teal-w",
+    "c-teal-w2",
+    "c-gold-w",
+    "c-vermil-w",
+    "c-slate-w",
+    "c-green-w",
+    "f-serif",
+    "f-mono"
+   ],
+   "markers": {
+    "数据来源": 1,
+    "来源": 28,
+    "口径": 80,
+    "公式": 27,
+    "假设": 8,
+    "边界": 2,
+    "样本": 34,
+    "单位": 9,
+    "取数": 5,
+    "校验": 6,
+    "推算": 14,
+    "设计值": 19,
+    "版本": 4
+   },
+   "slides": [
+    {
+     "kind": "cover",
+     "chip": "",
+     "ega": "",
+     "src": [],
+     "title": "",
+     "svg": 0,
+     "tables": 0,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "目录 · CONTENTS",
+     "ega": "E1 系统实测",
+     "src": [],
+     "title": "第 01 章为可执行动作，第 02–04 章为对应的数据依据与推导过程",
+     "svg": 0,
+     "tables": 0,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "摘要 · EXECUTIVE SUMMARY",
+     "ega": "E1 系统实测",
+     "src": [
+      "ov"
+     ],
+     "title": "六条结论：全盘复购点击率 16.42%，八家对标门店中 七家的差距来自会员覆盖",
+     "svg": 0,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "收益测算 · SIZING",
+     "ega": "E3 设计值",
+     "src": [
+      "sizing"
+     ],
+     "title": "单套方案月增 ¥14.1 万 – ¥19.4 万；A 与 C 同时做，合并上限约 ¥21 万 / 月",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "口径 · CALIBRATION",
+     "ega": "E1 系统实测",
+     "src": [
+      "cal"
+     ],
+     "title": "九份导出分属 三种查询窗口，只有同窗口的数字可以放在一张图里",
+     "svg": 0,
+     "tables": 1,
+     "meta": false
+    },
+    {
+     "kind": "divider",
+     "chip": "",
+     "ega": "",
+     "src": [],
+     "title": "",
+     "svg": 0,
+     "tables": 0,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "主线总览 · THREE TRACKS",
+     "ega": "E3 设计值",
+     "src": [
+      "sizing"
+     ],
+     "title": "三条主线分部门下达：前厅改覆盖、后厨改粘性、总部改结构",
+     "svg": 0,
+     "tables": 0,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "主线一 · 方案",
+     "ega": "E3 设计值",
+     "src": [
+      "sizing"
+     ],
+     "title": "主线一 · 会员覆盖：三个可选方案——A1 改下单逻辑、A2 改话术、A3 改点单方式",
+     "svg": 0,
+     "tables": 1,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "主线二 · 方案",
+     "ega": "E3 设计值",
+     "src": [
+      "sizing"
+     ],
+     "title": "主线二 · 会员粘性：四个可选方案，B1 是守、B2 与 B4 是攻、B3 是单店手术",
+     "svg": 0,
+     "tables": 1,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "主线三 · 方案",
+     "ega": "E3 设计值",
+     "src": [
+      "sizing"
+     ],
+     "title": "主线三 · 菜单结构：四个动作，C1 与 C2 是止血，C3 与 C4 是重建",
+     "svg": 0,
+     "tables": 1,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "考核重构 · SCOPE REDESIGN",
+     "ega": "E3 设计值",
+     "src": [
+      "scope"
+     ],
+     "title": "考核清单重构：三个可选方案，从「补两支」到「按象限分层」",
+     "svg": 0,
+     "tables": 1,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "门店处方 · STORE RX",
+     "ega": "E2 推算＋E3 设计",
+     "src": [
+      "decomp"
+     ],
+     "title": "九店处方表：合生汇与天津南开先行，荟聚转为方法输出方",
+     "svg": 0,
+     "tables": 1,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "看板规范 · DASHBOARD SPEC",
+     "ega": "E3 设计值",
+     "src": [],
+     "title": "复购看板 10 条字段规范：将本次清洗的口径约束固化到系统",
+     "svg": 0,
+     "tables": 1,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "执行日历 · 90 DAYS",
+     "ega": "E3 设计值",
+     "src": [],
+     "title": "90 天执行日历：前两周为数据准备，后续动作的验证均依赖于此",
+     "svg": 0,
+     "tables": 1,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "边界 · WHAT THIS IS NOT",
+     "ega": "E4 未验证",
+     "src": [],
+     "title": "五项结论暂缓：现有数据不足以支撑，需先补字段再判断",
+     "svg": 0,
+     "tables": 0,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "分析局限 · LIMITATIONS",
+     "ega": "E1 系统实测",
+     "src": [],
+     "title": "本次分析基于 9 份汇总导出，三条局限限定结论的适用范围",
+     "svg": 0,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "局限一 · GRANULARITY",
+     "ega": "E1 系统实测",
+     "src": [],
+     "title": "汇总数据可回答 6 类菜单与门店问题；另 7 类顾客问题需订单级流水",
+     "svg": 0,
+     "tables": 2,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "局限二 · WINDOW MISMATCH",
+     "ega": "E1 系统实测",
+     "src": [
+      "trap"
+     ],
+     "title": "9 份导出跨三种查询窗口，同一批门店同一批菜的复购点击率相差 8.0 pp",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "局限三 · MONITORING GAP",
+     "ega": "E1 系统实测",
+     "src": [
+      "trend"
+     ],
+     "title": "月度趋势缺 6 月与 7 月，8 月 −1.63 pp 下滑于导出后方被发现",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "推进建议 · ROADMAP OPTIONS",
+     "ega": "E3 设计值",
+     "src": [],
+     "title": "三个推进方案：6 周先固化口径、12 周做日更监控、20 周做识别改造",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "推进路线 · 12-WEEK PLAN",
+     "ega": "E3 设计值",
+     "src": [],
+     "title": "乙方案 12 周路线图：第 7 周出第一版顾客复购率，第 12 周全网日更上线",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "divider",
+     "chip": "",
+     "ega": "",
+     "src": [],
+     "title": "",
+     "svg": 0,
+     "tables": 0,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "资产盘点 · INVENTORY",
+     "ega": "E1 系统实测",
+     "src": [
+      "inv"
+     ],
+     "title": "九份导出合并后 8,915 行，去重与归一后得到 8,908 行统一长表",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "字段字典 · SCHEMA 1/2",
+     "ega": "E1 系统实测",
+     "src": [
+      "dict"
+     ],
+     "title": "统一字段表（一）：12 个标识与维度字段，其中 7 个由清洗派生",
+     "svg": 0,
+     "tables": 1,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "字段字典 · SCHEMA 2/2",
+     "ega": "E1 系统实测",
+     "src": [
+      "dict"
+     ],
+     "title": "统一字段表（二）：5 个原始度量派生出 7 个业务指标，核心是一条恒等式",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "名称归一 · NAME NORMALIZATION",
+     "ega": "E1 系统实测",
+     "src": [
+      "name"
+     ],
+     "title": "品项名称 233 个写法 → 200 个主品名，其中 7 行是必须合并的真重复",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "门店口径 · STORE SCOPE",
+     "ega": "E1 系统实测",
+     "src": [
+      "store"
+     ],
+     "title": "十家门店里 天津河西店 4 月中停业，其余 9 店六个月窗全程可比",
+     "svg": 0,
+     "tables": 1,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "口径陷阱 · CALIBRATION TRAP",
+     "ega": "E1 系统实测",
+     "src": [
+      "trap"
+     ],
+     "title": "五个月复购数量直接相加漏计 115,342 份，占真实值 51.3%",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "质量异常 · DATA QUALITY",
+     "ega": "E1 系统实测",
+     "src": [
+      "qa"
+     ],
+     "title": "四类数据不能直接用：2 支会员归属异常、15 支小样本、5 支促销衍生、31 支规格拆分",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "清洗结论 · OUTPUT",
+     "ega": "E1 系统实测",
+     "src": [],
+     "title": "清洗产出：8,908 行 × 24 字段长表，附口径—问题对照表",
+     "svg": 0,
+     "tables": 1,
+     "meta": false
+    },
+    {
+     "kind": "divider",
+     "chip": "",
+     "ega": "",
+     "src": [],
+     "title": "",
+     "svg": 0,
+     "tables": 0,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "分析框架 · FRAMEWORK",
+     "ega": "E1 系统实测",
+     "src": [
+      "ident"
+     ],
+     "title": "复购点击率等于两个指标相乘，因此每家店的差距都能拆成两种改法",
+     "svg": 0,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "基准盘 · BASELINE",
+     "ega": "E1 系统实测",
+     "src": [
+      "ov"
+     ],
+     "title": "全盘基准盘：会员承接了 58.47% 的销量，贡献了 27.45% 的复购金额",
+     "svg": 1,
+     "tables": 0,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "门店排行 · STORE RANKING",
+     "ega": "E1 系统实测",
+     "src": [
+      "store"
+     ],
+     "title": "门店复购点击率 20.71% 至 13.30%，相差 1.56 倍",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "缺口分解 · GAP DECOMPOSITION",
+     "ega": "E2 推算值",
+     "src": [
+      "decomp"
+     ],
+     "title": "缺口分解：7 家店差在会员覆盖，天津南开店差在会员粘性",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "门店分型 · TYPING",
+     "ega": "E2 推算值",
+     "src": [
+      "decomp"
+     ],
+     "title": "九家店分成 三型：一家标杆、七家覆盖病、一家粘性病",
+     "svg": 0,
+     "tables": 1,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "时间趋势 · TREND",
+     "ega": "E1 系统实测",
+     "src": [
+      "trend"
+     ],
+     "title": "月窗口径下，复购点击率 1–5 月稳在 7.6%–7.9%，8 月落到 5.98%",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "8 月归因 · AUGUST",
+     "ega": "E1 系统实测＋E2 推算",
+     "src": [
+      "aug"
+     ],
+     "title": "8 月下滑发生在老品：同一批 102 支菜复购点击率 −2.0 pp，新增 59 支反而 9.49%",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "异常月 · ANOMALY",
+     "ega": "E1 系统实测",
+     "src": [
+      "hj"
+     ],
+     "title": "荟聚店 4 月 17.55% 为全网月度最高值，数据无活动字段，不作归因",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "divider",
+     "chip": "",
+     "ega": "",
+     "src": [],
+     "title": "",
+     "svg": 0,
+     "tables": 0,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "核心关系 · CORE FINDING",
+     "ega": "E1 系统实测",
+     "src": [
+      "scatter"
+     ],
+     "title": "94 支考核菜实测分布：销量每上一个数量级，复购点击率系统性走低",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "相关矩阵 · CORRELATION",
+     "ega": "E1 系统实测",
+     "src": [
+      "scatter"
+     ],
+     "title": "四变量秩相关：会员渗透率 ρ = 0.760 居首，总销售数量 ρ = −0.656 为负",
+     "svg": 1,
+     "tables": 0,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "四象限 · QUADRANT",
+     "ega": "E2 推算值",
+     "src": [
+      "quad"
+     ],
+     "title": "四象限：29 支流量高频品占 65.7% 销量，复购点击率却只有 14.66%",
+     "svg": 1,
+     "tables": 0,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "象限一 · SIGNATURE",
+     "ega": "E1 系统实测",
+     "src": [
+      "quad"
+     ],
+     "title": "象限一 · 招牌复购品 18 支：22.9% 销量、19.60% 复购点击率，维持现状",
+     "svg": 0,
+     "tables": 1,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "象限二 · TRAFFIC",
+     "ega": "E1 系统实测",
+     "src": [
+      "quad"
+     ],
+     "title": "象限二 · 流量高频品 29 支：吃掉 65.7% 销量，会员渗透率只有 52.7%",
+     "svg": 0,
+     "tables": 2,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "象限三 · POTENTIAL",
+     "ega": "E1 系统实测",
+     "src": [
+      "quad"
+     ],
+     "title": "象限三 · 潜力口碑品 41 支：复购点击率 22.03% 全网最高，销量只有 9.0%",
+     "svg": 0,
+     "tables": 1,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "象限四 · LOW YIELD",
+     "ega": "E1 系统实测＋E2 判断",
+     "src": [
+      "quad"
+     ],
+     "title": "象限四 · 低效待处置品 6 支：占 2.4% 销量，其中 2 支应先修数据再判菜品",
+     "svg": 0,
+     "tables": 1,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "价格带 · PRICE BAND",
+     "ega": "E1 系统实测",
+     "src": [
+      "price"
+     ],
+     "title": "价格与复购点击率无单调关系：81–120 元带 20.32% 最高，样本 7 支",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "规格拆分 · SKU SPLIT",
+     "ega": "E1 系统实测",
+     "src": [
+      "spec"
+     ],
+     "title": "8 个主品拆成 19 支 SKU，占考核销量 19.2%，须合并后判断",
+     "svg": 0,
+     "tables": 2,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "跨店极差 · DISPERSION",
+     "ega": "E1 系统实测",
+     "src": [
+      "spread"
+     ],
+     "title": "同一道菜跨店差 9.6 个百分点（中位），可通过执行对齐回收",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "缺口测算 · SIZING",
+     "ega": "E3 设计值",
+     "src": [
+      "sizing"
+     ],
+     "title": "把跨店差距对齐到同品项 P75：月增复购金额 ¥177,610，店均 ¥19,734",
+     "svg": 1,
+     "tables": 1,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "考核清单 · SCOPE",
+     "ega": "E1 系统实测＋E2 建议",
+     "src": [
+      "scope"
+     ],
+     "title": "考核清单选错了对象：94 支考核品 16.42%，24 支不考核品 21.55%",
+     "svg": 0,
+     "tables": 1,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "包间菜 · BANQUET",
+     "ega": "E1 系统实测",
+     "src": [
+      "banq"
+     ],
+     "title": "包间菜复购点击率 9.56% 高于堂食 5.96%，样本 1,643 份，仅作观察",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "divider",
+     "chip": "",
+     "ega": "",
+     "src": [],
+     "title": "",
+     "svg": 0,
+     "tables": 0,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "附录 A · GLOSSARY",
+     "ega": "E1 系统实测",
+     "src": [],
+     "title": "附录 A · 指标口径：12 个指标的公式、性质与出现位置",
+     "svg": 0,
+     "tables": 1,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "附录 B · STORE DETAIL",
+     "ega": "E1 系统实测",
+     "src": [
+      "store"
+     ],
+     "title": "附录 B · 门店全量明细：10 家门店 × 1–7 月累计窗 × 考核品 94 支",
+     "svg": 0,
+     "tables": 1,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "附录 C · SOURCE LOG",
+     "ega": "E1 系统实测",
+     "src": [
+      "inv"
+     ],
+     "title": "附录 C · 源文件清单与清洗日志：9 份工作表，8,915 → 8,908 行",
+     "svg": 0,
+     "tables": 1,
+     "meta": false
+    }
+   ],
+   "scroll_sections": [],
+   "ega_levels": [
+    [
+     "E1 系统实测",
+     32
+    ],
+    [
+     "E3 设计值",
+     11
+    ],
+    [
+     "E2 推算值",
+     3
+    ],
+    [
+     "E2 推算＋E3 设计",
+     1
+    ],
+    [
+     "E4 未验证",
+     1
+    ],
+    [
+     "E1 系统实测＋E2 推算",
+     1
+    ],
+    [
+     "E1 系统实测＋E2 判断",
+     1
+    ],
+    [
+     "E1 系统实测＋E2 建议",
+     1
+    ]
+   ],
+   "chart_families": [
+    [
+     "bars",
+     7
+    ],
+    [
+     "other",
+     2
+    ],
+    [
+     "line-points",
+     2
+    ],
+    [
+     "bubble",
+     1
+    ],
+    [
+     "matrix-heat",
+     1
+    ]
+   ],
+   "charts": [
+    {
+     "family": "other",
+     "bytes": 3800,
+     "elems": {
+      "rect": 3,
+      "circle": 0,
+      "path": 0,
+      "line": 9,
+      "text": 12,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 4683,
+     "elems": {
+      "rect": 4,
+      "circle": 0,
+      "path": 0,
+      "line": 7,
+      "text": 18,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 8434,
+     "elems": {
+      "rect": 9,
+      "circle": 0,
+      "path": 0,
+      "line": 8,
+      "text": 34,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 11096,
+     "elems": {
+      "rect": 16,
+      "circle": 0,
+      "path": 0,
+      "line": 9,
+      "text": 44,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "line-points",
+     "bytes": 6223,
+     "elems": {
+      "rect": 0,
+      "circle": 19,
+      "path": 3,
+      "line": 13,
+      "text": 17,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 5996,
+     "elems": {
+      "rect": 12,
+      "circle": 0,
+      "path": 0,
+      "line": 7,
+      "text": 22,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "line-points",
+     "bytes": 5580,
+     "elems": {
+      "rect": 0,
+      "circle": 13,
+      "path": 2,
+      "line": 13,
+      "text": 16,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bubble",
+     "bytes": 19502,
+     "elems": {
+      "rect": 0,
+      "circle": 94,
+      "path": 0,
+      "line": 21,
+      "text": 35,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 4688,
+     "elems": {
+      "rect": 4,
+      "circle": 0,
+      "path": 0,
+      "line": 7,
+      "text": 18,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 5024,
+     "elems": {
+      "rect": 4,
+      "circle": 0,
+      "path": 0,
+      "line": 0,
+      "text": 21,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "matrix-heat",
+     "bytes": 8962,
+     "elems": {
+      "rect": 21,
+      "circle": 0,
+      "path": 0,
+      "line": 7,
+      "text": 34,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "other",
+     "bytes": 10937,
+     "elems": {
+      "rect": 13,
+      "circle": 26,
+      "path": 0,
+      "line": 18,
+      "text": 34,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 8047,
+     "elems": {
+      "rect": 9,
+      "circle": 0,
+      "path": 0,
+      "line": 7,
+      "text": 33,
+      "polyline": 0,
+      "polygon": 0
+     }
+    }
+   ],
+   "appendix_sections": [
+    "ov",
+    "inv",
+    "store",
+    "trend",
+    "decomp",
+    "quad",
+    "scatter",
+    "spread",
+    "sizing",
+    "price",
+    "scope",
+    "banq",
+    "spec",
+    "qa",
+    "name",
+    "cal",
+    "trap",
+    "ident",
+    "aug",
+    "hj",
+    "dict"
+   ],
+   "meta_keys": [
+    [
+     "SOURCE",
+     23
+    ],
+    [
+     "CONFIDENCE",
+     23
+    ],
+    [
+     "FORMULA 公式与出处",
+     19
+    ]
+   ],
+   "tables": 59,
+   "table_headers_sample": [
+    [
+     "指标",
+     "数值",
+     "计算式"
+    ],
+    [
+     "文件",
+     "工作表",
+     "数据行",
+     "查询窗口",
+     "门店",
+     "品项"
+    ],
+    [
+     "门店",
+     "在售品项",
+     "总销量",
+     "会员份数",
+     "复购份数",
+     "复购点击率",
+     "会员渗透率",
+     "会员内复购占比"
+    ],
+    [
+     "月份",
+     "总销量",
+     "会员份数",
+     "复购份数",
+     "复购点击率",
+     "会员渗透率",
+     "会员内复购占比",
+     "在售品项"
+    ],
+    [
+     "门店",
+     "复购点击率",
+     "会员渗透率",
+     "会员内复购占比",
+     "对标缺口 pp",
+     "渗透贡献 pp",
+     "粘性贡献 pp",
+     "渗透占比"
+    ],
+    [
+     "象限",
+     "品项名称",
+     "总销量",
+     "复购点击率",
+     "会员渗透率",
+     "会员内复购占比",
+     "会员单份均价",
+     "复购金额"
+    ],
+    [
+     "品项名称",
+     "总销量",
+     "复购点击率",
+     "复购金额",
+     "象限"
+    ],
+    [
+     "品项名称",
+     "门店数",
+     "最低",
+     "中位",
+     "P75",
+     "最高",
+     "极差 pp",
+     "倍差"
+    ],
+    [
+     "层级",
+     "对象",
+     "缺口份数",
+     "缺口金额（7 月）",
+     "月化金额",
+     "备注"
+    ],
+    [
+     "价格带",
+     "品项数",
+     "销量",
+     "销量份额",
+     "复购点击率",
+     "会员渗透率",
+     "会员内复购占比",
+     "复购金额"
+    ],
+    [
+     "品项名称",
+     "总销量",
+     "复购点击率",
+     "会员单份均价",
+     "复购金额"
+    ],
+    [
+     "品项名称",
+     "销量",
+     "复购点击率",
+     "会员单份均价",
+     "会员消费"
+    ]
+   ],
+   "d3_calls": [],
+   "interactions": {
+    "srcOpen": true,
+    "data-go": true,
+    "meta-on": true,
+    "playOn": true,
+    "showTip": false,
+    "IntersectionObserver": false
+   }
+  },
+  {
+   "file": "tings-jinyuan-model-scroll.html",
+   "bytes": 407421,
+   "system": "scroll",
+   "title": "清水亭·世纪金源店 · 经营模式长卷 · 侍天 TIANSIGHT",
+   "fonts": [
+    "\"PingFang SC\",\"Noto Sans CJK SC\",\"Hiragino Sans GB\",system-ui,sans-serif",
+    "\"SFMono-Regular\",ui-monospace,\"Menlo\",\"DejaVu Sans Mono\",\"Noto Sans Mono CJK SC\",monospace",
+    "\"Songti SC\",\"Noto Serif CJK SC\",\"Source Han Serif SC\",Georgia,serif",
+    "10.5px",
+    "10px",
+    "11.5px"
+   ],
+   "css_vars": [
+    "paper",
+    "tape",
+    "tape2",
+    "ink",
+    "ink2",
+    "ink3",
+    "gold",
+    "gold-l",
+    "gold-p",
+    "vermil",
+    "vermil-l",
+    "sage",
+    "slate",
+    "rule",
+    "mono",
+    "serif",
+    "sans"
+   ],
+   "markers": {
+    "口径": 1,
+    "边界": 1,
+    "样本": 2,
+    "校验": 3,
+    "版本": 1
+   },
+   "slides": [],
+   "scroll_sections": [
+    "营收下降 15%，核心驱动因素为客流减少",
+    "周六营收为周一的 2.2 倍，周期性显著",
+    "点评系渠道占支付金额 79.4%，集中度过高",
+    "19.9% 的 SKU 贡献 80% 营收",
+    "60–80 元价格带存在明显供给断层",
+    "午晚市形成双高峰，15–17 时需求显著偏低",
+    "250–350 元为核心客单价区间，高额账单贡献显著",
+    "折让率由 14.6% 降至 4.8%，主要由赠送收缩驱动",
+    "16 名点菜员的客单价差异达 63.6%",
+    "当前数据可支持毛收入分析，尚不支持净利决策",
+    "59 个字段对净利目标函数的支撑边界"
+   ],
+   "ega_levels": [],
+   "chart_families": [],
+   "charts": [],
+   "appendix_sections": [],
+   "meta_keys": [],
+   "tables": 2,
+   "table_headers_sample": [
+    [
+     "支付标签",
+     "笔数",
+     "金额",
+     "占支付额"
+    ],
+    [
+     "字段 / 数据集",
+     "可用率",
+     "失去什么",
+     "从哪里补"
+    ]
+   ],
+   "d3_calls": [
+    [
+     "select",
+     28
+    ],
+    [
+     "scaleLinear",
+     16
+    ],
+    [
+     "axisLeft",
+     14
+    ],
+    [
+     "max",
+     14
+    ],
+    [
+     "axisBottom",
+     11
+    ],
+    [
+     "scaleBand",
+     9
+    ],
+    [
+     "format",
+     7
+    ],
+    [
+     "extent",
+     7
+    ],
+    [
+     "line",
+     5
+    ],
+    [
+     "sum",
+     5
+    ],
+    [
+     "scalePoint",
+     3
+    ],
+    [
+     "median",
+     3
+    ],
+    [
+     "scaleOrdinal",
+     2
+    ],
+    [
+     "area",
+     2
+    ],
+    [
+     "scaleLog",
+     2
+    ]
+   ],
+   "interactions": {
+    "srcOpen": false,
+    "data-go": false,
+    "meta-on": false,
+    "playOn": false,
+    "showTip": true,
+    "IntersectionObserver": true
+   }
+  },
+  {
+   "file": "tings-qianhu-strategy-v6109.html",
+   "bytes": 1167941,
+   "system": "slide-deck",
+   "title": "清水亭 TING'S · 千湖河鲜战略提案",
+   "fonts": [
+    "\"IBM Plex Mono\",\"Roboto Mono\",ui-monospace,Menlo,\"Noto Sans Mono CJK SC\",monospace",
+    "\"Noto Serif SC\",\"Source Han Serif SC\",\"Songti SC\",\"Songti TC\",Georgia,serif",
+    "11.5px",
+    "11px",
+    "12.5px",
+    "12px"
+   ],
+   "css_vars": [
+    "c-paper",
+    "c-surface",
+    "c-primary",
+    "c-ink",
+    "c-ink-72",
+    "c-ink-55",
+    "c-ink-28",
+    "c-ink-14",
+    "c-teal",
+    "c-teal-l",
+    "c-gold",
+    "c-gold-l",
+    "c-slate",
+    "c-vermil",
+    "c-green",
+    "c-muted",
+    "c-teal-w",
+    "c-teal-w2",
+    "c-gold-w",
+    "c-vermil-w",
+    "c-slate-w",
+    "f-serif",
+    "f-mono"
+   ],
+   "markers": {
+    "数据来源": 1,
+    "来源": 44,
+    "口径": 101,
+    "公式": 79,
+    "方法论": 1,
+    "假设": 5,
+    "边界": 14,
+    "样本": 28,
+    "单位": 14,
+    "取数": 2,
+    "置信": 13,
+    "设计值": 19
+   },
+   "slides": [
+    {
+     "kind": "cover",
+     "chip": "",
+     "ega": "",
+     "src": [],
+     "title": "",
+     "svg": 0,
+     "tables": 0,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "目录 · CONTENTS",
+     "ega": "",
+     "src": [],
+     "title": "全案分为八卷加附录，卷二诊断占 11 页，是全部结论的证据来源",
+     "svg": 0,
+     "tables": 0,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "导览 · MIND MAP",
+     "ega": "E4 设计推断",
+     "src": [],
+     "title": "全案分为 五条主线：外部环境、内部诊断、价值杠杆、定位产品、落地验证",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "证据底盘 · EVIDENCE BASE",
+     "ega": "E3 外部参照",
+     "src": [],
+     "title": "五类证据源覆盖 19 个月、6 家门店，全案结论按 EGA 四级标注",
+     "svg": 0,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "执行摘要 · ONE PAGE",
+     "ega": "E4 设计推断",
+     "src": [],
+     "title": "六店客流 -18.3%、客单未跌，而促销已覆盖 99% 的订单——问题落在到店理由，不在价格",
+     "svg": 0,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "结论索引 · EVIDENCE MAP",
+     "ega": "E3 外部参照",
+     "src": [
+      "csv-anchor"
+     ],
+     "title": "十四条核心结论逐条对应一项可复算指标，其中 11 条由全量交易数据直接支撑",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "卷首 · V5 → V6 的九处变更",
+     "ega": "E4 设计推断",
+     "src": [
+      "v6-band"
+     ],
+     "title": "四处为体系性重排，五处为新发现；定位与四种烹饪语言不变",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "divider",
+     "chip": "",
+     "ega": "",
+     "src": [],
+     "title": "",
+     "svg": 0,
+     "tables": 0,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "1.1 品牌表达锁定表",
+     "ega": "E4 设计推断",
+     "src": [
+      "qh-brand"
+     ],
+     "title": "品牌表达锁定为 10 个层级，中英双轨共用 TING'S 一个品牌名",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "1.2 三级信任状：14 个地理标志、一类水源直运、四季常鲜日历",
+     "ega": "E4 设计推断",
+     "src": [],
+     "title": "地理标志产品已占菜单收入 33.8%，活水直运已连续 19 个月不间断",
+     "svg": 0,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "1.5 母子品牌与家族叙事",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "边界以规格与场景两个变量界定，清水亭不进入宴请层",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "1.4 品类机会（一）：河鲜赛道供给最少、评分最高",
+     "ega": "E3 外部参照",
+     "src": [
+      "qh-track"
+     ],
+     "title": "六店 3km 内 576 家鱼类竞品中，河鲜 / 活鱼只有 14 家，评分中位 4.7 为八条赛道最高",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "layout-fix-13",
+     "chip": "1.4 品类机会（一续）：八条赛道的量化对照",
+     "ega": "E3 外部参照",
+     "src": [
+      "qh-track"
+     ],
+     "title": "河鲜赛道人均比烤鱼高 ¥29、比川式煮鱼高 ¥34，评分中位高 0.6–0.7 分",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "1.4 河鲜 / 活鱼赛道 14 家全名单",
+     "ega": "E3 外部参照",
+     "src": [
+      "csv-comp"
+     ],
+     "title": "评论超 800 条的 7 家平均评分 4.66、人均中位 ¥110，时间窗口正在收窄",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "1.4 品类机会（二）：450 家竞品招牌菜的时令 / 鲜活 / 水域命中数为 0",
+     "ega": "E3 外部参照",
+     "src": [],
+     "title": "前 45 位高频招牌菜里，带产地的只有「阳澄湖大闸蟹」13 次，其余全是味型与做法",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "1.4 品类机会（三）：点评平台的鱼类榜单里没有「河鲜榜」",
+     "ega": "E3 外部参照",
+     "src": [],
+     "title": "约 一半的同价带竞品已进入某个点评榜单，而河鲜尚未被平台承认为独立类目",
+     "svg": 0,
+     "tables": 2,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "1.4 心智盘点：「鱼」提及率 44.4%，「河鲜」只有 0.1%",
+     "ega": "E2 抽样观测",
+     "src": [],
+     "title": "顾客已经在吃河鲜，缺的是一个可复述、可推荐、可期待的名字",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "1.4 六店 3km 内的湖北菜竞品共 20 家，祥云为 0 家",
+     "ega": "E3 外部参照",
+     "src": [
+      "csv-comp"
+     ],
+     "title": "藕汤已被来菜与洪湖水占位，河鲜位被渔院丹江占位，祥云 3km 内无同乡竞品",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "divider",
+     "chip": "",
+     "ega": "",
+     "src": [],
+     "title": "",
+     "svg": 0,
+     "tables": 0,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "2.0 二十六条核心发现（上）",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "外部环境 5 条、平台与促销 4 条、产品与结构 4 条",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.0 二十六条核心发现（下）",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "价值杠杆 6 条、执行与资源 2 条、口碑 4 条、资产 1 条",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.1 根因链条：八个环节由外部密度与内部收缩共同闭合",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "促销失效在链条最前端，评分回落与回头客流失在最末端，中间是入口价格带与明档",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.2 四家成熟店客流两位数下滑，客单价同期持平或上涨",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "单量同比 -11.7% 至 -24.0%，桌均 -1.6% 至 +7.5%，每桌品项数一致减少约半个菜",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.2 3km 餐厅数越多，客流跌得越深：两者反向同步 0.94",
+     "ega": "E3 外部参照",
+     "src": [],
+     "title": "密度差 7.5 倍（8,057 家 vs 1,068 家），跌幅差 12.3 个百分点",
+     "svg": 2,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.2 六店竞争圈全景：国贸密度是祥云的 7.5 倍",
+     "ega": "E3 外部参照",
+     "src": [
+      "csv-ring"
+     ],
+     "title": "祥云 3km 内的湖北菜竞品为 0 家，是唯一可以低干扰观测品牌自身号召力的门店",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.3 78.2% 的订单走平台优惠；团购单每桌只点 5.3 道菜，券单点 8.0 道",
+     "ega": "E1 直接计量",
+     "src": [
+      "sku-settle"
+     ],
+     "title": "点评券 50.17% + 团购 28.03%，非平台结算仅 20.53%；平台占收入 79.8%",
+     "svg": 2,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.3 团购依赖度的门店排序与口碑、跌幅排序一致",
+     "ega": "E1 直接计量",
+     "src": [
+      "sku-tuan"
+     ],
+     "title": "万达团购占比 39.6% 且评分最低，祥云 19.6% 且评分最高、跌幅最小",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.3 促销覆盖率回到 99% 之后，评分只回升 0.15 分且继续下滑",
+     "ega": "E2 抽样观测",
+     "src": [],
+     "title": "2025-12 至 2026-03 促销降至 21.1%，同期评分降至 4.48–4.51；两条曲线同步但不同幅",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.3 促销与入口价格带是两件事，只有后者被验证有效",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "通用促销覆盖 99% 的订单而无效；¥39 常态品需要顾客主动点，却下架即塌、回归即涨",
+     "svg": 0,
+     "tables": 2,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.4 ¥39 脆藕汤：下架 8 个月销量归零，回归两个月回到 8,883 份",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "同 SKU、同价、同店的天然实验——2026 年 4–5 月缺席，2025 年同期两月合计 24,830 份",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.4 明档份数在脆藕汤下架当月减半，SKU 数从 18 个压到 6 个",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "2025-04 至 09 每月 17,726–20,164 份，2025-10 起降至 8,166–9,436 份，2026-07 回到 17,135 份",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.6 时段跌幅两端高、中段低：21 点 -45.9%，12 点仅 -12.3%",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "两者相差 33.6 个百分点——同一批门店、同一时间窗内，跌幅最深与最浅时段的差",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.7 鱼头总点单率涨 0.5–6.9pp，单品点单率同时跌 1.3–4.2pp",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "增量全部来自套餐；祥云是唯一单品点单率未跌的门店（+0.6pp）",
+     "svg": 1,
+     "tables": 2,
+     "meta": true
+    },
+    {
+     "kind": "layout-fix-34",
+     "chip": "2.8 58% 的账单是 1–2 人桌，而鱼头点单率只有 20.0%",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "7 人以上桌只占 2.8% 却有 50.3% 的鱼头点单率；¥198 大鱼头与客群结构错配",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.9 每多一个河鲜品类，人均上一个台阶：112 → 143 → 162 → 179 → 200",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "0→1 与 1→2 是有价值的迁移区间，合计覆盖 61.3% 的账单；3 类以上主要由人数驱动",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.9 整条活鱼单桌贡献 ¥718 最高，点单率 5.4% 最低",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "洪湖藕系点单率 61.6% 但单桌 ¥456 最低；两者分处待验证象限与守成象限的对角",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.9 38.1% 的账单两个招牌都没点，人均 ¥128、只点 4.8 个品项",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "鱼头 × 藕同时出现的账单人均 ¥172、品项 10.1、酒水率 22.1%，均为四组最高",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.10 20 个 SKU 贡献 59.9% 的收入，90 个 D 档 SKU 只贡献 2.0%",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "D 档占 SKU 总数的 48%，平均每店每月贡献约 ¥1,900",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.10 月度收入几乎跟着客流同步走，与菜单上有多少道菜基本无关",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "客流与收入的同步程度 0.88（接近完全同步），菜单 SKU 数与收入 0.09（基本无关）",
+     "svg": 2,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.10 大份规格因句号后缀无法识别，采纳率上限 15.3%，现有销量未被计入",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "六组同名编码把同一道菜拆成两个 SKU，改名即可恢复 15%–20% 的规格采纳",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.10 现状 158 支在售 SKU 中 39 支建议退出，可释放的版面与备料带宽已量化",
+     "ega": "E1 直接计量",
+     "src": [
+      "sku-now"
+     ],
+     "title": "河鲜总类 42 支贡献 ¥1,914.8 万，占品项收入 52.9%，为九个总类最高",
+     "svg": 3,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.11 客流最高的 10–1 月河鲜单品占比只有 27–30%，与客流完全反向",
+     "ega": "E4 设计推断",
+     "src": [],
+     "title": "10 月至次年 2 月共 5 个月、约占全年 42% 的账单量，河鲜单品占比只有夏天的一半",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.11 洪湖藕靠品种轮换实现全年渗透 54–70%，现成范式已存在于自有菜单",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "藕系点单率比鱼头（25%）高出一倍以上，顾客感知是「一年四季都有好藕」",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.12 点菜员河鲜单品点单率差 28.9pp，最高者已达 88.4%，标杆在店内而非店外",
+     "ega": "E2 抽样观测",
+     "src": [],
+     "title": "同店、同菜单、同供应，80 名点菜员的河鲜单品渗透从 59.5% 到 88.4%",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.13 赠送覆盖由 23.8% 降至 8.3%，与顾客情绪价值首选项（57.6%）反向",
+     "ega": "E3 外部参照",
+     "src": [],
+     "title": "赠送占应收从 2.47% 降到 0.73%，与「餐后小惊喜」情绪价值首选（57.6%）反向",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.14 祥云二楼承担该店 45.8% 的单、单均 ¥520.7，是试点的最优落点",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "同店内区域间单均差达 1.5–1.8 倍，包间单均最高 ¥1,001.4 但只占 6.3%",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.3 主的毛利率 63.5% 为四角色最低，主系列内部存在 18.9pp 的可选空间",
+     "ega": "E1 直接计量",
+     "src": [
+      "v6-band"
+     ],
+     "title": "活鲜承担信任，鱼杂与藕系承担利润；两者的角色分工由毛利结构直接给出",
+     "svg": 1,
+     "tables": 2,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.3 明档每分钟毛利全店最高却仅占 15.6% 产能，四项腾挪可释放 44.7 万分钟",
+     "ega": "E1 直接计量",
+     "src": [
+      "v6-band"
+     ],
+     "title": "中厨占 56.3% 产能而分钟毛利 ¥2.50；面点占 12.1% 产能产出 5.0% 销售额",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.5 画像系统收录的大鱼头为 65 份而实际 5,166 份，价格带结论须先复核",
+     "ega": "E1 直接计量",
+     "src": [
+      "v6-band"
+     ],
+     "title": "主数据污染使品牌锚定带的实测规模由 约 200 万元失真为 54.8 万元",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.15 评分从 4.81 连跌至 4.48，评论量同期下降 57.4%",
+     "ega": "E2 抽样观测",
+     "src": [],
+     "title": "转折点在 2025 年 10–12 月（4.67 → 4.62 → 4.48），与 ¥39 藕汤下架、明档减半同期",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.15 回头客占比 20.73% 为四年最低，且其均分首次下滑，容忍度最高的客群开始扣分",
+     "ega": "E2 抽样观测",
+     "src": [],
+     "title": "回头客均分从连续三年的 4.77–4.80 跌到 4.67，与新客的分差扩大到 0.13",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.15 关键词四年演化：河鲜主线聚焦到 71.6%，口味负面同时翻倍",
+     "ega": "E2 抽样观测",
+     "src": [],
+     "title": "「性价比」提及率两年翻 2.5 倍（6.8% → 16.7%），「排队」从 3.4% 涨到 8.9%",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.16 「清汤寡水」提及率仅 0.56%，分差却达 -1.05 分",
+     "ega": "E2 抽样观测",
+     "src": [],
+     "title": "「米饭」14.10%、「服务铃」13.67% 提及率最高，分差只有 -0.05 与 0.00，属中性叙述",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.16 咸与油的提及率一年上升 65% 与一倍，两项均可由咸度校准与配方复核闭合",
+     "ega": "E2 抽样观测",
+     "src": [],
+     "title": "九项痛点全部上升，其中「预定 / 排队」+4.83pp 幅度最大但需甄别原因",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.16 好评说「鲜」与「地道」，差评说「藕汤」与「鱼杂」",
+     "ega": "E2 抽样观测",
+     "src": [],
+     "title": "五星评论里「地道」高出 9.16 个百分点，差评里「鱼杂」高出 2.76 个百分点",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.16 公安鱼杂煲口碑倒数第二，却是河鲜第三大收入品项",
+     "ega": "E2 抽样观测",
+     "src": [],
+     "title": "小龙虾与山茶油丹江大鱼头口碑最好（-0.015、-0.040），正是河鲜的两大支柱",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.17 口味分在全部六店都低于环境分，差距 0.07–0.17 分",
+     "ega": "E2 抽样观测",
+     "src": [],
+     "title": "万达与世纪金源在所有维度都最差：均分最低、「贵」提及率最高、口味负面最高、复购表达最低",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.17 用户等级越高给分越低：LV1 4.88 降到 LV8 4.42",
+     "ega": "E2 抽样观测",
+     "src": [],
+     "title": "评论越长评分越低（&lt;20 字 4.80 → 500 字以上 4.27），长评论是不满的信号",
+     "svg": 2,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.17 团购客的评分比非团购客高 0.15 分，口味分高 0.16 分",
+     "ega": "E2 抽样观测",
+     "src": [],
+     "title": "同一出品下，支付价格更低的顾客给分更高：价格锚点的解释力强于出品质量",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.18 相对溢价最高的两店评分最低：1.37 与 1.33 对应 4.4 分",
+     "ega": "E3 外部参照",
+     "src": [
+      "csv-anchor"
+     ],
+     "title": "溢价最低的大屯（0.88）评分 4.7、「贵」提及率 2.31% 最低，是价格洼地",
+     "svg": 1,
+     "tables": 2,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "2.19 2026 春活鱼上新止于单品增补，五项系列要件缺其四",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "上新期间鱼头单店月销从 479 份降到 359 份，活鱼从 126 升到 375——用低价品换量",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "divider",
+     "chip": "",
+     "ega": "",
+     "src": [],
+     "title": "",
+     "svg": 0,
+     "tables": 0,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "3.1 83 支进入战略角色层，主系列由 9 支扩至 22 支",
+     "ega": "E1 直接计量",
+     "src": [
+      "v6-band"
+     ],
+     "title": "L3 承担 78.4% 收入并进入价格带；L2 套餐占 19.4% 收入，按面值单列",
+     "svg": 0,
+     "tables": 2,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "3.2 招牌利润带现有 4 支中 2 支为果汁，是唯一值得大幅加仓的价格带",
+     "ega": "E1 直接计量",
+     "src": [
+      "v6-band"
+     ],
+     "title": "该带出品难度 2.0 为六带最低，每单位出品难度的毛利 39.8 为升级主菜带的两倍",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "3.3 招牌利润带 14 支中 9 支来自存量重排，新建仅 5 支",
+     "ega": "E4 设计推断",
+     "src": [
+      "v6-band"
+     ],
+     "title": "档口分布为明档 7 支、中厨 7 支；同期在售常驻 9 支 + 当季 4–5 支",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "3.1 四种烹饪语言：水域为可变量，做法为不变量",
+     "ega": "E4 设计推断",
+     "src": [],
+     "title": "每季至少各有一款，加上 1 款当季限定，构成换水域后仍可识别的产品骨架",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "3.2–3.3 主中主的位置固定，坐在位置上的产品可换",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "常年核心占产品资源 60–70%，时令轮换 20–30%，主厨实验约 10%",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "3.4 菜单顺序从厨房分类改为时令决策，河鲜占据前五页",
+     "ega": "E2 抽样观测",
+     "src": [],
+     "title": "P1–P5 全部是河鲜，藕系退到 P6；与「好评说鲜、差评说藕汤」的心智证据一致",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "3.5 每道主推河鲜标注八个字段，鲜度状态必须准确",
+     "ega": "E3 外部参照",
+     "src": [],
+     "title": "长江十年禁渔期内禁用「野生」「江捕」，一律表述为水库生态养殖或池塘养殖",
+     "svg": 0,
+     "tables": 2,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "3.8 千湖地图（一）：一湖一鲜，湖北六片湖",
+     "ega": "E4 设计推断",
+     "src": [
+      "qh-lake"
+     ],
+     "title": "2 片已在跑、2 片待接入、2 片为候选；◆ 表示国家地理标志或地标保护产品",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "3.8 千湖地图（二）：一河一鲜，四条水系加虾稻田",
+     "ega": "E4 设计推断",
+     "src": [
+      "qh-river"
+     ],
+     "title": "长江十年禁渔期内所有食材一律为水库生态养殖或池塘养殖，宣传口径不得出现「野生」「江捕」",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "3.13 一湖一鲜：六片湖、四条水系与一片虾稻田",
+     "ega": "E4 设计推断",
+     "src": [
+      "qh-lake"
+     ],
+     "title": "2 片水域已在跑、1 片部分在跑、2 片待接入、2 片为候选，覆盖四季全部窗口",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "3.14 菜单已覆盖 14 个国家地理标志产品，占收入 33.8%，尚未对顾客说明",
+     "ega": "E4 设计推断",
+     "src": [
+      "qh-matrix"
+     ],
+     "title": "其中 11 项在售、2 项季节性上架、3 项为新建；山茶油单项即占收入 9.25%",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "3.8 食材–地理–时令总表（上）",
+     "ega": "E4 设计推断",
+     "src": [],
+     "title": "河鲜与水产 14 行：从丹江口到潜江，覆盖四季与 A–E 全部价格带",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "3.8 食材–地理–时令总表（下）",
+     "ega": "E4 设计推断",
+     "src": [],
+     "title": "水生蔬与信任状 13 行：山茶油占收入 9.25%、蜜橘与米酒均为地标却从未说明",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "3.9 清水标准四条：把「千湖」从地理约束改写为品质标准",
+     "ega": "E3 外部参照",
+     "src": [
+      "qh-std"
+     ],
+     "title": "四条缺一不可，既是采购规范，也是菜单文案，也是品牌资产",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "3.11 四季赏味图（一）：河鲜主线 16 支 SKU 的赏味窗口",
+     "ega": "E4 设计推断",
+     "src": [
+      "qh-matrix"
+     ],
+     "title": "全年可供应 6 支，其余 10 支集中在 2–4 个月的窗口内，构成四次换季传播节点",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "3.11 四季赏味图（二）：水生蔬与信任状 11 项的赏味窗口",
+     "ega": "E4 设计推断",
+     "src": [
+      "qh-matrix"
+     ],
+     "title": "洪湖藕带窗口仅 4–6 月，为全表最短；山茶油、米酒全年在架且均为地标产品",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "3.12 四季运营节拍：SKU 下限、入口品与传播主题按季对齐",
+     "ega": "E4 设计推断",
+     "src": [
+      "qh-cal"
+     ],
+     "title": "冬季客流指数 100–114 为全年最高，河鲜单品 SKU 下限 10–11 全年不变",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "3.10 千湖延展三阶段：0–12 月立品类，12–36 月建体系，36 月后出海",
+     "ega": "E4 设计推断",
+     "src": [
+      "qh-path"
+     ],
+     "title": "出身湖北，不限湖北；阶段三的商标布局需提前 2–3 年，东南亚注册周期 24–36 个月",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "divider",
+     "chip": "",
+     "ega": "",
+     "src": [],
+     "title": "",
+     "svg": 0,
+     "tables": 0,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "4.1 常驻核心 55 支不变，12 个季节槽位按季更换，任一季在售 66–67 支",
+     "ega": "E4 设计推断",
+     "src": [
+      "v6-rot"
+     ],
+     "title": "全年在册 83 支；槽位固定使换季在顾客侧呈现为内容更替，而非菜单重构",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "4.2 冬季客流全年最高而季节 SKU 仅 5 支，是全年最大的可补缺口",
+     "ega": "E1 直接计量",
+     "src": [
+      "v6-season"
+     ],
+     "title": "冬季河鲜单品占品项收入 27%–30% 为全年最低，构成全年最大的结构性缺口",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "4.3 四季新增仅 6 支，均落在毛利率最高的两带，秋季档须 7 月中启动",
+     "ega": "E4 设计推断",
+     "src": [
+      "v6-season"
+     ],
+     "title": "新增品集中于入门频次带与基础搭配带，两带毛利率 81.6% 与 81.5% 为六带最高",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "layout-fix-85",
+     "chip": "4.4 团购套餐改造：200–399 元带每桌点菜由 4.1 道提至 5.5 道以上",
+     "ega": "E1 直接计量",
+     "src": [
+      "sku-tuan"
+     ],
+     "title": "团购单鱼头渗透 41.7% 但河鲜单品品类数只有 0.82，直接对冲河鲜阶梯机制",
+     "svg": 2,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "4.4 千湖河鲜主系列 38 支（上）",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "现有 11 支、新建 4 支、改名 2 支、恢复 1 支、移位 1 支",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "4.4 千湖河鲜主系列 38 支（下）",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "现有 9 支、新建 5 支、恢复 2 支、改名 1 支、改造 2 支",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "layout-fix-88",
+     "chip": "4.5 四季常鲜日历：主中主位置全年不变，四种烹饪语言按季换人",
+     "ega": "E4 设计推断",
+     "src": [
+      "qh-cal"
+     ],
+     "title": "冬季客流指数 100–114 为全年最高，河鲜单品 SKU 下限 10–11 写入运营考核",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "divider",
+     "chip": "",
+     "ega": "",
+     "src": [],
+     "title": "",
+     "svg": 0,
+     "tables": 0,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "5.1 六店战略一览：同一套菜单，六个不同的首要动作",
+     "ega": "E3 外部参照",
+     "src": [],
+     "title": "相对溢价从 0.88 到 1.37，团购依赖从 19.6% 到 39.6%",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "5.2 相对溢价与团购依赖交叉后，六店分成三种处方",
+     "ega": "E3 外部参照",
+     "src": [],
+     "title": "万达同时落在高溢价 × 高团购象限，是唯一需要整体下移价格锚点的门店",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "layout-fix-92",
+     "chip": "5.3 商圈数据修正了两家店的策略，确认了四家",
+     "ega": "E3 外部参照",
+     "src": [],
+     "title": "万达从「菜单形态问题」改判为价格锚点问题，大屯从「降价」改判为修价值感",
+     "svg": 0,
+     "tables": 2,
+     "meta": true
+    },
+    {
+     "kind": "divider",
+     "chip": "",
+     "ega": "",
+     "src": [],
+     "title": "",
+     "svg": 0,
+     "tables": 0,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "6.1 P0 七项中五项不占用采购、厨务与培训资源，当月即可落地",
+     "ega": "E1 直接计量",
+     "src": [
+      "v6-band"
+     ],
+     "title": "七项均不涉及菜单改版与定位投放，可与后续工作并行；第 1 项是其余六项的前置条件",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "6.2 主推三个候选方案：毛利优先、可点性优先、存量激活优先",
+     "ega": "E1 直接计量",
+     "src": [
+      "v6-band"
+     ],
+     "title": "三者不互斥；方案 C 与 方案 A 可在 0–30 天并行，方案 B 须待配方定版",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "6.3–6.5 P1 与 P2 的推进线，以及并行的数据能力建设",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "秋季章节须在 7 月中启动供应链，是 P1 中时间约束最紧的一项",
+     "svg": 1,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "6.5 试点设计：测试组两店、对照组两店，首发落祥云二楼",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "全量判定需 六条同时达成，V6 新增第六条：翘嘴鲌点单率与主系列毛利率双门槛",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "divider",
+     "chip": "",
+     "ega": "",
+     "src": [],
+     "title": "",
+     "svg": 0,
+     "tables": 0,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "7.1 七条 P0 风险，其中两条由本版新接入的平台数据发现",
+     "ega": "E2 抽样观测",
+     "src": [],
+     "title": "平台依赖与促销失效之外，其余五条分属出品、价值感与合规三类",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "7.2 五条 P1 风险中，产能是最大盲区",
+     "ega": "E3 外部参照",
+     "src": [],
+     "title": "出品部门字段全空，明档扩品的瓶颈无法测算，只能先用「进一个退一个」约束",
+     "svg": 0,
+     "tables": 2,
+     "meta": true
+    },
+    {
+     "kind": "divider",
+     "chip": "",
+     "ega": "",
+     "src": [],
+     "title": "",
+     "svg": 0,
+     "tables": 0,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "8.1 三项高置信度动作合计 530–650 万元营业额与约 100 万元毛利",
+     "ega": "E4 设计推断",
+     "src": [
+      "v6-band"
+     ],
+     "title": "三项均属 P0，成本为零或低；毛利口径与营业额口径不可相加",
+     "svg": 1,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "divider",
+     "chip": "",
+     "ega": "",
+     "src": [],
+     "title": "",
+     "svg": 0,
+     "tables": 0,
+     "meta": false
+    },
+    {
+     "kind": "content",
+     "chip": "附一 数据与口径：四级证据、三处系统性偏差",
+     "ega": "E4 设计推断",
+     "src": [],
+     "title": "A/B 级内部数据覆盖 19 个月，C/D 级外部数据仅用于方向性判断",
+     "svg": 0,
+     "tables": 0,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "附二 待补数据清单：十项，其中五项阻断毛利层结论",
+     "ega": "E3 外部参照",
+     "src": [],
+     "title": "补齐成本价与套餐 BOM 后，全案可从收入与渗透层推进到毛利与净贡献层",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "附四 关键指标公式与出处对照（一）",
+     "ega": "E1 直接计量",
+     "src": [],
+     "title": "交易与成本类 15 项：全部可由小票明细或品项汇总直接复算",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "附四 关键指标公式与出处对照（二）",
+     "ega": "E4 设计推断",
+     "src": [],
+     "title": "统计、外部与设计类 15 项：其中 5 项为设计值，须经试点验证",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "content",
+     "chip": "附三 文档清单：十份配套文档的分工",
+     "ega": "E4 设计推断",
+     "src": [
+      "sku-dict"
+     ],
+     "title": "本提案由 1 份总纲 + 4 份专项 + 1 份修正方案 + 2 份 xlsx + 2 份 csv 支撑",
+     "svg": 0,
+     "tables": 1,
+     "meta": true
+    },
+    {
+     "kind": "cover",
+     "chip": "",
+     "ega": "",
+     "src": [],
+     "title": "",
+     "svg": 0,
+     "tables": 0,
+     "meta": false
+    }
+   ],
+   "scroll_sections": [],
+   "ega_levels": [
+    [
+     "E1 直接计量",
+     38
+    ],
+    [
+     "E4 设计推断",
+     25
+    ],
+    [
+     "E3 外部参照",
+     19
+    ],
+    [
+     "E2 抽样观测",
+     15
+    ]
+   ],
+   "chart_families": [
+    [
+     "bars",
+     32
+    ],
+    [
+     "bars-line",
+     9
+    ],
+    [
+     "matrix-heat",
+     8
+    ],
+    [
+     "scatter",
+     7
+    ],
+    [
+     "bubble",
+     4
+    ],
+    [
+     "other",
+     2
+    ],
+    [
+     "line-points",
+     2
+    ],
+    [
+     "mindmap",
+     1
+    ]
+   ],
+   "charts": [
+    {
+     "family": "mindmap",
+     "bytes": 15855,
+     "elems": {
+      "rect": 32,
+      "circle": 21,
+      "path": 26,
+      "line": 0,
+      "text": 49,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "matrix-heat",
+     "bytes": 10510,
+     "elems": {
+      "rect": 28,
+      "circle": 0,
+      "path": 0,
+      "line": 15,
+      "text": 62,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bubble",
+     "bytes": 4282,
+     "elems": {
+      "rect": 0,
+      "circle": 8,
+      "path": 0,
+      "line": 7,
+      "text": 21,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 2868,
+     "elems": {
+      "rect": 8,
+      "circle": 0,
+      "path": 0,
+      "line": 1,
+      "text": 18,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "matrix-heat",
+     "bytes": 6987,
+     "elems": {
+      "rect": 22,
+      "circle": 0,
+      "path": 0,
+      "line": 1,
+      "text": 46,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 2802,
+     "elems": {
+      "rect": 8,
+      "circle": 0,
+      "path": 0,
+      "line": 1,
+      "text": 18,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars-line",
+     "bytes": 5202,
+     "elems": {
+      "rect": 17,
+      "circle": 0,
+      "path": 14,
+      "line": 0,
+      "text": 13,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "scatter",
+     "bytes": 4650,
+     "elems": {
+      "rect": 0,
+      "circle": 12,
+      "path": 0,
+      "line": 10,
+      "text": 19,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "other",
+     "bytes": 3456,
+     "elems": {
+      "rect": 0,
+      "circle": 4,
+      "path": 1,
+      "line": 7,
+      "text": 17,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 2452,
+     "elems": {
+      "rect": 7,
+      "circle": 0,
+      "path": 0,
+      "line": 1,
+      "text": 15,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "matrix-heat",
+     "bytes": 11762,
+     "elems": {
+      "rect": 30,
+      "circle": 0,
+      "path": 0,
+      "line": 6,
+      "text": 67,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 3007,
+     "elems": {
+      "rect": 12,
+      "circle": 0,
+      "path": 0,
+      "line": 2,
+      "text": 15,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 3295,
+     "elems": {
+      "rect": 6,
+      "circle": 0,
+      "path": 0,
+      "line": 5,
+      "text": 18,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars-line",
+     "bytes": 8966,
+     "elems": {
+      "rect": 22,
+      "circle": 19,
+      "path": 1,
+      "line": 5,
+      "text": 34,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 4877,
+     "elems": {
+      "rect": 9,
+      "circle": 0,
+      "path": 0,
+      "line": 7,
+      "text": 27,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars-line",
+     "bytes": 8907,
+     "elems": {
+      "rect": 22,
+      "circle": 19,
+      "path": 1,
+      "line": 5,
+      "text": 34,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 7696,
+     "elems": {
+      "rect": 11,
+      "circle": 0,
+      "path": 0,
+      "line": 4,
+      "text": 51,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "scatter",
+     "bytes": 6695,
+     "elems": {
+      "rect": 0,
+      "circle": 23,
+      "path": 0,
+      "line": 15,
+      "text": 24,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars-line",
+     "bytes": 4712,
+     "elems": {
+      "rect": 7,
+      "circle": 5,
+      "path": 1,
+      "line": 5,
+      "text": 24,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 4792,
+     "elems": {
+      "rect": 5,
+      "circle": 0,
+      "path": 0,
+      "line": 9,
+      "text": 26,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "scatter",
+     "bytes": 4569,
+     "elems": {
+      "rect": 0,
+      "circle": 7,
+      "path": 0,
+      "line": 9,
+      "text": 24,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 3111,
+     "elems": {
+      "rect": 4,
+      "circle": 0,
+      "path": 0,
+      "line": 0,
+      "text": 21,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars-line",
+     "bytes": 4888,
+     "elems": {
+      "rect": 5,
+      "circle": 5,
+      "path": 1,
+      "line": 5,
+      "text": 26,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "matrix-heat",
+     "bytes": 9196,
+     "elems": {
+      "rect": 35,
+      "circle": 0,
+      "path": 0,
+      "line": 0,
+      "text": 48,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 2221,
+     "elems": {
+      "rect": 6,
+      "circle": 0,
+      "path": 0,
+      "line": 1,
+      "text": 14,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 2594,
+     "elems": {
+      "rect": 7,
+      "circle": 0,
+      "path": 0,
+      "line": 1,
+      "text": 16,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 2512,
+     "elems": {
+      "rect": 7,
+      "circle": 0,
+      "path": 0,
+      "line": 1,
+      "text": 16,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 1926,
+     "elems": {
+      "rect": 5,
+      "circle": 0,
+      "path": 0,
+      "line": 1,
+      "text": 12,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 3518,
+     "elems": {
+      "rect": 10,
+      "circle": 0,
+      "path": 0,
+      "line": 1,
+      "text": 22,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "line-points",
+     "bytes": 8238,
+     "elems": {
+      "rect": 2,
+      "circle": 24,
+      "path": 2,
+      "line": 5,
+      "text": 38,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 4822,
+     "elems": {
+      "rect": 6,
+      "circle": 0,
+      "path": 0,
+      "line": 13,
+      "text": 24,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 7110,
+     "elems": {
+      "rect": 6,
+      "circle": 0,
+      "path": 0,
+      "line": 30,
+      "text": 28,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars-line",
+     "bytes": 6515,
+     "elems": {
+      "rect": 11,
+      "circle": 9,
+      "path": 1,
+      "line": 5,
+      "text": 32,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 1652,
+     "elems": {
+      "rect": 4,
+      "circle": 0,
+      "path": 0,
+      "line": 1,
+      "text": 10,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bubble",
+     "bytes": 4059,
+     "elems": {
+      "rect": 0,
+      "circle": 5,
+      "path": 0,
+      "line": 6,
+      "text": 21,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 1621,
+     "elems": {
+      "rect": 4,
+      "circle": 0,
+      "path": 0,
+      "line": 1,
+      "text": 10,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars-line",
+     "bytes": 10633,
+     "elems": {
+      "rect": 27,
+      "circle": 24,
+      "path": 1,
+      "line": 5,
+      "text": 39,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars-line",
+     "bytes": 4259,
+     "elems": {
+      "rect": 6,
+      "circle": 4,
+      "path": 1,
+      "line": 5,
+      "text": 22,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "line-points",
+     "bytes": 6708,
+     "elems": {
+      "rect": 0,
+      "circle": 28,
+      "path": 7,
+      "line": 5,
+      "text": 18,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "scatter",
+     "bytes": 5231,
+     "elems": {
+      "rect": 0,
+      "circle": 10,
+      "path": 0,
+      "line": 9,
+      "text": 27,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "scatter",
+     "bytes": 6745,
+     "elems": {
+      "rect": 0,
+      "circle": 20,
+      "path": 0,
+      "line": 14,
+      "text": 27,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 5433,
+     "elems": {
+      "rect": 12,
+      "circle": 0,
+      "path": 0,
+      "line": 5,
+      "text": 32,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 6810,
+     "elems": {
+      "rect": 16,
+      "circle": 0,
+      "path": 0,
+      "line": 5,
+      "text": 40,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "scatter",
+     "bytes": 5127,
+     "elems": {
+      "rect": 0,
+      "circle": 14,
+      "path": 0,
+      "line": 11,
+      "text": 21,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 4231,
+     "elems": {
+      "rect": 9,
+      "circle": 0,
+      "path": 0,
+      "line": 5,
+      "text": 24,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 3282,
+     "elems": {
+      "rect": 6,
+      "circle": 0,
+      "path": 0,
+      "line": 5,
+      "text": 18,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 2814,
+     "elems": {
+      "rect": 10,
+      "circle": 0,
+      "path": 0,
+      "line": 5,
+      "text": 12,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "scatter",
+     "bytes": 3749,
+     "elems": {
+      "rect": 0,
+      "circle": 6,
+      "path": 0,
+      "line": 7,
+      "text": 19,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars-line",
+     "bytes": 3340,
+     "elems": {
+      "rect": 4,
+      "circle": 2,
+      "path": 1,
+      "line": 5,
+      "text": 18,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 7269,
+     "elems": {
+      "rect": 14,
+      "circle": 0,
+      "path": 0,
+      "line": 7,
+      "text": 50,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "matrix-heat",
+     "bytes": 5886,
+     "elems": {
+      "rect": 20,
+      "circle": 0,
+      "path": 0,
+      "line": 0,
+      "text": 29,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 7439,
+     "elems": {
+      "rect": 19,
+      "circle": 0,
+      "path": 0,
+      "line": 0,
+      "text": 52,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bubble",
+     "bytes": 7171,
+     "elems": {
+      "rect": 1,
+      "circle": 12,
+      "path": 3,
+      "line": 3,
+      "text": 39,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "matrix-heat",
+     "bytes": 12501,
+     "elems": {
+      "rect": 38,
+      "circle": 0,
+      "path": 0,
+      "line": 13,
+      "text": 69,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "matrix-heat",
+     "bytes": 9850,
+     "elems": {
+      "rect": 27,
+      "circle": 0,
+      "path": 0,
+      "line": 13,
+      "text": 54,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 6707,
+     "elems": {
+      "rect": 12,
+      "circle": 0,
+      "path": 0,
+      "line": 7,
+      "text": 39,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "matrix-heat",
+     "bytes": 24057,
+     "elems": {
+      "rect": 106,
+      "circle": 0,
+      "path": 0,
+      "line": 13,
+      "text": 120,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 4863,
+     "elems": {
+      "rect": 10,
+      "circle": 0,
+      "path": 0,
+      "line": 5,
+      "text": 29,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 6051,
+     "elems": {
+      "rect": 13,
+      "circle": 0,
+      "path": 0,
+      "line": 13,
+      "text": 30,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 2411,
+     "elems": {
+      "rect": 4,
+      "circle": 0,
+      "path": 0,
+      "line": 8,
+      "text": 10,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 3397,
+     "elems": {
+      "rect": 14,
+      "circle": 0,
+      "path": 0,
+      "line": 5,
+      "text": 14,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bubble",
+     "bytes": 3881,
+     "elems": {
+      "rect": 0,
+      "circle": 6,
+      "path": 0,
+      "line": 7,
+      "text": 19,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "other",
+     "bytes": 2337,
+     "elems": {
+      "rect": 0,
+      "circle": 3,
+      "path": 0,
+      "line": 5,
+      "text": 11,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 3028,
+     "elems": {
+      "rect": 4,
+      "circle": 0,
+      "path": 0,
+      "line": 7,
+      "text": 16,
+      "polyline": 0,
+      "polygon": 0
+     }
+    },
+    {
+     "family": "bars",
+     "bytes": 5204,
+     "elems": {
+      "rect": 7,
+      "circle": 0,
+      "path": 0,
+      "line": 10,
+      "text": 28,
+      "polyline": 0,
+      "polygon": 0
+     }
+    }
+   ],
+   "appendix_sections": [
+    "v6-band",
+    "v6-over",
+    "v6-season",
+    "v6-rot",
+    "v6-new6",
+    "v6-cal",
+    "qh-lake",
+    "qh-river",
+    "qh-matrix",
+    "qh-cal",
+    "qh-std",
+    "qh-path",
+    "qh-brand",
+    "qh-lang",
+    "qh-track",
+    "sku-tbl",
+    "sku-band",
+    "sku-c12",
+    "sku-crab",
+    "sku-now",
+    "sku-new",
+    "sku-dict",
+    "sku-settle",
+    "sku-tuan",
+    "csv-ring",
+    "csv-anchor",
+    "csv-comp"
+   ],
+   "meta_keys": [
+    [
+     "SOURCE",
+     97
+    ],
+    [
+     "GLOSSARY",
+     97
+    ],
+    [
+     "CONCLUSION",
+     97
+    ],
+    [
+     "CONFIDENCE",
+     97
+    ],
+    [
+     "FORMULA 公式与出处",
+     52
+    ],
+    [
+     "DERIVATION 推导逻辑",
+     32
+    ],
+    [
+     "INDEX SOURCE 客流指数出处",
+     4
+    ]
+   ],
+   "tables": 101,
+   "table_headers_sample": [
+    [
+     "价格带",
+     "现状SKU",
+     "现状占比%",
+     "新SKU",
+     "目标占比%",
+     "SKU变化",
+     "占比变化pp",
+     "其中新建"
+    ],
+    [
+     "季节章节",
+     "常驻核心",
+     "当季轮换",
+     "当季在售合计",
+     "其中新建",
+     "当季主打"
+    ],
+    [
+     "季节",
+     "现状季节SKU",
+     "客流指数",
+     "现状河鲜占单点收入",
+     "新方案季节SKU",
+     "新方案河鲜占比目标",
+     "诊断"
+    ],
+    [
+     "季节",
+     "槽位",
+     "SKU",
+     "定价",
+     "价格带",
+     "角色",
+     "类型",
+     "当季理由"
+    ],
+    [
+     "季节",
+     "SKU",
+     "建议定价",
+     "价格带",
+     "角色",
+     "档口",
+     "理由",
+     "开发优先级"
+    ],
+    [
+     "季节",
+     "在售期",
+     "供应链确认",
+     "试菜定版",
+     "门店培训",
+     "预告上线",
+     "正式首发",
+     "退市"
+    ],
+    [
+     "水域",
+     "身份",
+     "水质/生态依据",
+     "对应食材",
+     "地标资质",
+     "当令季",
+     "对应 SKU",
+     "阶段"
+    ],
+    [
+     "水系",
+     "特征",
+     "对应食材",
+     "地标资质",
+     "当令季",
+     "对应 SKU",
+     "合规提示"
+    ],
+    [
+     "食材",
+     "水域/产地",
+     "地标",
+     "当令季",
+     "主辅佐引二级角色",
+     "菜单族",
+     "对应 SKU",
+     "价格带"
+    ],
+    [
+     "季",
+     "时间",
+     "主唱水域",
+     "主中主",
+     "主中辅（升级）",
+     "主中引（引流）",
+     "主中佐（日常）",
+     "辅（藕系）"
+    ],
+    [
+     "条件",
+     "标准",
+     "验证方式",
+     "现有案例",
+     "不达标处理"
+    ],
+    [
+     "阶段",
+     "时间",
+     "范围",
+     "候选水域",
+     "可引入食材",
+     "引入价值",
+     "关键前置"
+    ]
+   ],
+   "d3_calls": [],
+   "interactions": {
+    "srcOpen": true,
+    "data-go": true,
+    "meta-on": true,
+    "playOn": true,
+    "showTip": false,
+    "IntersectionObserver": false
+   }
+  }
+ ]
+}

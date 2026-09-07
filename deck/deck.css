@@ -27,13 +27,10 @@ body { margin: 0; }
 
 /* grounds: pale by default, paper for content, charcoal for opener and closer */
 .slide.paper { background: var(--paper); }
-.slide.charcoal { background: var(--charcoal); color: var(--text-on-charcoal); }
-.slide.charcoal h1, .slide.charcoal h2, .slide.charcoal h3 { color: var(--text-on-charcoal); }
-.slide.charcoal .ts-caption { color: var(--gold-hi); }
+.slide.charcoal { background: var(--charcoal); color: var(--text-on-charcoal); }   /* pair with .ts-ground-charcoal for component inversion */
 .slide.charcoal .muted { color: var(--gold-hi); }
 .slide.charcoal .footer { border-top-color: var(--gold); }
 .slide.charcoal .footer, .slide.charcoal .footer .page { color: var(--gold-hi); }
-.slide.charcoal .ts-compass svg { color: var(--gold); opacity: 0.35; }
 
 /* footer: hairline, mark, page number */
 .footer {

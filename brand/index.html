@@ -34,6 +34,27 @@
 </style>
 </head>
 <body>
+<!-- icons:start -->
+<svg style="display:none" aria-hidden="true">
+<symbol id="ts-arrow-right" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></symbol>
+  <symbol id="ts-arrow-up-right" viewBox="0 0 24 24"><path d="M6 18L18 6M9 6h9v9"/></symbol>
+  <symbol id="ts-arrow-left" viewBox="0 0 24 24"><path d="M20 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="ts-arrow-down" viewBox="0 0 24 24"><path d="M12 4v15M6 13l6 6 6-6"/></symbol>
+  <symbol id="ts-chevron-down" viewBox="0 0 24 24"><path d="M5 9l7 7 7-7"/></symbol>
+  <symbol id="ts-check" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></symbol>
+  <symbol id="ts-cross" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="ts-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="ts-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 13v6H5V6h6"/></symbol>
+  <symbol id="ts-print" viewBox="0 0 24 24"><path d="M7 9V4h10v5M5 9h14v8h-3M8 14h8v6H8z"/></symbol>
+  <symbol id="ts-chart" viewBox="0 0 24 24"><path d="M4 20h16M6 16l4-5 4 3 5-7"/></symbol>
+  <symbol id="ts-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="1"/><path d="M12 3.5v4M12 16.5v4M3.5 12h4M16.5 12h4"/></symbol>
+  <symbol id="ts-route" viewBox="0 0 24 24"><circle cx="5" cy="18" r="2"/><circle cx="19" cy="6" r="2"/><path d="M7 18h6a4 4 0 0 0 0-8H11a4 4 0 0 1 0-8"/></symbol>
+  <symbol id="ts-correction" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="ts-store" viewBox="0 0 24 24"><path d="M4 10l1.5-5h13L20 10M5 10v10h14V10M10 20v-6h4v6"/></symbol>
+  <symbol id="ts-data" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="2.5"/><path d="M5 6v12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V6M5 12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/></symbol>
+  <symbol id="ts-seal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5"/></symbol>
+</svg>
+<!-- icons:end -->
 
 <header class="ts-header">
   <div class="ts-container" style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-3) var(--space-6);min-height:64px;flex-wrap:wrap;padding-block:var(--space-2)">
@@ -42,7 +63,7 @@
       <span class="ts-wordmark"><b>侍天</b><span class="ts-caption" style="letter-spacing:var(--tracking-caps-tight)">Tiansight</span></span>
     </a>
     <nav class="ts-nav" aria-label="章节">
-      <a href="#rules">总则</a><a href="#color">色彩</a><a href="#type">字体</a><a href="#mark">标志</a><a href="#components">组件</a><a href="#charts">图表</a><a href="#layout">版式</a><a href="#voice">话术</a><a href="#open">待定</a>
+      <a href="#rules">总则</a><a href="#color">色彩</a><a href="#type">字体</a><a href="#mark">标志</a><a href="#components">组件</a><a href="#charts">图表</a><a href="#icons">图标</a><a href="#layout">版式</a><a href="#voice">话术</a><a href="#open">待定</a>
     </nav>
   </div>
 </header>
@@ -278,7 +299,7 @@
         <div class="spec-row" style="margin-top:var(--space-4)">
           <button class="ts-button">申请经营体检</button>
           <button class="ts-button ts-button-secondary">查看报告样张</button>
-          <button class="ts-button ts-button-quiet">了解四件套 →</button>
+          <button class="ts-button ts-button-quiet">了解四件套 <svg class="ts-icon"><use href="#ts-arrow-right"/></svg></button>
           <button class="ts-button ts-button-charcoal">进入平台</button>
           <button class="ts-button" disabled>已提交</button>
         </div>
@@ -395,6 +416,45 @@
         <p class="spec-note" style="margin:var(--space-3) 0 0">数据为样例，仅示范格式。</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ── Icons and grounds ─────────────────────────────────── -->
+<section id="icons" class="ts-section">
+  <div class="ts-container ts-stack">
+    <div class="ts-heading">
+      <span class="ts-caption">06 · Icons and grounds</span>
+      <h2>图标与底色</h2>
+      <p class="ts-sub">图标只用圆与线，1.5 描边，随文字取色，见 <code>brand/icons.svg</code>。玄墨底只用于开篇、收尾或一张卡片，用一个作用域类整体反相。</p>
+    </div>
+    <div class="spec-two" style="margin-top:var(--space-7)">
+      <div class="ts-card">
+        <span class="ts-caption">Line icons · 17</span>
+        <div class="spec-row" style="margin-top:var(--space-4);gap:var(--space-5);font-size:1.5rem;color:var(--gold)">
+          <svg class="ts-icon"><use href="#ts-arrow-right"/></svg><svg class="ts-icon"><use href="#ts-arrow-up-right"/></svg><svg class="ts-icon"><use href="#ts-arrow-left"/></svg><svg class="ts-icon"><use href="#ts-arrow-down"/></svg><svg class="ts-icon"><use href="#ts-chevron-down"/></svg><svg class="ts-icon"><use href="#ts-check"/></svg><svg class="ts-icon" style="color:var(--seal)"><use href="#ts-cross"/></svg><svg class="ts-icon"><use href="#ts-menu"/></svg><svg class="ts-icon"><use href="#ts-external"/></svg><svg class="ts-icon"><use href="#ts-print"/></svg><svg class="ts-icon"><use href="#ts-chart"/></svg><svg class="ts-icon"><use href="#ts-compass"/></svg><svg class="ts-icon"><use href="#ts-route"/></svg><svg class="ts-icon"><use href="#ts-correction"/></svg><svg class="ts-icon"><use href="#ts-store"/></svg><svg class="ts-icon"><use href="#ts-data"/></svg><svg class="ts-icon"><use href="#ts-seal"/></svg>
+        </div>
+        <div class="spec-row" style="margin-top:var(--space-5)">
+          <button class="ts-button">申请经营体检 <svg class="ts-icon"><use href="#ts-arrow-right"/></svg></button>
+          <button class="ts-button ts-button-quiet">了解四件套 <svg class="ts-icon"><use href="#ts-arrow-right"/></svg></button>
+          <span><svg class="ts-icon ts-icon-sm" style="color:var(--gold-hi)"><use href="#ts-check"/></svg> 有据可依</span>
+          <span><svg class="ts-icon ts-icon-sm" style="color:var(--seal)"><use href="#ts-cross"/></svg> 包治百病</span>
+        </div>
+        <pre class="ts-mono" style="margin:var(--space-4) 0 0;font-size:12px;white-space:pre-wrap">&lt;svg class="ts-icon"&gt;&lt;use href="#ts-arrow-right"/&gt;&lt;/svg&gt;
+页面顶部内联一次 icons.svg（python3 scripts/sync_icons.py 维护），或在 http 下引用 brand/icons.svg#ts-…</pre>
+      </div>
+      <div class="ts-card ts-ground-charcoal" data-index="柒" style="border-color:var(--gold)">
+        <span class="ts-caption">.ts-ground-charcoal</span>
+        <h3 class="ts-card-title">玄墨底作用域</h3>
+        <p>标题转淡墨纸色，题注与关键数字转明金，线条转土金，按钮与徽章回到素墨色块。</p>
+        <div class="spec-row" style="margin-top:var(--space-3)">
+          <button class="ts-button">主操作</button><button class="ts-button ts-button-secondary">次操作</button>
+          <span class="ts-badge">¥8,888</span><span class="ts-badge ts-badge-outline">现役 10 / 28</span>
+        </div>
+        <ul class="ts-check-list" style="margin-top:var(--space-4)"><li>标志置于素墨小块之上，不改色</li><li data-no>不在玄墨底上使用 multiply 肖像</li></ul>
+        <div class="ts-stat" style="margin-top:var(--space-4)"><span class="ts-caption">Key number</span><span class="ts-value">18<small>桌 / 日</small></span></div>
+      </div>
+    </div>
+    <p class="spec-note" style="margin-top:var(--space-5)">字体：<code>brand/fonts.css</code> 声明思源宋体、Noto Serif 与 IBM Plex Mono 的 @font-face，先取本机字体，再取 <code>brand/fonts/</code> 下的 woff2；文件缺失时按令牌回退链退到本机宋体。</p>
   </div>
 </section>
 

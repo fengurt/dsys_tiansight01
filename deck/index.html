@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>侍天 TIANSIGHT · 销售提案</title>
+<link rel="stylesheet" href="../brand/fonts.css">
 <link rel="stylesheet" href="../brand/tokens.css">
 <link rel="stylesheet" href="../brand/base.css">
 <link rel="stylesheet" href="../brand/components.css">
@@ -11,11 +12,32 @@
 <link rel="stylesheet" href="deck.css">
 </head>
 <body>
+<!-- icons:start -->
+<svg style="display:none" aria-hidden="true">
+<symbol id="ts-arrow-right" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></symbol>
+  <symbol id="ts-arrow-up-right" viewBox="0 0 24 24"><path d="M6 18L18 6M9 6h9v9"/></symbol>
+  <symbol id="ts-arrow-left" viewBox="0 0 24 24"><path d="M20 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="ts-arrow-down" viewBox="0 0 24 24"><path d="M12 4v15M6 13l6 6 6-6"/></symbol>
+  <symbol id="ts-chevron-down" viewBox="0 0 24 24"><path d="M5 9l7 7 7-7"/></symbol>
+  <symbol id="ts-check" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></symbol>
+  <symbol id="ts-cross" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="ts-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="ts-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 13v6H5V6h6"/></symbol>
+  <symbol id="ts-print" viewBox="0 0 24 24"><path d="M7 9V4h10v5M5 9h14v8h-3M8 14h8v6H8z"/></symbol>
+  <symbol id="ts-chart" viewBox="0 0 24 24"><path d="M4 20h16M6 16l4-5 4 3 5-7"/></symbol>
+  <symbol id="ts-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="1"/><path d="M12 3.5v4M12 16.5v4M3.5 12h4M16.5 12h4"/></symbol>
+  <symbol id="ts-route" viewBox="0 0 24 24"><circle cx="5" cy="18" r="2"/><circle cx="19" cy="6" r="2"/><path d="M7 18h6a4 4 0 0 0 0-8H11a4 4 0 0 1 0-8"/></symbol>
+  <symbol id="ts-correction" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="ts-store" viewBox="0 0 24 24"><path d="M4 10l1.5-5h13L20 10M5 10v10h14V10M10 20v-6h4v6"/></symbol>
+  <symbol id="ts-data" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="2.5"/><path d="M5 6v12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V6M5 12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/></symbol>
+  <symbol id="ts-seal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5"/></symbol>
+</svg>
+<!-- icons:end -->
 <div class="deck-stage">
 <div class="deck-canvas">
 
 <!-- 01 封面 -->
-<section class="slide charcoal" data-label="封面">
+<section class="slide charcoal ts-ground-charcoal" data-label="封面">
   <div class="ts-compass" aria-hidden="true" style="--compass-size:900px;left:420px">
     <svg viewBox="0 0 600 600" fill="none" stroke="currentColor" stroke-width="1"><circle cx="300" cy="300" r="290"/><circle cx="300" cy="300" r="230"/><circle cx="300" cy="300" r="150"/><circle cx="300" cy="300" r="6"/><path d="M300 0v600M0 300h600"/></svg>
   </div>
@@ -296,7 +318,7 @@
 </section>
 
 <!-- 13 联系 -->
-<section class="slide charcoal" data-label="联系">
+<section class="slide charcoal ts-ground-charcoal" data-label="联系">
   <div class="body two" style="grid-template-columns:minmax(0,1fr) auto;gap:80px">
     <div>
       <span class="ts-caption">携手侍天 · Contact</span>
@@ -316,9 +338,9 @@
 </div>
 </div>
 <div class="deck-hud" role="toolbar" aria-label="幻灯片控制">
-  <button class="prev" type="button" aria-label="上一页">←</button>
+  <button class="prev" type="button" aria-label="上一页"><svg class="ts-icon ts-icon-sm"><use href="#ts-arrow-left"/></svg></button>
   <span class="count">01 / 13</span>
-  <button class="next" type="button" aria-label="下一页">→</button>
+  <button class="next" type="button" aria-label="下一页"><svg class="ts-icon ts-icon-sm"><use href="#ts-arrow-right"/></svg></button>
   <span class="hint">← → 翻页 · F 全屏 · 打印即 PDF</span>
   <button class="full" type="button">全屏</button>
 </div>

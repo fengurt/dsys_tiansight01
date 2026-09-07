@@ -3,6 +3,7 @@ from pathlib import Path
 import hashlib
 import json
 import re
+import subprocess
 import sys
 
 root = Path(__file__).resolve().parents[1]
@@ -14,6 +15,7 @@ base = (brand / 'base.css').read_text()
 components = (brand / 'components.css').read_text()
 specimen = (brand / 'index.html').read_text()
 problems = []
+notes = []
 
 
 def token_value(name):
@@ -45,6 +47,15 @@ if hashlib.sha256((brand / 'logo.png').read_bytes()).hexdigest() != source['logo
     problems.append('logo.png hash mismatch')
 if 'Serif everywhere' not in guide:
     problems.append('guide.md missing "Serif everywhere"')
+
+# 3b. fonts.css declares only the three families and reports files not yet supplied
+fonts_css = (brand / 'fonts.css').read_text()
+for family in set(re.findall(r'font-family:\s*"([^"]+)"', fonts_css)):
+    if family not in ('Noto Serif SC', 'Noto Serif', 'IBM Plex Mono'):
+        problems.append(f'fonts.css: unexpected family {family}')
+missing_fonts = [f for f in re.findall(r'url\("fonts/([^"]+)"\)', fonts_css) if not (brand / 'fonts' / f).is_file()]
+if missing_fonts:
+    notes.append('webfonts not yet supplied: ' + ', '.join(missing_fonts))
 
 # 4. Foundation policy: serif fallbacks only, no banned families, no raw colour outside tokens.css
 for name, css in (('tokens.css', tokens), ('base.css', base), ('components.css', components)):
@@ -128,6 +139,31 @@ for path, out in build_people.render_all().items():
     if not path.exists() or path.read_text() != out:
         problems.append(f'{path.relative_to(root)} is stale: run python3 scripts/build_people.py')
 
+# 8b. HTML report system: sample deck fresh and passing its gate; report.css follows the policy
+rep_css = (root / 'html-system' / 'report.css').read_text()
+if re.search(r'#[0-9A-Fa-f]{3,8}\b', rep_css):
+    problems.append('html-system/report.css: raw hex colour')
+if re.search(r'\b(Inter|Roboto|Arial|Helvetica)\b', rep_css) or 'sans-serif' in rep_css:
+    problems.append('html-system/report.css: banned font family')
+gate = subprocess.run([sys.executable, str(root / 'html-system' / 'check_report.py'), str(root / 'html-system' / 'sample')], capture_output=True, text=True)
+if gate.returncode != 0:
+    problems.append('html-system/sample: ' + gate.stdout.strip().replace('\n', ' '))
+for rel in ('html-system/sample/index.html',):
+    text = (root / rel).read_text()
+    for url in re.findall(r'(?:src|href)="(https?://[^"]+)"', text):
+        problems.append(f'{rel}: loads remote resource {url}')
+
+# 8c. Inline icon sprites match brand/icons.svg
+sync = subprocess.run([sys.executable, str(root / 'scripts' / 'sync_icons.py'), '--check'], capture_output=True, text=True)
+if sync.returncode != 0:
+    problems.append(sync.stdout.strip())
+for rel in ('brand/index.html', 'website/index.html', 'website/team.html', 'deck/index.html', 'index.html'):
+    text = (root / rel).read_text()
+    ids = set(re.findall(r'<symbol id="([^"]+)"', text))
+    for used in set(re.findall(r'<use href="#([^"]+)"', text)):
+        if used not in ids:
+            problems.append(f'{rel}: icon #{used} not in inline sprite')
+
 # 9. Supplied export is intact
 export = root / 'TIANSIGHT 侍天 Design System'
 manifest = json.loads((export / '_ds_manifest.json').read_text())
@@ -144,6 +180,8 @@ if problems:
         print(' -', problem)
     sys.exit(1)
 if missing_photos:
-    print('note: portraits not yet supplied: ' + ', '.join(sorted(missing_photos)))
+    notes.append('portraits not yet supplied: ' + ', '.join(sorted(missing_photos)))
+for note in notes:
+    print('note:', note)
 print(f"PASS: official palette, {len(guide_rows)} guide tokens, logo hash, foundation policy, "
       f"offline specimen, deck, website, report and people, {len(manifest['components'])} component exports and {len(manifest['cards'])} cards")
