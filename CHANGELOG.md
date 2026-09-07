@@ -2,6 +2,15 @@
 
 Versions follow the published brand guide. The system version is in `brand/VERSION`.
 
+## v0.6 · 2026-09-07 · Co-founder profiles
+
+- `people/profiles.json`: a classified履历 library for 边江 and 郭峰, transcribed from the A4 profiles they supplied. Ten categories, four evidence grades, every number bound to a source.
+- `scripts/build_profiles.py`: builds a seven-page 完整版 and a one-page 一页版 per person plus the library index, and refuses to build on an undeclared source, an unknown category, a case naming a capability the profile does not have, or more than three auxiliary titles.
+- Fixed main title 侍天联合创始人; auxiliary titles switch on the `show` flag, with a screen-only preview on the full page.
+- Case pages carry a before-and-after strip drawn from the stated facts, and each names the capabilities it exercised.
+- New `.ts-scroll-x` utility so a wide table scrolls in its own box instead of widening the page.
+- The avoided-lexicon check now covers `people/` as well as `website/`; the block that documents a substitution is exempt.
+
 ## v0.6 · 2026-09-07 · Contrast audit
 
 - `scripts/check_contrast.py`: computes all thirty colour pairings the system uses against WCAG 2.1, compositing translucent tokens over their ground, and verifies the ratios printed in the specimen. Wired into the gate.

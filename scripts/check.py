@@ -128,10 +128,12 @@ for consumer in ('deck', 'website', 'report', 'people'):
     local = set(re.findall(r'--([a-z0-9-]+):', css + html))
     for missing in sorted(used - declared - local - {'h'}):
         problems.append(f'{consumer}: undeclared token --{missing}')
-    if consumer == 'website':
+    if consumer in ('website', 'people'):
+        # A block marked data-lexicon-note documents the substitutions, so it quotes the avoided words.
+        prose = re.sub(r'<div class="block" data-lexicon-note>.*?</div>\s*</div>', '', html, flags=re.S)
         for word in ('赋能', '抓手', '闭环', '包治百病', '颠覆', '爆款', '裂变', '解决方案', '打法'):
-            if word in html:
-                problems.append(f'website: avoided lexicon "{word}"')
+            if word in prose:
+                problems.append(f'{consumer}: avoided lexicon "{word}"')
 
 # 8. Generated outputs must match their builders
 sys.path.insert(0, str(root / 'scripts'))
@@ -172,7 +174,8 @@ for rel in ('brand/index.html', 'website/index.html', 'website/team.html', 'deck
 for label, cmd in (('tokens.json', [sys.executable, str(root / 'scripts' / 'export_tokens.py'), '--check']),
                    ('lint', [sys.executable, str(root / 'scripts' / 'lint_html.py')]),
                    ('dist', [sys.executable, str(root / 'scripts' / 'build_dist.py'), '--check']),
-                   ('contrast', [sys.executable, str(root / 'scripts' / 'check_contrast.py'), '--quiet'])):
+                   ('contrast', [sys.executable, str(root / 'scripts' / 'check_contrast.py'), '--quiet']),
+                   ('profiles', [sys.executable, str(root / 'scripts' / 'build_profiles.py'), '--check'])):
     run = subprocess.run(cmd, capture_output=True, text=True)
     if run.returncode != 0:
         problems.append(f'{label}: ' + run.stdout.strip().replace('\n', ' '))
@@ -213,5 +216,5 @@ if missing_photos:
     notes.append('portraits not yet supplied: ' + ', '.join(sorted(missing_photos)))
 for note in notes:
     print('note:', note)
-print(f"PASS: official palette, {len(guide_rows)} guide tokens, logo hash, foundation policy, tokens.json, dist bundle, a11y lint, contrast, "
+print(f"PASS: official palette, {len(guide_rows)} guide tokens, logo hash, foundation policy, tokens.json, dist bundle, a11y lint, contrast, profiles, "
       f"offline specimen, deck, website, report and people, {len(manifest['components'])} component exports and {len(manifest['cards'])} cards")

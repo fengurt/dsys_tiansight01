@@ -1,7 +1,7 @@
 {
  "index.html@desktop": {
   "overflow": false,
-  "height": 1372,
+  "height": 1391,
   "headings": [
    1,
    7,
@@ -22,7 +22,7 @@
  },
  "index.html@mobile": {
   "overflow": false,
-  "height": 2875,
+  "height": 2933,
   "headings": [
    1,
    7,
@@ -181,7 +181,7 @@
   "images": 29,
   "h1": [
    88,
-   347,
+   346,
    1104,
    92
   ],
@@ -375,6 +375,132 @@
    79
   ],
   "title": "接入示例 · 侍天 TIANSIGHT",
+  "errors": []
+ },
+ "people/profiles.html@desktop": {
+  "overflow": false,
+  "height": 2167,
+  "headings": [
+   1,
+   2,
+   0
+  ],
+  "sections": 0,
+  "cards": 2,
+  "charts": 0,
+  "images": 0,
+  "h1": [
+   48,
+   122,
+   1184,
+   62
+  ],
+  "title": "联合创始人履历库 · 侍天 TIANSIGHT",
+  "errors": []
+ },
+ "people/profiles.html@mobile": {
+  "overflow": false,
+  "height": 3385,
+  "headings": [
+   1,
+   2,
+   0
+  ],
+  "sections": 0,
+  "cards": 2,
+  "charts": 0,
+  "images": 0,
+  "h1": [
+   24,
+   108,
+   342,
+   40
+  ],
+  "title": "联合创始人履历库 · 侍天 TIANSIGHT",
+  "errors": []
+ },
+ "people/profile-bian-jiang.html@desktop": {
+  "overflow": false,
+  "height": 8282,
+  "headings": [
+   1,
+   6,
+   22
+  ],
+  "sections": 7,
+  "cards": 0,
+  "charts": 2,
+  "images": 0,
+  "h1": [
+   301,
+   665,
+   444,
+   62
+  ],
+  "title": "边江 BIAN JIANG · 侍天联合创始人 · 完整版 · 侍天 TIANSIGHT",
+  "errors": []
+ },
+ "people/profile-bian-jiang-1p.html@desktop": {
+  "overflow": false,
+  "height": 1299,
+  "headings": [
+   1,
+   3,
+   0
+  ],
+  "sections": 1,
+  "cards": 0,
+  "charts": 2,
+  "images": 0,
+  "h1": [
+   452,
+   313,
+   338,
+   38
+  ],
+  "title": "边江 BIAN JIANG · 侍天联合创始人 · 一页版 · 侍天 TIANSIGHT",
+  "errors": []
+ },
+ "people/profile-guo-feng.html@desktop": {
+  "overflow": false,
+  "height": 8282,
+  "headings": [
+   1,
+   6,
+   22
+  ],
+  "sections": 7,
+  "cards": 0,
+  "charts": 2,
+  "images": 0,
+  "h1": [
+   301,
+   665,
+   444,
+   62
+  ],
+  "title": "郭峰 GUO FENG · 侍天联合创始人 · 完整版 · 侍天 TIANSIGHT",
+  "errors": []
+ },
+ "people/profile-guo-feng-1p.html@desktop": {
+  "overflow": false,
+  "height": 1299,
+  "headings": [
+   1,
+   3,
+   0
+  ],
+  "sections": 1,
+  "cards": 0,
+  "charts": 2,
+  "images": 0,
+  "h1": [
+   452,
+   298,
+   338,
+   38
+  ],
+  "title": "郭峰 GUO FENG · 侍天联合创始人 · 一页版 · 侍天 TIANSIGHT",
   "errors": []
  }
 }

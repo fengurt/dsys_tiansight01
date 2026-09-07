@@ -96,6 +96,20 @@ python3 html-system/check_report.py html-system/sample --layout
 
 `skills/` holds six skills for agents: `ts-html-report` (workflow), `ts-dataviz-modules`, `ts-data-provenance`, `ts-data-quality`, `ts-report-versioning`, `ts-webapp-interactive`. Start at `skills/README.md`.
 
+## Co-founder profiles (`people/profiles.json`)
+
+Two versions per person, both generated from one data file by `python3 scripts/build_profiles.py`:
+
+| Output | What it is |
+|---|---|
+| `people/profile-<id>.html` | 完整版 — seven A4 pages: cover, 个人简介, 服务覆盖与核心能力, three 选摘案例, 数据出处与口径. Print to PDF as-is. |
+| `people/profile-<id>-1p.html` | 一页版 — one A4 page carrying the same claims in condensed form. |
+| `people/profiles.html` | The library: both people, the category vocabulary, the evidence grades and the open items. |
+
+Every entry is classified by the vocabulary in `profiles.json` (`role` 任职经历, `education` 教育与认证, `training` 培训经历, `case` 咨询案例, `brand` 服务品牌, `service` 服务覆盖, `capability` 核心能力, `method` 原创方法论, `principle` 全案原则, `research` 学术研究, `figure` 关键数字), and every number carries a source id and an evidence grade, the same E1–E4 scale the report system uses. The build refuses to run when a number has no declared source, when a category is not in the vocabulary, or when a profile shows more than three auxiliary titles.
+
+The main title is fixed at 侍天联合创始人. Auxiliary titles live in `titles_aux` with a `show` flag each: flip the flag and rebuild. The full page also carries a screen-only preview so combinations can be tried before the data is edited; at most three ever render.
+
 ## Decisions taken in the foundation
 
 - **Primary button** is the ink field (`#EFE6D2`) with charcoal text and a gold hairline border, because ink against the canvas is only 1.09:1 and needs an edge. Press moves it down 1px, like a stamp.
