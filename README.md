@@ -10,7 +10,17 @@ python3 scripts/check.py --render   # plus layout regression in headless Chromiu
 python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
-Docs: [principles](docs/principles.md) · [quickstart](docs/quickstart.md) · [contributing](docs/contributing.md) · [changelog](CHANGELOG.md). System version: `brand/VERSION`.
+Docs: [principles](docs/principles.md) · [quickstart](docs/quickstart.md) · [contributing](docs/contributing.md) · [changelog](CHANGELOG.md) · [distribution](dist/README.md). System version: `brand/VERSION`.
+
+## Sharing the system with other sites
+
+`dist/tiansight.css` is the whole foundation in one file. Another team adds one line and gets the fonts, tokens, element defaults and every component:
+
+```html
+<link rel="stylesheet" href="https://fengurt.github.io/dsys_tiansight01/dist/tiansight.css">
+```
+
+That URL is the **latest channel**: every push updates every site linking it. `dist/tiansight-v0.6.css` is the same content pinned to a version for sites that want to move deliberately. `dist/tokens.json` carries the tokens as data, `dist/icons.svg` the sprite, and `dist/example.html` is a working page to copy. Serving needs GitHub Pages switched on (settings → Pages → deploy from `main`, root); see [dist/README.md](dist/README.md). Rebuild with `python3 scripts/build_dist.py`.
 
 | Surface | URL | Notes |
 |---|---|---|

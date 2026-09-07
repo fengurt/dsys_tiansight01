@@ -8,7 +8,7 @@
 | `brand/tokens.css` | Every colour, type, space, layout, motion token | Yes, then run `scripts/export_tokens.py` |
 | `brand/base.css`, `brand/components.css` | Element defaults and `.ts-` components | Yes |
 | `brand/index.html` | Specimen: every rule rendered | Yes, keep it in step with the CSS |
-| `brand/tokens.json`, `brand/icons.svg` sprites in pages, `report/index.html`, `people/*.html`, `html-system/sample/index.html` | Generated | No, run the builder |
+| `brand/tokens.json`, `dist/`, `brand/icons.svg` sprites in pages, `report/index.html`, `people/*.html`, `html-system/sample/index.html` | Generated | No, run the builder |
 | `deck/`, `website/`, `report/`, `people/`, `html-system/` | Consumers | Yes |
 | `TIANSIGHT 侍天 Design System/` | Supplied export, preserved | No |
 
@@ -21,7 +21,7 @@
 - Emoji, or a remote script, stylesheet, font or image.
 - Guide lexicon on the website.
 - A generated file that differs from its builder's output.
-- `brand/tokens.json` out of step with `tokens.css`; `brand/VERSION` out of step with the guide.
+- `brand/tokens.json` or `dist/` out of step with the sources; `brand/VERSION` out of step with the guide.
 - Any page failing `scripts/lint_html.py`: missing `lang`, `title`, `<main>`, exactly one `h1`, skipped heading levels, an image without `alt`, a control without a label, a button or link without a name, duplicate ids, broken anchors or file targets.
 - A sample report failing `html-system/check_report.py`: a number without a source, a grade higher than its source allows, a headline without its number.
 
@@ -33,7 +33,7 @@
 2. Add it to the specimen (`brand/index.html`) with a short code snippet, and to section 05b if it has states worth showing.
 3. If it needs a charcoal variant, add the override under `.ts-ground-charcoal`.
 4. Run `python3 scripts/check.py --render`, then `node scripts/snapshot.mjs --update` if the specimen height changed, and commit the baseline.
-5. Add a line to `CHANGELOG.md`.
+5. Run `python3 scripts/build_dist.py` so external sites get the component, and add a line to `CHANGELOG.md`. Sites on the latest channel receive it on the next push, so renaming or removing an existing class is a breaking change: keep the old selector working, or bump `brand/VERSION` and say so in the changelog.
 
 ## Adding a chart family
 

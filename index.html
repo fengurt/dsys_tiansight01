@@ -57,7 +57,7 @@
       <span class="ts-caption">Foundation</span>
       <h2 class="ts-card-title">品牌基础</h2>
       <p>色彩、字体、标志、组件、图表、版式、话术与待定事项的离线样本。</p>
-      <div class="links"><a href="brand/index.html"><svg class="ts-icon ts-icon-sm"><use href="#ts-arrow-right"/></svg> 样本页</a><a href="brand/guide.md">指南 v0.6</a></div>
+      <div class="links"><a href="brand/index.html"><svg class="ts-icon ts-icon-sm"><use href="#ts-arrow-right"/></svg> 样本页</a><a href="brand/guide.md">指南 v0.6</a><a href="dist/example.html">对外分发</a></div>
     </article>
     <article class="ts-card" data-index="贰">
       <span class="ts-caption">Website</span>
@@ -106,6 +106,7 @@ node scripts/export_people.mjs      # social PNGs and name card PDF
 python3 html-system/build_deck.py html-system/sample   # manifest → report
 python3 html-system/check_report.py html-system/sample --layout
 python3 scripts/export_tokens.py    # brand/tokens.json (DTCG) from tokens.css
+python3 scripts/build_dist.py       # dist/tiansight.css bundle for other sites
 python3 scripts/lint_html.py        # accessibility and structure lint on every page
 node scripts/snapshot.mjs --update  # refresh layout baseline after an intended change
 python3 scripts/check.py --render   # guide conformance, build freshness, lint, layout regression</pre>
