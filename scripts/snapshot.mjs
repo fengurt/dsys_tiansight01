@@ -32,6 +32,7 @@ const PAGES = [
   { file: 'people/namecards.html', vps: ['desktop'] },
   { file: 'people/social.html', vps: ['desktop'] },
   { file: 'html-system/sample/index.html', vps: ['desktop', 'mobile'] },
+  { file: 'dist/example.html', vps: ['desktop', 'mobile'] },
 ];
 const args = process.argv.slice(2);
 const update = args.includes('--update');

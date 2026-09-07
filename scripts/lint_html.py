@@ -16,7 +16,7 @@ import sys
 
 root = Path(__file__).resolve().parents[1]
 PAGES = ['index.html', 'brand/index.html', 'website/index.html', 'website/team.html', 'deck/index.html', 'report/index.html',
-         'people/blocks.html', 'people/namecards.html', 'people/social.html', 'html-system/sample/index.html']
+         'people/blocks.html', 'people/namecards.html', 'people/social.html', 'html-system/sample/index.html', 'dist/example.html']
 GENERIC = {'点击这里', 'click here', 'here', 'more', '更多', 'link'}
 
 

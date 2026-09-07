@@ -39,6 +39,14 @@ Then open <http://127.0.0.1:8000/> for the hub. Every page also opens directly f
 
 Run `python3 scripts/sync_icons.py` to fill the icon markers, then use icons as `<svg class="ts-icon"><use href="#ts-arrow-right"/></svg>`.
 
+## Consume the system from another site
+
+```html
+<link rel="stylesheet" href="https://fengurt.github.io/dsys_tiansight01/dist/tiansight.css">
+```
+
+One file carries the font faces, tokens, element defaults and every component. Link `tiansight.css` to follow every push, or `tiansight-v0.6.css` to pin. `dist/example.html` is a working page to copy. Details and the jsDelivr alternative are in [dist/README.md](../dist/README.md).
+
 ## Use the tokens elsewhere
 
 `brand/tokens.json` is the same token set in Design Tokens Community Group format, with the mobile overrides under `$extensions.tiansight.modes`. It is generated; edit `brand/tokens.css` and run `python3 scripts/export_tokens.py`.

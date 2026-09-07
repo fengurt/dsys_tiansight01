@@ -2,6 +2,11 @@
 
 Versions follow the published brand guide. The system version is in `brand/VERSION`.
 
+## v0.6 · 2026-09-07 · Distribution
+
+- `dist/`: one-file bundle `tiansight.css` (latest channel) and `tiansight-v0.6.css` (pinned), plus `tokens.json`, `icons.svg` and a working `example.html`, built by `scripts/build_dist.py` and verified by the gate.
+- Long code lines wrap instead of overflowing on narrow screens (`pre { overflow-wrap: anywhere }`).
+
 ## v0.6 · 2026-09-07 · Solidity pass
 
 - Tokens exported to `brand/tokens.json` (Design Tokens Community Group format, mobile mode as an extension); `scripts/export_tokens.py --check` keeps it in step.

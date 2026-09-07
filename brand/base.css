@@ -63,7 +63,7 @@ code, kbd, samp, pre, .ts-mono, .ts-num {
   font-variant-numeric: tabular-nums;
   letter-spacing: 0;
 }
-pre { margin: 0 0 var(--space-4); white-space: pre-wrap; }
+pre { margin: 0 0 var(--space-4); white-space: pre-wrap; overflow-wrap: anywhere; }
 
 img, svg { max-width: 100%; height: auto; display: block; }
 figure { margin: 0; }
