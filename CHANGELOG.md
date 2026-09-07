@@ -2,6 +2,13 @@
 
 Versions follow the published brand guide. The system version is in `brand/VERSION`.
 
+## v0.6 · 2026-09-07 · Contrast audit
+
+- `scripts/check_contrast.py`: computes all thirty colour pairings the system uses against WCAG 2.1, compositing translucent tokens over their ground, and verifies the ratios printed in the specimen. Wired into the gate.
+- Fixed by the audit: the focus ring is now solid gold (2.2:1 → 6.0:1), control borders use the new `--control-border` token (2.2:1 → 3.4:1), the chart benchmark line reaches 3.3:1, and the chart axis line uses the axis colour.
+- Two pairings the published guide mandates are recorded as waivers with what carries the meaning instead: bright gold as key numbers and as the first data series on light grounds. Open question 2 asks the brand owner to settle the first.
+- `scripts/export_tokens.py` now fails on a token that matches no group instead of filing it under "other".
+
 ## v0.6 · 2026-09-07 · Distribution
 
 - `dist/`: one-file bundle `tiansight.css` (latest channel) and `tiansight-v0.6.css` (pinned), plus `tokens.json`, `icons.svg` and a working `example.html`, built by `scripts/build_dist.py` and verified by the gate.

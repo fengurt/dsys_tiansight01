@@ -171,7 +171,8 @@ for rel in ('brand/index.html', 'website/index.html', 'website/team.html', 'deck
 # 8d. Token export and accessibility lint are in step with the sources
 for label, cmd in (('tokens.json', [sys.executable, str(root / 'scripts' / 'export_tokens.py'), '--check']),
                    ('lint', [sys.executable, str(root / 'scripts' / 'lint_html.py')]),
-                   ('dist', [sys.executable, str(root / 'scripts' / 'build_dist.py'), '--check'])):
+                   ('dist', [sys.executable, str(root / 'scripts' / 'build_dist.py'), '--check']),
+                   ('contrast', [sys.executable, str(root / 'scripts' / 'check_contrast.py'), '--quiet'])):
     run = subprocess.run(cmd, capture_output=True, text=True)
     if run.returncode != 0:
         problems.append(f'{label}: ' + run.stdout.strip().replace('\n', ' '))
@@ -212,5 +213,5 @@ if missing_photos:
     notes.append('portraits not yet supplied: ' + ', '.join(sorted(missing_photos)))
 for note in notes:
     print('note:', note)
-print(f"PASS: official palette, {len(guide_rows)} guide tokens, logo hash, foundation policy, tokens.json, dist bundle, a11y lint, "
+print(f"PASS: official palette, {len(guide_rows)} guide tokens, logo hash, foundation policy, tokens.json, dist bundle, a11y lint, contrast, "
       f"offline specimen, deck, website, report and people, {len(manifest['components'])} component exports and {len(manifest['cards'])} cards")

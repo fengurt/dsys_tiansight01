@@ -196,9 +196,20 @@
             <tr><td>hairline <code>--line</code></td><td class="ts-mono">rgba(23,19,13,.18)</td></tr>
             <tr><td>hairline-strong <code>--line-strong</code></td><td class="ts-mono">rgba(23,19,13,.34)</td></tr>
             <tr><td>card border <code>--card-border</code></td><td class="ts-mono">rgba(118,85,31,.34)</td></tr>
+            <tr><td>control border <code>--control-border</code></td><td class="ts-mono">rgba(23,19,13,.50) · 3.4 : 1</td></tr>
+            <tr><td>focus ring <code>--focus</code></td><td class="ts-mono">土金实色 · 6.0 : 1</td></tr>
             <tr><td>watermark <code>--watermark</code></td><td class="ts-mono">rgba(118,85,31,.10)</td></tr>
           </tbody>
         </table>
+      </div>
+    </div>
+
+    <div class="ts-card" style="margin-top:var(--space-6)">
+      <span class="ts-caption">Contrast audit · 对比度审计</span>
+      <p style="margin-top:var(--space-3)">三十组实际配色由 <code>python3 scripts/check_contrast.py</code> 逐一计算并纳入校验：正文 4.5:1，大字与控件边界 3:1，纯装饰不设下限。半透明令牌先与所在底色合成再计算。</p>
+      <div class="ts-stack" style="margin-top:var(--space-4);--stack-gap:var(--space-3)">
+        <div class="ts-notice"><svg class="ts-icon ts-icon-sm"><use href="#ts-check"/></svg><div><b>本仓库已修正</b>焦点环改为土金实色（6.0:1），控件边界改用 <code>--control-border</code>（3.4:1），基准线提高到 3.3:1。</div></div>
+        <div class="ts-notice ts-notice-warn"><svg class="ts-icon ts-icon-sm"><use href="#ts-cross"/></svg><div><b>指南规定，列为豁免</b>明金在浅底上为 1.9:1：作关键数字（指南 §1）与第一数据系列（指南 §5）时保留，但浅底上它从不单独承载信息——数字旁有玄墨题注与单位，条形上有玄墨数值标签。待办问题 2 请品牌方裁定。</div></div>
       </div>
     </div>
   </div>

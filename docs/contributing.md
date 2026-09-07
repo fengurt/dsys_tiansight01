@@ -23,13 +23,14 @@
 - A generated file that differs from its builder's output.
 - `brand/tokens.json` or `dist/` out of step with the sources; `brand/VERSION` out of step with the guide.
 - Any page failing `scripts/lint_html.py`: missing `lang`, `title`, `<main>`, exactly one `h1`, skipped heading levels, an image without `alt`, a control without a label, a button or link without a name, duplicate ids, broken anchors or file targets.
+- Any pairing in `scripts/check_contrast.py` below the ratio its level requires, or a waiver without a reason.
 - A sample report failing `html-system/check_report.py`: a number without a source, a grade higher than its source allows, a headline without its number.
 
 `python3 scripts/check.py --render` adds the layout snapshot comparison.
 
 ## Adding a component
 
-1. Write it in `brand/components.css` under a `/* ── Name ── */` header, using tokens only. Write the five states: rest, hover, focus-visible, pressed or selected, disabled.
+1. Write it in `brand/components.css` under a `/* ── Name ── */` header, using tokens only. Write the five states: rest, hover, focus-visible, pressed or selected, disabled. A border that is the only thing making a control visible uses `--control-border`, not `--line-strong`; add the pairing to `scripts/check_contrast.py` if it is new.
 2. Add it to the specimen (`brand/index.html`) with a short code snippet, and to section 05b if it has states worth showing.
 3. If it needs a charcoal variant, add the override under `.ts-ground-charcoal`.
 4. Run `python3 scripts/check.py --render`, then `node scripts/snapshot.mjs --update` if the specimen height changed, and commit the baseline.

@@ -1,7 +1,7 @@
 {
  "index.html@desktop": {
   "overflow": false,
-  "height": 1352,
+  "height": 1372,
   "headings": [
    1,
    7,
@@ -22,7 +22,7 @@
  },
  "index.html@mobile": {
   "overflow": false,
-  "height": 2816,
+  "height": 2875,
   "headings": [
    1,
    7,
@@ -43,19 +43,19 @@
  },
  "brand/index.html@desktop": {
   "overflow": false,
-  "height": 13835,
+  "height": 14357,
   "headings": [
    1,
    12,
    24
   ],
   "sections": 12,
-  "cards": 46,
+  "cards": 47,
   "charts": 4,
   "images": 7,
   "h1": [
    208,
-   3451,
+   3974,
    1024,
    62
   ],
@@ -64,19 +64,19 @@
  },
  "brand/index.html@mobile": {
   "overflow": false,
-  "height": 24152,
+  "height": 24963,
   "headings": [
    1,
    12,
    24
   ],
   "sections": 12,
-  "cards": 46,
+  "cards": 47,
   "charts": 4,
   "images": 7,
   "h1": [
    24,
-   5431,
+   6241,
    342,
    79
   ],

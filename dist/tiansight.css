@@ -58,12 +58,13 @@
 
   /* surfaces (derived, on pale manuscript) */
   --line: rgba(23, 19, 13, 0.18);          /* hairline */
-  --line-strong: rgba(23, 19, 13, 0.34);   /* hairline-strong */
+  --line-strong: rgba(23, 19, 13, 0.34);   /* hairline-strong — separators, never the only boundary of a control */
+  --control-border: rgba(23, 19, 13, 0.5); /* control boundary — 3.4:1 on both grounds, WCAG 1.4.11 */
   --card-border: rgba(118, 85, 31, 0.34);
   --rule: var(--gold);                     /* structural rule, 1px */
   --watermark: rgba(118, 85, 31, 0.10);    /* compass ring behind heroes */
   --scrim: rgba(23, 19, 13, 0.55);
-  --focus: rgba(118, 85, 31, 0.5);
+  --focus: var(--gold);                    /* focus ring — solid, 6.0:1 on the canvas */
 
   /* text roles */
   --text: var(--charcoal);
@@ -83,7 +84,7 @@
   --chart-3: var(--seal);
   --chart-axis: var(--ink-muted);
   --chart-grid: var(--line);
-  --chart-benchmark: rgba(112, 103, 88, 0.45);
+  --chart-benchmark: rgba(112, 103, 88, 0.75); /* reference line — 3.3:1, it carries meaning */
 
   /* ── 2. Typography / 字体 ─────────────────────────────────── */
   --font-cn: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", serif;
@@ -523,7 +524,7 @@ td.ts-num, th.ts-num { text-align: right; }
   font-size: var(--text-small);
   color: var(--charcoal);
   background: var(--paper);
-  border: 1px solid var(--line-strong);
+  border: 1px solid var(--control-border);
   border-radius: var(--radius);
   transition: border-color var(--dur-fast) var(--ease);
 }
@@ -614,7 +615,7 @@ td.ts-num, th.ts-num { text-align: right; }
 .ts-chart polyline, .ts-chart path.line,
 .ts-chart polyline.series-1, .ts-chart polyline.series-2, .ts-chart polyline.series-3, .ts-chart polyline.benchmark { fill: none; }
 .ts-chart .axis { stroke: var(--chart-grid); }
-.ts-chart .axis-base { stroke: var(--line-strong); }
+.ts-chart .axis-base { stroke: var(--chart-axis); }
 .ts-chart .tick {
   font-family: var(--font-mono); font-size: 11px; fill: var(--chart-axis);
 }
@@ -682,7 +683,7 @@ td.ts-num, th.ts-num { text-align: right; }
 .ts-skip:focus { top: var(--space-4); outline: 2px solid var(--gold-hi); }
 
 /* ── Tag: removable chip, square ──────────────────────────── */
-.ts-tag { display: inline-flex; align-items: center; gap: var(--space-2); padding: 2px 10px; font-size: var(--text-small); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper); color: var(--text); }
+.ts-tag { display: inline-flex; align-items: center; gap: var(--space-2); padding: 2px 10px; font-size: var(--text-small); border: 1px solid var(--control-border); border-radius: var(--radius); background: var(--paper); color: var(--text); }
 .ts-tag[aria-pressed="true"], .ts-tag.on { background: var(--ink-primary); border-color: var(--gold); }
 .ts-tag button { all: unset; cursor: pointer; line-height: 1; color: var(--text-muted); }
 .ts-tag button:hover, .ts-tag button:focus-visible { color: var(--seal); }

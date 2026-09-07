@@ -108,6 +108,7 @@ python3 html-system/check_report.py html-system/sample --layout
 python3 scripts/export_tokens.py    # brand/tokens.json (DTCG) from tokens.css
 python3 scripts/build_dist.py       # dist/tiansight.css bundle for other sites
 python3 scripts/lint_html.py        # accessibility and structure lint on every page
+python3 scripts/check_contrast.py   # WCAG audit of every colour pairing in use
 node scripts/snapshot.mjs --update  # refresh layout baseline after an intended change
 python3 scripts/check.py --render   # guide conformance, build freshness, lint, layout regression</pre>
   </div>

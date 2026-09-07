@@ -224,7 +224,7 @@
   font-size: var(--text-small);
   color: var(--charcoal);
   background: var(--paper);
-  border: 1px solid var(--line-strong);
+  border: 1px solid var(--control-border);
   border-radius: var(--radius);
   transition: border-color var(--dur-fast) var(--ease);
 }
@@ -315,7 +315,7 @@
 .ts-chart polyline, .ts-chart path.line,
 .ts-chart polyline.series-1, .ts-chart polyline.series-2, .ts-chart polyline.series-3, .ts-chart polyline.benchmark { fill: none; }
 .ts-chart .axis { stroke: var(--chart-grid); }
-.ts-chart .axis-base { stroke: var(--line-strong); }
+.ts-chart .axis-base { stroke: var(--chart-axis); }
 .ts-chart .tick {
   font-family: var(--font-mono); font-size: 11px; fill: var(--chart-axis);
 }
@@ -383,7 +383,7 @@
 .ts-skip:focus { top: var(--space-4); outline: 2px solid var(--gold-hi); }
 
 /* ── Tag: removable chip, square ──────────────────────────── */
-.ts-tag { display: inline-flex; align-items: center; gap: var(--space-2); padding: 2px 10px; font-size: var(--text-small); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper); color: var(--text); }
+.ts-tag { display: inline-flex; align-items: center; gap: var(--space-2); padding: 2px 10px; font-size: var(--text-small); border: 1px solid var(--control-border); border-radius: var(--radius); background: var(--paper); color: var(--text); }
 .ts-tag[aria-pressed="true"], .ts-tag.on { background: var(--ink-primary); border-color: var(--gold); }
 .ts-tag button { all: unset; cursor: pointer; line-height: 1; color: var(--text-muted); }
 .ts-tag button:hover, .ts-tag button:focus-visible { color: var(--seal); }

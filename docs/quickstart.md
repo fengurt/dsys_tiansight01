@@ -63,7 +63,7 @@ Copy `html-system/sample/manifest.json` as the starting point. The skills in `sk
 ## Verify before committing
 
 ```sh
-python3 scripts/check.py            # guide conformance, build freshness, tokens.json, a11y lint
+python3 scripts/check.py            # guide conformance, build freshness, tokens.json, a11y lint, contrast
 python3 scripts/check.py --render   # plus headless layout regression against snapshots/layout.json
 ```
 
