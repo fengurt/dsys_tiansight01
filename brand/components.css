@@ -376,3 +376,89 @@
 .ts-ground-charcoal .ts-seal-stamp { box-shadow: inset 0 0 0 2px var(--charcoal), inset 0 0 0 3px var(--seal); }
 .ts-ground-charcoal .ts-mark { display: inline-grid; place-items: center; background: var(--ink-primary); border-radius: var(--radius); padding: 10%; }
 .ts-ground-charcoal ::selection { background: var(--gold-hi); color: var(--charcoal); }
+
+/* ── Accessibility helpers ────────────────────────────────── */
+.ts-visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.ts-skip { position: absolute; left: var(--space-4); top: -100px; z-index: calc(var(--z-modal) + 1); background: var(--charcoal); color: var(--gold-hi); padding: var(--space-2) var(--space-4); border: 1px solid var(--gold); border-radius: var(--radius); font-size: var(--text-small); }
+.ts-skip:focus { top: var(--space-4); outline: 2px solid var(--gold-hi); }
+
+/* ── Tag: removable chip, square ──────────────────────────── */
+.ts-tag { display: inline-flex; align-items: center; gap: var(--space-2); padding: 2px 10px; font-size: var(--text-small); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper); color: var(--text); }
+.ts-tag[aria-pressed="true"], .ts-tag.on { background: var(--ink-primary); border-color: var(--gold); }
+.ts-tag button { all: unset; cursor: pointer; line-height: 1; color: var(--text-muted); }
+.ts-tag button:hover, .ts-tag button:focus-visible { color: var(--seal); }
+
+/* ── Notice: inline message, hairline, no icon slop ───────── */
+.ts-notice { display: grid; grid-template-columns: auto 1fr; gap: var(--space-3); padding: var(--space-3) var(--space-4); border: 1px solid var(--line-strong); border-left: 3px solid var(--gold); background: var(--paper); border-radius: var(--radius); font-size: var(--text-small); }
+.ts-notice .ts-icon { color: var(--gold); margin-top: 2px; }
+.ts-notice b { display: block; font-weight: var(--weight-title); }
+.ts-notice-warn { border-left-color: var(--seal); } .ts-notice-warn .ts-icon { color: var(--seal); }
+.ts-notice-key { border-left-color: var(--gold-hi); background: var(--ink-primary); }
+
+/* ── Disclosure: native details, hairline rule ────────────── */
+.ts-disclosure { border-top: 1px solid var(--line); }
+.ts-disclosure:last-of-type { border-bottom: 1px solid var(--line); }
+.ts-disclosure summary { list-style: none; cursor: pointer; padding: var(--space-4) 0; display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); font-weight: var(--weight-title); }
+.ts-disclosure summary::-webkit-details-marker { display: none; }
+.ts-disclosure summary .ts-icon { color: var(--gold); transition: transform var(--dur-base) var(--ease); }
+.ts-disclosure[open] summary .ts-icon { transform: rotate(180deg); }
+.ts-disclosure summary:hover { color: var(--gold); }
+.ts-disclosure summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.ts-disclosure .body { padding: 0 0 var(--space-5); color: var(--text); }
+.ts-disclosure .body p { max-width: var(--measure-cn); }
+
+/* ── Tabs ─────────────────────────────────────────────────── */
+.ts-tabs { display: flex; gap: var(--space-2); flex-wrap: wrap; border-bottom: 1px solid var(--line); }
+.ts-tabs [role="tab"] { font: inherit; font-size: var(--text-small); padding: var(--space-2) var(--space-4); background: transparent; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; color: var(--text-muted); cursor: pointer; }
+.ts-tabs [role="tab"]:hover { color: var(--text); }
+.ts-tabs [role="tab"][aria-selected="true"] { color: var(--charcoal); border-bottom-color: var(--gold-hi); font-weight: var(--weight-title); }
+.ts-tabs [role="tab"]:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.ts-tabs-pill { border-bottom: 0; }
+.ts-tabs-pill [role="tab"] { border: 1px solid var(--gold); border-radius: var(--radius-pill); color: var(--gold); padding: 6px 14px; margin: 0; }
+.ts-tabs-pill [role="tab"][aria-selected="true"] { background: var(--charcoal); color: var(--gold-hi); border-color: var(--charcoal); }
+[role="tabpanel"][hidden] { display: none; }
+
+/* ── Tooltip: pure CSS, charcoal, mono ────────────────────── */
+.ts-tip { position: relative; }
+.ts-tip::after { content: attr(data-tip); position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%); background: var(--charcoal); color: var(--surface); font-family: var(--font-mono); font-size: 12px; line-height: 1.4; padding: 5px 9px; border: 1px solid var(--gold); border-radius: var(--radius); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity var(--dur-fast) var(--ease); z-index: var(--z-overlay); }
+.ts-tip:hover::after, .ts-tip:focus-visible::after { opacity: 1; }
+
+/* ── Breadcrumb ───────────────────────────────────────────── */
+.ts-breadcrumb { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; list-style: none; margin: 0; padding: 0; font-size: var(--text-small); }
+.ts-breadcrumb li + li::before { content: "·"; color: var(--gold); margin-right: var(--space-2); }
+.ts-breadcrumb a { border: 0; color: var(--text-muted); }
+.ts-breadcrumb a:hover { color: var(--gold); }
+.ts-breadcrumb [aria-current="page"] { color: var(--text); }
+
+/* ── Pagination ───────────────────────────────────────────── */
+.ts-pagination { display: flex; gap: var(--space-1); align-items: center; list-style: none; margin: 0; padding: 0; font-family: var(--font-mono); font-size: var(--text-small); }
+.ts-pagination a, .ts-pagination span { display: inline-flex; min-width: 36px; height: 36px; align-items: center; justify-content: center; padding: 0 var(--space-2); border: 1px solid transparent; border-radius: var(--radius); color: var(--text-muted); }
+.ts-pagination a:hover { border-color: var(--gold); color: var(--gold); }
+.ts-pagination [aria-current="page"] { background: var(--ink-primary); border-color: var(--gold); color: var(--charcoal); }
+
+/* ── Progress: hairline track, ink fill, gold marker ──────── */
+.ts-progress { display: flex; flex-direction: column; gap: var(--space-1); }
+.ts-progress .track { position: relative; height: 6px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.ts-progress .fill { height: 100%; background: var(--charcoal); transition: width var(--dur-base) var(--ease); }
+.ts-progress .fill.key { background: var(--gold-hi); }
+.ts-progress .meta { display: flex; justify-content: space-between; font-size: var(--text-caption); color: var(--text-muted); font-family: var(--font-mono); }
+
+/* ── Dialog: native <dialog>, paper panel, corner ticks ───── */
+.ts-dialog { border: 1px solid var(--card-border); border-radius: var(--radius); background: var(--paper); color: var(--text); padding: var(--card-pad-lg); max-width: min(560px, calc(100vw - 2 * var(--gutter))); box-shadow: none; }
+.ts-dialog::backdrop { background: var(--scrim); }
+.ts-dialog h2, .ts-dialog h3 { margin-bottom: var(--space-3); }
+.ts-dialog .actions { display: flex; gap: var(--space-3); justify-content: flex-end; margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--line); }
+.ts-dialog[open] { animation: ts-rise var(--dur-base) var(--ease-out) both; }
+
+/* ── Table sorting affordance ─────────────────────────────── */
+th[aria-sort] { cursor: pointer; }
+th[aria-sort]::after { content: " ↕"; color: var(--line-strong); }
+th[aria-sort="ascending"]::after { content: " ↑"; color: var(--gold); }
+th[aria-sort="descending"]::after { content: " ↓"; color: var(--gold); }
+
+/* ── Component states, explicit so every consumer matches ── */
+.ts-button:focus-visible, .ts-input:focus-visible, .ts-select:focus-visible, .ts-tag:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.ts-button[aria-pressed="true"] { background: var(--charcoal); color: var(--gold-hi); border-color: var(--charcoal); }
+.ts-input:disabled, .ts-select:disabled, .ts-textarea:disabled { opacity: 0.4; cursor: not-allowed; background: var(--surface); }
+.ts-input:read-only { background: var(--surface); color: var(--text-muted); }
+.ts-card[aria-selected="true"], .ts-card.selected { border-color: var(--gold); box-shadow: inset 0 0 0 1px var(--gold); }

@@ -13,6 +13,8 @@
   .hub .ts-card { display: flex; flex-direction: column; gap: var(--space-2); }
   .hub .ts-card p { margin: 0; font-size: var(--text-small); color: var(--text-muted); }
   .hub .links { margin-top: auto; padding-top: var(--space-3); border-top: 1px solid var(--line); display: flex; gap: var(--space-4); flex-wrap: wrap; font-size: var(--text-small); }
+  .hub .ts-card-charcoal .links a { color: var(--gold-hi); border-color: var(--gold); }
+  .hub .ts-card-charcoal .links .ts-mono { white-space: nowrap; flex-basis: 100%; }
   .hub .ts-icon { color: var(--gold); }
   .cmd { margin-top: var(--space-7); }
 </style>
@@ -53,45 +55,45 @@
   <div class="hub">
     <article class="ts-card" data-index="壹">
       <span class="ts-caption">Foundation</span>
-      <h3 class="ts-card-title">品牌基础</h3>
+      <h2 class="ts-card-title">品牌基础</h2>
       <p>色彩、字体、标志、组件、图表、版式、话术与待定事项的离线样本。</p>
       <div class="links"><a href="brand/index.html"><svg class="ts-icon ts-icon-sm"><use href="#ts-arrow-right"/></svg> 样本页</a><a href="brand/guide.md">指南 v0.6</a></div>
     </article>
     <article class="ts-card" data-index="贰">
       <span class="ts-caption">Website</span>
-      <h3 class="ts-card-title">官网</h3>
+      <h2 class="ts-card-title">官网</h2>
       <p>首页长滚动与团队页。样张、五问、服务与价格、伙伴、联系。</p>
       <div class="links"><a href="website/index.html"><svg class="ts-icon ts-icon-sm"><use href="#ts-arrow-right"/></svg> 首页</a><a href="website/team.html">团队</a></div>
     </article>
     <article class="ts-card" data-index="叁">
       <span class="ts-caption">Sales deck</span>
-      <h3 class="ts-card-title">销售提案</h3>
+      <h2 class="ts-card-title">销售提案</h2>
       <p>16:9，十九页。方向键翻页，F 全屏，打印即 PDF。</p>
       <div class="links"><a href="deck/index.html"><svg class="ts-icon ts-icon-sm"><use href="#ts-arrow-right"/></svg> 打开提案</a></div>
     </article>
     <article class="ts-card" data-index="肆">
       <span class="ts-caption">Report</span>
-      <h3 class="ts-card-title">经营诊断报告</h3>
+      <h2 class="ts-card-title">经营诊断报告</h2>
       <p>A4 九页，由 report/data.json 生成。仅看异常项，导出 PDF。</p>
       <div class="links"><a href="report/index.html"><svg class="ts-icon ts-icon-sm"><use href="#ts-arrow-right"/></svg> 报告样张</a></div>
     </article>
     <article class="ts-card" data-index="伍">
       <span class="ts-caption">People</span>
-      <h3 class="ts-card-title">联合创始人</h3>
+      <h2 class="ts-card-title">联合创始人</h2>
       <p>一份 people.json 驱动区块、名片与社媒人物卡。</p>
       <div class="links"><a href="people/blocks.html"><svg class="ts-icon ts-icon-sm"><use href="#ts-arrow-right"/></svg> 区块</a><a href="people/namecards.html">名片</a><a href="people/social.html">社媒</a></div>
     </article>
     <article class="ts-card" data-index="陆">
       <span class="ts-caption">HTML report system</span>
-      <h3 class="ts-card-title">报告系统与技能集</h3>
+      <h2 class="ts-card-title">报告系统与技能集</h2>
       <p>一份 manifest 驱动的幻灯片与长卷报告：证据分级、口径、公式、数据附录与下钻。六个技能。</p>
       <div class="links"><a href="html-system/sample/index.html"><svg class="ts-icon ts-icon-sm"><use href="#ts-arrow-right"/></svg> 样例提案</a><a href="skills/README.md">技能</a><a href="reference/catalogue.md">资产盘点</a></div>
     </article>
     <article class="ts-card ts-card-charcoal" data-index="柒">
       <span class="ts-caption">Checks</span>
-      <h3 class="ts-card-title">校验与构建</h3>
-      <p class="ts-muted">每次改动后运行；任何偏离指南的色值、字体、圆角或远程资源都会失败。</p>
-      <div class="links" style="border-color:var(--gold)"><span class="ts-mono" style="color:var(--gold-hi)">python3 scripts/check.py</span></div>
+      <h2 class="ts-card-title">校验与构建</h2>
+      <p class="ts-muted">每次改动后运行；偏离指南的色值、字体、圆角、远程资源、无障碍结构或版式回归都会失败。</p>
+      <div class="links" style="border-color:var(--gold)"><span class="ts-mono" style="color:var(--gold-hi)">python3 scripts/check.py --render</span><a href="docs/principles.md">原则</a><a href="docs/quickstart.md">上手</a><a href="docs/contributing.md">贡献</a><a href="CHANGELOG.md">变更</a></div>
     </article>
   </div>
 
@@ -103,7 +105,10 @@ python3 scripts/sync_icons.py       # inline brand/icons.svg into pages with mar
 node scripts/export_people.mjs      # social PNGs and name card PDF
 python3 html-system/build_deck.py html-system/sample   # manifest → report
 python3 html-system/check_report.py html-system/sample --layout
-python3 scripts/check.py            # guide conformance and build freshness</pre>
+python3 scripts/export_tokens.py    # brand/tokens.json (DTCG) from tokens.css
+python3 scripts/lint_html.py        # accessibility and structure lint on every page
+node scripts/snapshot.mjs --update  # refresh layout baseline after an intended change
+python3 scripts/check.py --render   # guide conformance, build freshness, lint, layout regression</pre>
   </div>
 </main>
 </body>

@@ -147,7 +147,7 @@ body[data-anomalies] .actions tr { display: table-row; }
 .cover .ts-lockup { align-items: flex-start; text-align: left; gap: 4mm; margin-top: 40mm; }
 .cover .ts-display { font-size: 48pt; }
 .cover .ts-tagline { font-size: 12pt; }
-.cover .title { font-size: 26pt; font-weight: var(--weight-title); line-height: 1.25; margin-top: 6mm; }
+.cover .title { font-size: 26pt; font-weight: var(--weight-title); line-height: 1.25; margin: 6mm 0 0; letter-spacing: 0; }
 .cover .facts { display: grid; grid-template-columns: repeat(3, auto); gap: 8mm; justify-content: start; margin-top: 8mm; }
 .cover .facts .ts-caption { display: block; margin-bottom: 1mm; }
 .cover .facts span:not(.ts-caption) { font-family: var(--font-mono); font-size: 11pt; }

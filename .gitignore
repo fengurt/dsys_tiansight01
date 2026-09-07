@@ -9,3 +9,5 @@ __pycache__/
 !.env.example
 *.log
 people/export/
+
+snapshots/render/

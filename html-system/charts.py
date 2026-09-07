@@ -37,13 +37,15 @@ def _attrs(d):
 
 
 def hatch_defs():
+    """Pattern used by data-role "design" (hatched). Emit ONCE per page (build_deck puts it in a hidden <svg>);
+    url(#ts-hatch) resolves document-wide, so charts do not carry their own copy and ids stay unique."""
     return ('<defs><pattern id="ts-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">'
             '<rect width="2.2" height="6" fill="#D4A862"/></pattern></defs>')
 
 
 def _svg(width, height, body, src=None, label=''):
     root = f'<svg viewBox="0 0 {width} {height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="{esc(label)}">'
-    return root + hatch_defs() + '<g' + (f' data-src="{esc(src)}"' if src else '') + '>' + body + '</g></svg>'
+    return root + '<g' + (f' data-src="{esc(src)}"' if src else '') + '>' + body + '</g></svg>'
 
 
 def _nice(vmax, n=5):
