@@ -28,12 +28,23 @@
   .spec-fallback { font-family: var(--font-cn); }
   .spec-chart { width: 100%; height: auto; }
   .spec-q { counter-reset: q; }
+  .spec-states { display: flex; flex-wrap: wrap; gap: var(--space-4); }
+  .spec-states > div { display: flex; flex-direction: column; gap: var(--space-2); }
+  .spec-states .ts-input { max-width: 160px; }
+  .spec-hover { background: var(--gold-hi); border-color: var(--gold-hi); color: var(--charcoal); }
+  .spec-focus { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .spec-code { margin: var(--space-4) 0 0; font-size: 12px; white-space: pre-wrap; color: var(--text-muted); border-top: 1px solid var(--line); padding-top: var(--space-3); }
+  .spec-dot { display: inline-block; width: 10px; height: 10px; background: var(--gold-hi); border-radius: 50%; transform: translateX(-24px); }
+  .spec-dot.go[data-dur="fast"] { transition: transform var(--dur-fast) var(--ease); transform: none; }
+  .spec-dot.go[data-dur="base"] { transition: transform var(--dur-base) var(--ease); transform: none; }
+  .spec-dot.go[data-dur="reveal"] { transition: transform var(--dur-reveal) var(--ease-out); transform: none; }
   .spec-q .ts-card { padding-left: calc(var(--card-pad) + 40px); }
   .spec-q .ts-card::before { counter-increment: q; content: counter(q, cjk-ideographic); position: absolute; left: var(--card-pad); top: var(--card-pad); width: 28px; height: 28px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: var(--text-caption); color: var(--gold); }
   @media (max-width: 640px) { .spec-type-row { grid-template-columns: 1fr; gap: var(--space-2); } }
 </style>
 </head>
 <body>
+<a class="ts-skip" href="#top">跳到正文</a>
 <!-- icons:start -->
 <svg style="display:none" aria-hidden="true">
 <symbol id="ts-arrow-right" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></symbol>
@@ -63,7 +74,7 @@
       <span class="ts-wordmark"><b>侍天</b><span class="ts-caption" style="letter-spacing:var(--tracking-caps-tight)">Tiansight</span></span>
     </a>
     <nav class="ts-nav" aria-label="章节">
-      <a href="#rules">总则</a><a href="#color">色彩</a><a href="#type">字体</a><a href="#mark">标志</a><a href="#components">组件</a><a href="#charts">图表</a><a href="#icons">图标</a><a href="#layout">版式</a><a href="#voice">话术</a><a href="#open">待定</a>
+      <a href="#rules">总则</a><a href="#color">色彩</a><a href="#type">字体</a><a href="#mark">标志</a><a href="#components">组件</a><a href="#states">状态</a><a href="#charts">图表</a><a href="#icons">图标</a><a href="#layout">版式</a><a href="#voice">话术</a><a href="#open">待定</a>
     </nav>
   </div>
 </header>
@@ -419,6 +430,139 @@
   </div>
 </section>
 
+<!-- ── Interaction and states ────────────────────────────── -->
+<section id="states" class="ts-section">
+  <div class="ts-container ts-stack">
+    <div class="ts-heading">
+      <span class="ts-caption">05b · Interaction, states and motion</span>
+      <h2>交互、状态与动效</h2>
+      <p class="ts-sub">每个组件都写明静止、悬停、焦点、按下、禁用五态；焦点环统一为 2px 土金半透明，偏移 2px。动效只有三档时长、两条曲线；系统减少动效时全部归零。</p>
+    </div>
+
+    <div class="spec-two" style="margin-top:var(--space-7)">
+      <div class="ts-card">
+        <span class="ts-caption">States · 五态</span>
+        <div class="spec-states" style="margin-top:var(--space-4)">
+          <div><span class="ts-caption">Rest</span><button class="ts-button">申请经营体检</button></div>
+          <div><span class="ts-caption">Hover</span><button class="ts-button spec-hover">申请经营体检</button></div>
+          <div><span class="ts-caption">Focus</span><button class="ts-button spec-focus">申请经营体检</button></div>
+          <div><span class="ts-caption">Pressed</span><button class="ts-button" aria-pressed="true">已选 · 按月陪跑</button></div>
+          <div><span class="ts-caption">Disabled</span><button class="ts-button" disabled>已提交</button></div>
+        </div>
+        <div class="spec-states" style="margin-top:var(--space-5)">
+          <div><span class="ts-caption">Input</span><input class="ts-input" value="城北店" aria-label="门店"></div>
+          <div><span class="ts-caption">Focus</span><input class="ts-input spec-focus" value="城北店" aria-label="门店（焦点）"></div>
+          <div><span class="ts-caption">Read-only</span><input class="ts-input" value="D+0 = 2026-09-06" readonly aria-label="口径（只读）"></div>
+          <div><span class="ts-caption">Disabled</span><input class="ts-input" value="待补" disabled aria-label="待补（禁用）"></div>
+        </div>
+        <div class="spec-row" style="margin-top:var(--space-5)">
+          <article class="ts-card" aria-selected="true" style="padding:var(--space-4);flex:1"><span class="ts-caption">Selected card</span><h3 class="ts-card-title" style="font-size:1rem">按月陪跑</h3></article>
+          <article class="ts-card ts-card-interactive" style="padding:var(--space-4);flex:1"><span class="ts-caption">Interactive card</span><h3 class="ts-card-title" style="font-size:1rem">单次体检</h3></article>
+        </div>
+        <pre class="ts-mono spec-code">:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px }
+[aria-pressed="true"]  .ts-card[aria-selected="true"]  :disabled { opacity: .4 }</pre>
+      </div>
+
+      <div class="ts-card">
+        <span class="ts-caption">Motion · 动效令牌</span>
+        <table class="ts-table-ledger" style="margin-top:var(--space-4)">
+          <thead><tr><th>令牌</th><th>值</th><th>用途</th><th class="ts-num">试</th></tr></thead>
+          <tbody>
+            <tr><td class="ts-mono">--dur-fast</td><td class="ts-mono">120ms</td><td>颜色、边框、提示</td><td class="ts-num"><span class="spec-dot" data-dur="fast"></span></td></tr>
+            <tr><td class="ts-mono">--dur-base</td><td class="ts-mono">220ms</td><td>展开、进度、对话框</td><td class="ts-num"><span class="spec-dot" data-dur="base"></span></td></tr>
+            <tr><td class="ts-mono">--dur-reveal</td><td class="ts-mono">700ms</td><td>段落入场，只用一次</td><td class="ts-num"><span class="spec-dot" data-dur="reveal"></span></td></tr>
+            <tr><td class="ts-mono">--ease</td><td class="ts-mono">.2 .6 .2 1</td><td>状态切换</td><td></td></tr>
+            <tr><td class="ts-mono">--ease-out</td><td class="ts-mono">.16 1 .3 1</td><td>入场</td><td></td></tr>
+          </tbody>
+        </table>
+        <div class="spec-row" style="margin-top:var(--space-4)">
+          <button class="ts-button ts-button-secondary ts-button-sm" type="button" id="spec-motion">播放三档</button>
+          <span class="spec-note">位移不超过 12px；不缩放、不旋转（展开箭头除外）、不弹跳。</span>
+        </div>
+        <pre class="ts-mono spec-code">.ts-reveal { animation: ts-rise var(--dur-reveal) var(--ease-out) both }
+@media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important } }</pre>
+      </div>
+    </div>
+
+    <div class="spec-three" style="margin-top:var(--space-6)">
+      <div class="ts-card">
+        <span class="ts-caption">Notice · 提示</span>
+        <div class="ts-stack" style="margin-top:var(--space-4);--stack-gap:var(--space-3)">
+          <div class="ts-notice"><svg class="ts-icon ts-icon-sm"><use href="#ts-data"/></svg><div><b>口径已固化</b>本报告所有比率以 2026-06 至 2026-08 收银流水为分母。</div></div>
+          <div class="ts-notice ts-notice-key"><svg class="ts-icon ts-icon-sm"><use href="#ts-check"/></svg><div><b>先改这一件</b>午市套餐结构，预计月度毛利 +¥18,600。</div></div>
+          <div class="ts-notice ts-notice-warn"><svg class="ts-icon ts-icon-sm"><use href="#ts-cross"/></svg><div><b>数据缺口</b>城南店 7 月外卖流水缺 9 日，相关结论降级为 E2。</div></div>
+        </div>
+        <pre class="ts-mono spec-code">&lt;div class="ts-notice ts-notice-key"&gt;&lt;svg class="ts-icon ts-icon-sm"&gt;…&lt;/svg&gt;&lt;div&gt;&lt;b&gt;标题&lt;/b&gt;正文&lt;/div&gt;&lt;/div&gt;</pre>
+      </div>
+
+      <div class="ts-card">
+        <span class="ts-caption">Tags and tooltip · 标签与提示</span>
+        <div class="spec-row" style="margin-top:var(--space-4)">
+          <span class="ts-tag">城北店 <button type="button" aria-label="移除 城北店"><svg class="ts-icon ts-icon-sm"><use href="#ts-cross"/></svg></button></span>
+          <span class="ts-tag on">午市 <button type="button" aria-label="移除 午市"><svg class="ts-icon ts-icon-sm"><use href="#ts-cross"/></svg></button></span>
+          <button class="ts-tag" type="button" aria-pressed="false">只看异常</button>
+        </div>
+        <p style="margin-top:var(--space-5)">复购率 <b class="ts-tip ts-mono" tabindex="0" data-tip="E1 · 会员系统 · 2026-06/08">31.4%</b>，较上季 <b class="ts-tip ts-mono" tabindex="0" data-tip="口径：同店同期">+4.1 pp</b>。悬停或聚焦看出处。</p>
+        <pre class="ts-mono spec-code">&lt;b class="ts-tip" tabindex="0" data-tip="E1 · 会员系统"&gt;31.4%&lt;/b&gt;</pre>
+      </div>
+
+      <div class="ts-card">
+        <span class="ts-caption">Progress · 进度</span>
+        <div class="ts-stack" style="margin-top:var(--space-4);--stack-gap:var(--space-4)">
+          <div class="ts-progress" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" aria-label="90 天清单完成度"><div class="track"><div class="fill" style="width:62%"></div></div><div class="meta"><span>90 天清单</span><span>62%</span></div></div>
+          <div class="ts-progress" role="progressbar" aria-valuenow="9" aria-valuemin="0" aria-valuemax="12" aria-label="门店接入"><div class="track"><div class="fill key" style="width:75%"></div></div><div class="meta"><span>门店接入</span><span>9 / 12</span></div></div>
+        </div>
+        <span class="ts-caption" style="display:block;margin-top:var(--space-5)">Sortable header · 可排序表头</span>
+        <table class="ts-table-ledger" style="margin-top:var(--space-2)">
+          <thead><tr><th aria-sort="none">门店</th><th class="ts-num" aria-sort="descending">毛利</th><th class="ts-num" aria-sort="none">同比</th></tr></thead>
+          <tbody><tr><td>城北店</td><td class="ts-num">¥61,450</td><td class="ts-num">+2.4%</td></tr><tr><td>城南店</td><td class="ts-num">¥48,200</td><td class="ts-num" style="color:var(--seal)">−1.1%</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="spec-two" style="margin-top:var(--space-6)">
+      <div class="ts-card">
+        <span class="ts-caption">Tabs and disclosure · 页签与折叠</span>
+        <div class="ts-tabs" role="tablist" aria-label="报告维度" style="margin-top:var(--space-4)">
+          <button role="tab" type="button" id="spec-tab-1" aria-selected="true" aria-controls="spec-panel-1">决策</button>
+          <button role="tab" type="button" id="spec-tab-2" aria-selected="false" aria-controls="spec-panel-2" tabindex="-1">分析</button>
+          <button role="tab" type="button" id="spec-tab-3" aria-selected="false" aria-controls="spec-panel-3" tabindex="-1">方法</button>
+        </div>
+        <div id="spec-panel-1" role="tabpanel" aria-labelledby="spec-tab-1" style="padding-block:var(--space-4)"><p>先改哪三件、由谁执行、以何验收。</p></div>
+        <div id="spec-panel-2" role="tabpanel" aria-labelledby="spec-tab-2" style="padding-block:var(--space-4)" hidden><p>五张洞察矩阵，每个数字有出处。</p></div>
+        <div id="spec-panel-3" role="tabpanel" aria-labelledby="spec-tab-3" style="padding-block:var(--space-4)" hidden><p>海图、罗盘、航线、校正，四件套如何协同。</p></div>
+        <div class="ts-tabs ts-tabs-pill" role="tablist" aria-label="时间窗" style="margin-top:var(--space-3)">
+          <button role="tab" type="button" aria-selected="true">近 3 月</button><button role="tab" type="button" aria-selected="false" tabindex="-1">近 6 月</button><button role="tab" type="button" aria-selected="false" tabindex="-1">全年</button>
+        </div>
+        <div style="margin-top:var(--space-5)">
+          <details class="ts-disclosure"><summary>口径说明 <svg class="ts-icon ts-icon-sm"><use href="#ts-chevron-down"/></svg></summary><div class="body"><p>复购率 = 同一会员 30 日内二次到店人数 ÷ 首次到店人数；不含外卖平台匿名订单。</p></div></details>
+          <details class="ts-disclosure"><summary>公式与方法 <svg class="ts-icon ts-icon-sm"><use href="#ts-chevron-down"/></svg></summary><div class="body"><p>利润弹性以门店固定成本与变动成本拆分后回归，样本 9 店 × 12 月。</p></div></details>
+        </div>
+        <pre class="ts-mono spec-code">&lt;div class="ts-tabs" role="tablist"&gt;&lt;button role="tab" aria-selected="true" aria-controls="p1"&gt;…
+&lt;details class="ts-disclosure"&gt;&lt;summary&gt;口径说明 &lt;svg class="ts-icon ts-icon-sm"&gt;…&lt;/summary&gt;&lt;div class="body"&gt;…</pre>
+      </div>
+
+      <div class="ts-card">
+        <span class="ts-caption">Wayfinding and dialog · 导航与对话框</span>
+        <nav aria-label="面包屑" style="margin-top:var(--space-4)"><ol class="ts-breadcrumb"><li><a href="#top">报告</a></li><li><a href="#states">分析维度</a></li><li aria-current="page">利润弹性</li></ol></nav>
+        <nav aria-label="分页" style="margin-top:var(--space-4)"><ul class="ts-pagination"><li><a href="#states" aria-label="上一页"><svg class="ts-icon ts-icon-sm"><use href="#ts-arrow-left"/></svg></a></li><li><a href="#states">1</a></li><li><span aria-current="page">2</span></li><li><a href="#states">3</a></li><li><span>…</span></li><li><a href="#states">12</a></li><li><a href="#states" aria-label="下一页"><svg class="ts-icon ts-icon-sm"><use href="#ts-arrow-right"/></svg></a></li></ul></nav>
+        <div class="spec-row" style="margin-top:var(--space-5)">
+          <button class="ts-button ts-button-secondary" type="button" id="spec-dialog-open">打开对话框</button>
+          <a class="ts-skip" href="#states" style="position:static;display:inline-block">跳到正文（.ts-skip，仅聚焦时可见）</a>
+        </div>
+        <dialog class="ts-dialog" id="spec-dialog" aria-labelledby="spec-dialog-title">
+          <span class="ts-caption">Confirm · 确认</span>
+          <h3 id="spec-dialog-title" style="margin-top:var(--space-2)">锁定本版口径？</h3>
+          <p>锁定后，V2 的所有数字以 2026-09-06 为出具日，后续修订另起版本。</p>
+          <div class="actions"><button class="ts-button ts-button-quiet" type="button" data-close>再想想</button><button class="ts-button" type="button" data-close>锁定</button></div>
+        </dialog>
+        <pre class="ts-mono spec-code">&lt;dialog class="ts-dialog"&gt;… dialog.showModal()  ::backdrop = var(--scrim)
+&lt;a class="ts-skip" href="#top"&gt;跳到正文&lt;/a&gt;   置于 &lt;body&gt; 首行</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ── Icons and grounds ─────────────────────────────────── -->
 <section id="icons" class="ts-section">
   <div class="ts-container ts-stack">
@@ -595,5 +739,40 @@
   </div>
 </footer>
 
+<script>
+/* Specimen only: tabs, dialog and motion demo. Consumers carry their own scripts. */
+(function () {
+  document.querySelectorAll('.ts-tabs[role="tablist"]').forEach(function (list) {
+    var tabs = Array.prototype.slice.call(list.querySelectorAll('[role="tab"]'));
+    function select(tab) {
+      tabs.forEach(function (t) {
+        var on = t === tab; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1;
+        var panel = t.getAttribute('aria-controls') && document.getElementById(t.getAttribute('aria-controls'));
+        if (panel) panel.hidden = !on;
+      });
+      tab.focus();
+    }
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { select(t); });
+      t.addEventListener('keydown', function (e) {
+        var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (d) { e.preventDefault(); select(tabs[(i + d + tabs.length) % tabs.length]); }
+      });
+    });
+  });
+  var dlg = document.getElementById('spec-dialog'), open = document.getElementById('spec-dialog-open');
+  if (dlg && open && dlg.showModal) {
+    open.addEventListener('click', function () { dlg.showModal(); });
+    dlg.querySelectorAll('[data-close]').forEach(function (b) { b.addEventListener('click', function () { dlg.close(); }); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+  }
+  var play = document.getElementById('spec-motion');
+  if (play) play.addEventListener('click', function () {
+    var dots = document.querySelectorAll('.spec-dot');
+    dots.forEach(function (d) { d.classList.remove('go'); });
+    requestAnimationFrame(function () { requestAnimationFrame(function () { dots.forEach(function (d) { d.classList.add('go'); }); }); });
+  });
+})();
+</script>
 </body>
 </html>

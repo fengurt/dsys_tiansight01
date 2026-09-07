@@ -5,9 +5,12 @@ Development baseline for Tiansight. The published brand foundation lives in `bra
 ## Start here
 
 ```sh
-python3 scripts/check.py
+python3 scripts/check.py            # guide conformance, build freshness, tokens.json, a11y lint
+python3 scripts/check.py --render   # plus layout regression in headless Chromium
 python3 -m http.server 8000 --bind 127.0.0.1
 ```
+
+Docs: [principles](docs/principles.md) · [quickstart](docs/quickstart.md) · [contributing](docs/contributing.md) · [changelog](CHANGELOG.md). System version: `brand/VERSION`.
 
 | Surface | URL | Notes |
 |---|---|---|
@@ -36,6 +39,8 @@ The export is a separate proposal: parchment `#EFE6D2` page background, sans-ser
 | `components.css` | CSS-only components with the `.ts-` prefix, plus `.ts-icon` and the `.ts-ground-charcoal` scope that inverts every component for an opener, closer or a single card: container/grid/section, heading pair, display lockup, rules and frames, compass watermark, card (with 天干 index), token row, badges, ✓/✕ list, buttons, form fields, stat, quote, step marker, seal stamp, mark lockup, nav/header, ledger table, chart chrome, reveal. No raw colour values. |
 | `index.html` | Offline specimen of everything above, in brand voice, bilingual. |
 | `guide.md`, `source.json`, `logo.png` | Published guide, provenance snapshot, official mark. |
+| `tokens.json` | Generated Design Tokens (DTCG) export of `tokens.css` for other tools; `python3 scripts/export_tokens.py`. |
+| `VERSION` | System version, must match the guide. |
 
 A new consumer imports the three CSS files in order and uses the `.ts-` classes or the tokens directly. The foundation does not restyle the export.
 
@@ -49,7 +54,7 @@ Both consumers use the published tiers and prices from guide section 6 and reuse
 
 Placeholders that need real assets: expert portraits and names, the WeChat QR, partner logos (names are set in type), the proposal target and date on the deck cover. All figures are sample data and are labelled as such.
 
-`scripts/check.py` verifies the same rules for `deck/`, `website/`, `report/` and `people/`, that generated outputs match their builders, and: tokens match the published theme and every row of the guide's colour table; the logo hash; serif-only font stacks with no Inter/Roboto; no raw colours or gradients outside `tokens.css`; radius limited to 2px, pill or circle; every `var(--x)` is declared; the specimen loads no remote resource, script or emoji; the deck and website obey the same colour, radius, font and offline rules with no undeclared tokens; the website avoids the guide's avoided lexicon; and the export manifest is intact. Run it before committing.
+`scripts/check.py` verifies the same rules for `deck/`, `website/`, `report/` and `people/`, that generated outputs match their builders, and: tokens match the published theme and every row of the guide's colour table; the logo hash; serif-only font stacks with no Inter/Roboto; no raw colours or gradients outside `tokens.css`; radius limited to 2px, pill or circle; every `var(--x)` is declared; the specimen loads no remote resource or external script and no emoji; the deck and website obey the same colour, radius, font and offline rules with no undeclared tokens; the website avoids the guide's avoided lexicon; and the export manifest is intact. It also runs `scripts/export_tokens.py --check` and `scripts/lint_html.py` (lang, title, one `h1`, `<main>`, heading order, alt text, labels, accessible names, unique ids, resolvable anchors and targets on every page). With `--render` it runs `node scripts/snapshot.mjs --check`, which renders all pages at desktop and mobile widths and compares overflow, structure and height against `snapshots/layout.json`; refresh that baseline with `--update` when a layout change is intended. Run it before committing.
 
 ## People layer (`people/`)
 

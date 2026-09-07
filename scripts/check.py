@@ -1,4 +1,6 @@
-"""Offline baseline check: python3 scripts/check.py."""
+"""Offline baseline check: python3 scripts/check.py [--render].
+
+--render additionally runs node scripts/snapshot.mjs --check (headless Chromium layout regression)."""
 from pathlib import Path
 import hashlib
 import json
@@ -79,11 +81,13 @@ used = set(re.findall(r'var\(--([a-z0-9-]+)', base + components + specimen))
 for missing in sorted(used - declared):
     problems.append(f'undeclared token --{missing}')
 
-# 6. Specimen is offline: no remote scripts, styles, fonts, or images
+# 6. Specimen is offline: no remote scripts, styles, fonts, or images; only one inline demo script (tabs, dialog, motion)
 for url in re.findall(r'(?:src|href)="(https?://[^"]+)"', specimen):
     problems.append(f'index.html loads remote resource {url}')
-if '<script' in specimen:
-    problems.append('index.html contains script')
+if re.search(r'<script[^>]*\ssrc=', specimen):
+    problems.append('index.html loads an external script')
+if specimen.count('<script') > 1:
+    problems.append('index.html has more than one inline script')
 for ref in re.findall(r'(?:src|href)="([^"#:]+)"', specimen):
     if not (brand / ref).is_file():
         problems.append(f'index.html references missing file {ref}')
@@ -164,6 +168,28 @@ for rel in ('brand/index.html', 'website/index.html', 'website/team.html', 'deck
         if used not in ids:
             problems.append(f'{rel}: icon #{used} not in inline sprite')
 
+# 8d. Token export and accessibility lint are in step with the sources
+for label, cmd in (('tokens.json', [sys.executable, str(root / 'scripts' / 'export_tokens.py'), '--check']),
+                   ('lint', [sys.executable, str(root / 'scripts' / 'lint_html.py')])):
+    run = subprocess.run(cmd, capture_output=True, text=True)
+    if run.returncode != 0:
+        problems.append(f'{label}: ' + run.stdout.strip().replace('\n', ' '))
+
+# 8e. Layout regression (opt-in: needs the global Playwright install)
+if '--render' in sys.argv:
+    run = subprocess.run(['node', str(root / 'scripts' / 'snapshot.mjs'), '--check'], capture_output=True, text=True)
+    if run.returncode != 0:
+        problems.append('snapshot: ' + run.stdout.strip().replace('\n', ' '))
+    else:
+        notes.append(run.stdout.strip())
+
+# 8f. Version file matches the guide
+version = (brand / 'VERSION').read_text().strip()
+if f'· {version} ·' not in guide:
+    problems.append(f'brand/VERSION {version} not the version named in guide.md')
+if f'"version": "{version}"' not in (brand / 'tokens.json').read_text():
+    problems.append('brand/tokens.json version differs from brand/VERSION')
+
 # 9. Supplied export is intact
 export = root / 'TIANSIGHT 侍天 Design System'
 manifest = json.loads((export / '_ds_manifest.json').read_text())
@@ -183,5 +209,5 @@ if missing_photos:
     notes.append('portraits not yet supplied: ' + ', '.join(sorted(missing_photos)))
 for note in notes:
     print('note:', note)
-print(f"PASS: official palette, {len(guide_rows)} guide tokens, logo hash, foundation policy, "
+print(f"PASS: official palette, {len(guide_rows)} guide tokens, logo hash, foundation policy, tokens.json, a11y lint, "
       f"offline specimen, deck, website, report and people, {len(manifest['components'])} component exports and {len(manifest['cards'])} cards")
