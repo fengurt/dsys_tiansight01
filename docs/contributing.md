@@ -10,7 +10,7 @@
 | `brand/index.html` | Specimen: every rule rendered | Yes, keep it in step with the CSS |
 | `brand/tokens.json`, `dist/`, `brand/icons.svg` sprites in pages, `report/index.html`, `people/*.html`, `html-system/sample/index.html` | Generated | No, run the builder |
 | `deck/`, `website/`, `report/`, `people/`, `html-system/` | Consumers | Yes |
-| `people/profiles.json` | Co-founder履历 library: classified entries, sources, grades | Yes, then run `scripts/build_profiles.py` |
+| `people/profiles.json` | Co-founder履历 library: classified entries, sources, grades; contract in `profiles.schema.json` | Yes, then run `scripts/build_profiles.py` |
 | `TIANSIGHT 侍天 Design System/` | Supplied export, preserved | No |
 
 ## Rules the gate enforces

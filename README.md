@@ -108,7 +108,11 @@ Two versions per person, both generated from one data file by `python3 scripts/b
 
 Every entry is classified by the vocabulary in `profiles.json` (`role` 任职经历, `education` 教育与认证, `training` 培训经历, `case` 咨询案例, `brand` 服务品牌, `service` 服务覆盖, `capability` 核心能力, `method` 原创方法论, `principle` 全案原则, `research` 学术研究, `figure` 关键数字), and every number carries a source id and an evidence grade, the same E1–E4 scale the report system uses. The build refuses to run when a number has no declared source, when a category is not in the vocabulary, or when a profile shows more than three auxiliary titles.
 
-The main title is fixed at 侍天联合创始人. Auxiliary titles live in `titles_aux` with a `show` flag each: flip the flag and rebuild. The full page also carries a screen-only preview so combinations can be tried before the data is edited; at most three ever render.
+The main title is fixed at 侍天联合创始人. Auxiliary titles live in `titles_aux` with a `show` flag each; at most three ever render.
+
+Every printed value is bound to its path in the profile object (`figures.bj-fig-brands.value`, `cases.<id>.results.<id>.value`), and the JSON travels inside the page. The 后台 bar on each profile page turns that into a live view: **编辑参数** makes every value editable in place (a before-and-after strip redraws from its inputs), **导入 JSON** applies a payload from a file, a paste, `?data=URL`, or a `postMessage` from a host system, **导出 JSON** returns the current state in the shape the builder reads, and **导出 PDF** prints the A4 pages. Values move at run time; structure (a new case, a new category) goes through the builder. The contract other systems target is `people/profiles.schema.json`; the design is written up in [docs/profile-architecture.md](docs/profile-architecture.md). Every page prints the 侍天 mark and reserves a co-brand logo slot (`cobrand.logo`), invisible in print until filled.
+
+`node scripts/export_profiles.mjs` writes PDFs and self-contained single-file HTML for every profile into `people/export/` (ignored by git).
 
 ## Decisions taken in the foundation
 

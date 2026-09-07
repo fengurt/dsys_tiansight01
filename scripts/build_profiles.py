@@ -8,23 +8,46 @@ Outputs, per profile in the library:
     people/profile-<id>-1p.html   一页版 — one A4 page
 and one index, people/profiles.html, which lists the library by category.
 
-Every entry in profiles.json carries a category from the declared vocabulary, and every number
-carries a source id and an evidence grade. The build refuses to run when a profile shows more
-than three auxiliary titles, when a number has no source, or when a category or source is not
-declared — the same discipline the report system applies to client data.
+Every value the pages print is bound to its path in the profile object with data-bind="…", and the
+profile JSON travels inside the page. people/profile-edit.js reads both, so any parameter can be
+changed on the page itself, re-applied from a JSON payload (file, paste, ?data=URL, or a
+postMessage from a host system), and exported again. Structure comes from this builder; values
+can move at run time. See docs/profile-architecture.md.
+
+The build refuses to run when a profile shows more than three auxiliary titles, when a number has
+no source, or when a category or source is not declared.
 """
 from pathlib import Path
 import html as H
 import json
+import re
 import sys
 
 root = Path(__file__).resolve().parents[1]
 data_path = root / 'people' / 'profiles.json'
 MAX_AUX = 3
+CJK = re.compile('[一-鿿]')
 
 
 def esc(text):
     return H.escape(str(text), quote=True)
+
+
+def P(*parts):
+    """Join path segments into one data-bind path: P("figures.", fig["id"], ".value")."""
+    return ''.join(str(p) for p in parts)
+
+
+def b(path, value, tag='span', cls='', extra=''):
+    """A bound scalar: the text node the editor can change, addressed by its path in the profile."""
+    c = f' class="{cls}"' if cls else ''
+    return f'<{tag} data-bind="{path}"{c}{extra}>{esc(value)}</{tag}>'
+
+
+def bj(path, items, sep='、', tag='span', cls=''):
+    """A bound list rendered joined; the editor splits on the same separator when writing back."""
+    c = f' class="{cls}"' if cls else ''
+    return f'<{tag} data-bind="{path}" data-join="{esc(sep)}"{c}>{esc(sep.join(items))}</{tag}>'
 
 
 def load():
@@ -52,6 +75,9 @@ def numbers(profile, unique=False):
     return rows
 
 
+LISTS = ('figures', 'principles', 'capabilities', 'brands', 'services', 'roles', 'education', 'trainings', 'cases')
+
+
 def validate(data):
     problems = []
     categories, sources = data['categories'], data['sources']
@@ -67,24 +93,29 @@ def validate(data):
                 problems.append(f'{who}/{entry.get("id")}: grade {entry.get("grade")} not declared')
             if entry.get('source') not in sources:
                 problems.append(f'{who}/{entry.get("id")}: source {entry.get("source")} not declared')
-        typed = (profile.get('figures', []) + profile.get('principles', []) + profile.get('capabilities', [])
-                 + profile.get('brands', []) + profile.get('services', []) + profile.get('roles', [])
-                 + profile.get('education', []) + profile.get('trainings', []) + profile.get('cases', []))
         cap_ids = {c['id'] for c in profile['capabilities']}
         for case in profile['cases']:
             for cid in case.get('capabilities', []):
                 if cid not in cap_ids:
                     problems.append(f'{who}/{case["id"]}: capability {cid} not in this profile')
-        for entry in typed:
-            if entry.get('type') not in categories:
-                problems.append(f'{who}/{entry.get("id")}: category {entry.get("type")} not in the vocabulary')
+        ids = []
+        for key in LISTS:
+            for entry in profile.get(key, []):
+                ids.append(entry.get('id'))
+                if entry.get('type') not in categories:
+                    problems.append(f'{who}/{entry.get("id")}: category {entry.get("type")} not in the vocabulary')
+                if not entry.get('id'):
+                    problems.append(f'{who}: an entry under {key} has no id, so it cannot be addressed')
+        dup = {i for i in ids if i and ids.count(i) > 1}
+        if dup:
+            problems.append(f'{who}: duplicate entry ids ' + ', '.join(sorted(dup)))
         if profile.get('source') not in sources:
             problems.append(f'{who}: profile source {profile.get("source")} not declared')
     return problems
 
 
 # ── fragments ───────────────────────────────────────────────
-def head(title, css_depth='../'):
+def head(title, css_depth='../', editor=True):
     return f'''<!doctype html>
 <html lang="zh-Hans">
 <head>
@@ -102,36 +133,87 @@ def head(title, css_depth='../'):
 <a class="ts-skip" href="#top">跳到正文</a>'''
 
 
-def shell_head(profile, kind, other_href, other_label):
-    aux = ' · '.join(t['zh'] for t in profile['titles_aux'] if t['show'])
-    return f'''<div class="shell-head">
-  <div class="ts-container" style="padding-block:var(--space-5)">
-    <div class="ts-heading">
-      <span class="ts-caption">Co-founder profile · {esc(profile["en"])} · {esc(kind)}</span>
-      <p class="ts-sub" style="margin:0">{esc(profile["title_main"])} · {esc(aux)}　—　打印即得 A4 PDF。<a href="{esc(other_href)}">{esc(other_label)}</a> · <a href="profiles.html">履历库</a></p>
+def embedded(profile, data):
+    payload = {'schema': data['schema'], 'version': data['version'], 'issued': data['issued'],
+               'branding': data['branding'], 'grades': data['grades'], 'sources': data['sources'],
+               'categories': data['categories'], 'profile': profile}
+    text = json.dumps(payload, ensure_ascii=False).replace('</', '<\\/')
+    return f'<script type="application/json" id="ts-profile-data">{text}</script>'
+
+
+def backstage(profile, data, kind, other_href, other_label):
+    boxes = ''.join(
+        f'<label class="ts-tag"><input type="checkbox" data-aux="{i}"{" checked" if t["show"] else ""}> {b(P("titles_aux.", i, ".zh"), t["zh"])}</label>'
+        for i, t in enumerate(profile['titles_aux']))
+    return f'''<div class="backstage" role="region" aria-label="后台">
+  <div class="ts-container">
+    <div class="row">
+      <span class="ts-caption">后台 · {esc(kind)} · {esc(profile["en"])}</span>
+      <div class="tools">
+        <button class="ts-button ts-button-sm" type="button" id="bs-edit" aria-pressed="false">编辑参数</button>
+        <button class="ts-button ts-button-sm ts-button-secondary" type="button" id="bs-import">导入 JSON</button>
+        <button class="ts-button ts-button-sm ts-button-secondary" type="button" id="bs-export">导出 JSON</button>
+        <button class="ts-button ts-button-sm ts-button-secondary" type="button" id="bs-pdP(">导出 PDF</button>
+        <button class=")ts-button ts-button-sm ts-button-quiet" type="button" id="bs-reset">复位</button>
+        <a class="ts-button ts-button-sm ts-button-quiet" href="{esc(other_href)}">{esc(other_label)}</a>
+        <a class="ts-button ts-button-sm ts-button-quiet" href="profiles.html">履历库</a>
+      </div>
     </div>
+    <div class="row">
+      <span class="ts-caption">辅助职务 · 最多显示 3 个</span>
+      <div class="tools">{boxes}<span class="over ts-small" hidden>已超过 3 个</span></div>
+    </div>
+    <p class="hint ts-small ts-muted" id="bs-status">编辑模式下，页面上每个带虚线的值都可直接修改；改动只在本页，导出 JSON 后写回 people/profiles.json 并重新构建即为正式版本。也接受 <code>?data=URL</code> 与宿主系统的 postMessage。</p>
   </div>
+  <dialog class="ts-dialog" id="bs-dialog" aria-labelledby="bs-dialog-title">
+    <span class="ts-caption">JSON</span>
+    <h2 id="bs-dialog-title" style="margin-top:var(--space-2)">导入或复制</h2>
+    <p class="ts-small ts-muted">粘贴一个 profile 对象或整个 profiles.json（按 id 取本人），或选择文件。导出时此处为当前状态。</p>
+    <textarea class="ts-textarea" id="bs-json" rows="12" aria-label="JSON" style="width:100%;font-family:var(--font-mono);font-size:12px"></textarea>
+    <div class="actions">
+      <label class="ts-button ts-button-quiet" style="cursor:pointer"><input type="file" accept="application/json" id="bs-file" class="ts-visually-hidden"> 选择文件</label>
+      <button class="ts-button ts-button-quiet" type="button" data-close>关闭</button>
+      <button class="ts-button" type="button" id="bs-apply">应用</button>
+    </div>
+  </dialog>
 </div>'''
 
 
-def page_foot(profile, no, total, tail):
-    return (f'<div class="page-foot"><span>侍天 Tiansight · A Member of the Table AI Alliance</span>'
-            f'<span>{esc(tail)}</span><span class="no">{no:02d} / {total:02d}</span></div>')
+def mark(data, size='7mm', dark=False):
+    return (f'<span class="mark" style="--mark-size:{size}"><img src="{esc(data["branding"]["logo"])}" alt="" data-bind-src="branding.logo"></span>')
 
 
-def figure_block(fig, dark):
-    unit = f'<small>{esc(fig["unit"])}</small>' if fig.get('unit') else ''
-    return (f'<div class="fig"><span class="v">{esc(fig["value"])}{unit}</span>'
-            f'<span class="l">{esc(fig["label"])}</span><span class="n">{esc(fig["zh"])}</span></div>')
+def cobrand_slot(profile, data, cls=''):
+    logo = profile.get('cobrand', {}).get('logo') or ''
+    label = profile.get('cobrand', {}).get('label') or data['branding']['cobrand_label']
+    inner = (f'<img src="{esc(logo)}" alt="{esc(label)}" data-bind-src="cobrand.logo">' if logo
+             else f'<span class="slot-label" data-bind="cobrand.label" data-placeholder="{esc(label)}">{esc(profile.get("cobrand", {}).get("label", ""))}</span>')
+    return f'<div class="logo-slot {cls}" data-slot="cobrand">{inner}</div>'
+
+
+def page_foot(data, no, total, tail):
+    return (f'<div class="page-foot"><span class="brand">{mark(data, "5.5mm")}'
+            f'<span data-bind="branding.wordmark">{esc(data["branding"]["wordmark"])}</span> · '
+            f'<span data-bind="branding.alliance">{esc(data["branding"]["alliance"])}</span></span>'
+            f'<span>{tail}</span><span class="no">{no:02d} / {total:02d}</span></div>')
+
+
+def figure_block(i, fig):
+    unit = f'<small>{b(P("figures.", fig["id"], ".unit"), fig.get("unit", ""))}</small>'
+    return (f'<div class="fig" data-figure="{esc(fig["id"])}"><span class="v">{b(P("figures.", fig["id"], ".value"), fig["value"])}{unit}</span>'
+            f'{b(P("figures.", fig["id"], ".label"), fig["label"], cls="l")}{b(P("figures.", fig["id"], ".zh"), fig["zh"], cls="n")}</div>')
+
+
+def aux_slot(profile):
+    shown = [t for t in profile['titles_aux'] if t['show']][:MAX_AUX]
+    return '<div class="aux" data-aux-slot>' + ''.join(f'<span>{esc(t["zh"])}</span>' for t in shown) + '</div>'
 
 
 def cover(profile, data, total):
-    aux = [t for t in profile['titles_aux'] if t['show']][:MAX_AUX]
-    aux_html = ''.join(f'<span>{esc(t["zh"])}</span>' for t in aux)
-    figs = ''.join(figure_block(f, True) for f in profile['figures'])
+    figs = ''.join(figure_block(i, f) for i, f in enumerate(profile['figures']))
     photo = root / 'people' / profile['photo']
-    portrait = (f'<img src="{esc(profile["photo"])}" alt="{esc(profile["name"])}">' if photo.is_file()
-                else f'<span class="placeholder">肖像待补<br>{esc(profile["photo"])}</span>')
+    portrait = (f'<img src="{esc(profile["photo"])}" alt="{esc(profile["name"])}" data-bind-src="photo">' if photo.is_file()
+                else f'<span class="placeholder">肖像待补<br>{b("photo", profile["photo"])}</span>')
     return f'''<section class="page cover ts-ground-charcoal" id="cover">
   <div class="ts-compass" aria-hidden="true" style="--compass-size:165mm;left:64%;top:32%">
     <svg viewBox="0 0 600 600" fill="none" stroke="currentColor" stroke-width="1">
@@ -140,20 +222,20 @@ def cover(profile, data, total):
     </svg>
   </div>
   <div class="cover-top">
-    <span class="ts-caption">侍天 Tiansight ｜ A Member of the Table AI Alliance</span>
-    <span class="ts-caption">{esc(data["version"])} · {esc(data["issued"])}</span>
+    <div class="lockup">{mark(data, "9mm")}<span class="ts-caption"><span data-bind="branding.wordmark">{esc(data["branding"]["wordmark"])}</span> ｜ <span data-bind="branding.alliance">{esc(data["branding"]["alliance"])}</span></span></div>
+    {cobrand_slot(profile, data, 'dark')}
   </div>
   <div class="cover-body">
     <div>
-      <span class="domain">{esc(profile["domain"])}</span>
-      <h1>{esc(profile["name"])}</h1>
-      <span class="en-name">{esc(profile["en"])}</span>
+      {b("domain", profile["domain"], cls="domain")}
+      <h1>{b("name", profile["name"])}</h1>
+      {b("en", profile["en"], cls="en-name")}
       <div class="titles">
-        <span class="main">{esc(profile["title_main"])}</span>
-        <div class="aux" data-aux-slot>{aux_html}</div>
+        {b("title_main", profile["title_main"], cls="main")}
+        {aux_slot(profile)}
       </div>
-      <p class="lede">{esc(profile["lede"])}</p>
-      <p class="quote">「{esc(profile["quote"])}」</p>
+      <p class="lede">{b("lede", profile["lede"])}</p>
+      <p class="quote">「{b("quote", profile["quote"])}」</p>
     </div>
     <div>
       <div class="portrait">{portrait}</div>
@@ -161,34 +243,39 @@ def cover(profile, data, total):
     </div>
   </div>
   <div class="cover-end">
-    <div class="keywords">{esc(profile["keywords"])}</div>
-    {page_foot(profile, 1, total, profile["domain_zh"])}
+    {b("keywords", profile["keywords"], cls="keywords", tag="div")}
+    {page_foot(data, 1, total, b("domain_zh", profile["domain_zh"]))}
   </div>
 </section>'''
 
 
-def page_profile(profile, total):
-    prose = ''.join(f'<p>{esc(p)}</p>' for p in profile['summary'])
+def page_head(caption, heading, profile):
+    return (f'<div class="page-head"><div><span class="ts-caption">{caption}</span><h2>{heading}</h2></div>'
+            f'<span class="meta">{b("en", profile["en"])}</span></div>')
+
+
+def timeline_row(path, when, title, org, note):
+    return (f'<div class="row"><span class="when">{b(path + ".period", when)}</span>'
+            f'<div class="what"><h3>{b(path + ".title", title)}</h3> <span class="org">{b(path + ".org", org)}</span>'
+            f'<p>{b(path + ".note", note)}</p></div></div>')
+
+
+def page_profile(profile, data, total):
+    prose = ''.join(f'<p>{b(P("summary.", i), p)}</p>' for i, p in enumerate(profile['summary']))
     principles = ''.join(
-        f'<div class="block"><span class="ts-caption">0{i}</span><h3>{esc(p["title"])}</h3><p>{esc(p["body"])}</p></div>'
+        f'<div class="block"><span class="ts-caption">0{i}</span><h3>{b(P("principles.", p["id"], ".title"), p["title"])}</h3><p>{b(P("principles.", p["id"], ".body"), p["body"])}</p></div>'
         for i, p in enumerate(profile['principles'], 1))
-    rows = ''.join(
-        f'<div class="row"><span class="when">{esc(r.get("period", ""))}</span>'
-        f'<div class="what"><h3>{esc(r["title"])}</h3> <span class="org">{esc(r["org"])}</span>'
-        + (f'<p>{esc(r["note"])}</p>' if r.get('note') else '') + '</div></div>'
-        for r in profile.get('roles', []))
-    extra = profile.get('education', []) + profile.get('trainings', [])
-    extra_rows = ''.join(
-        f'<div class="row"><span class="when">{esc(e.get("period", "") or e.get("scale", ""))}</span>'
-        f'<div class="what"><h3>{esc(e["title"])}</h3> <span class="org">{esc(e.get("org", ""))}</span>'
-        + (f'<p>{esc(e.get("region") or e.get("role") or "")}</p>' if (e.get('region') or e.get('role')) else '')
-        + '</div></div>'
-        for e in extra)
+    rows = ''.join(timeline_row(f'roles.{r["id"]}', r.get('period', ''), r['title'], r['org'], r.get('note', ''))
+                   for r in profile.get('roles', []))
+    extra = ''
+    for e in profile.get('education', []):
+        extra += timeline_row(f'education.{e["id"]}', e.get('period', ''), e['title'], e.get('org', ''), e.get('note', ''))
+    for e in profile.get('trainings', []):
+        extra += (f'<div class="row"><span class="when">{b(P("trainings.", e["id"], ".scale"), e.get("scale", ""))}</span>'
+                  f'<div class="what"><h3>{b(P("trainings.", e["id"], ".title"), e["title"])}</h3> <span class="org">{b(P("trainings.", e["id"], ".org"), e.get("org", ""))}</span>'
+                  f'<p>{b(P("trainings.", e["id"], ".role"), e.get("role", ""))} · {b(P("trainings.", e["id"], ".region"), e.get("region", ""))}</p></div></div>')
     return f'''<section class="page" id="profile">
-  <div class="page-head">
-    <div><span class="ts-caption">Profile</span><h2>个人简介</h2></div>
-    <span class="meta">{esc(profile["en"])}</span>
-  </div>
+  {page_head("Profile", "个人简介", profile)}
   <div class="prose">{prose}</div>
   <div>
     <span class="ts-caption">Operating principles · 全案原则</span>
@@ -200,99 +287,89 @@ def page_profile(profile, total):
   </div>
   <div>
     <span class="ts-caption">Education and training · 教育与培训</span>
-    <div class="timeline" style="margin-top:3mm">{extra_rows}</div>
+    <div class="timeline" style="margin-top:3mm">{extra}</div>
   </div>
-  {page_foot(profile, 2, total, "个人简介")}
+  {page_foot(data, 2, total, "个人简介")}
 </section>'''
 
 
-def page_portfolio(profile, total):
+def page_portfolio(profile, data, total):
     if profile.get('brands'):
-        caption, heading = 'Brand portfolio', '服务覆盖'
+        caption = 'Brand portfolio'
         groups = ''.join(
-            f'<div class="group"><h3>{esc(b["group"])}</h3><p>{esc("、".join(b["items"]))}</p></div>'
-            for b in profile['brands'])
-        lede = '深入全案服务中国超过 100 个品牌，中国餐饮排行 TOP50 占到 60%。'
+            f'<div class="group"><h3>{b(P("brands.", g["id"], ".group"), g["group"])}</h3><p>{bj(P("brands.", g["id"], ".items"), g["items"])}</p></div>'
+            for g in profile['brands'])
     else:
-        caption, heading = 'Service portfolio', '服务覆盖'
+        caption = 'Service portfolio'
         groups = ''.join(
-            f'<div class="group"><h3>{esc(s["group"])}</h3><p>{esc(s["body"])}</p></div>'
+            f'<div class="group"><h3>{b(P("services.", s["id"], ".group"), s["group"])}</h3><p>{b(P("services.", s["id"], ".body"), s["body"])}</p></div>'
             for s in profile['services'])
-        lede = '面向高净值人群、家族办公室、顶奢品牌、政府机构、顶尖学府与企业组织，提供战略、教育、品牌、资产管理与 AI 工程一体化服务。'
     caps = ''.join(
-        f'<div class="cap"><span class="n">0{i}</span><h3>{esc(c["title"])}</h3></div>'
+        f'<div class="cap"><span class="n">0{i}</span><h3>{b(P("capabilities.", c["id"], ".title"), c["title"])}</h3></div>'
         for i, c in enumerate(profile['capabilities'], 1))
     return f'''<section class="page" id="portfolio">
-  <div class="page-head">
-    <div><span class="ts-caption">{caption}</span><h2>{heading}</h2></div>
-    <span class="meta">{esc(profile["en"])}</span>
-  </div>
-  <p>{esc(lede)}</p>
+  {page_head(caption, "服务覆盖", profile)}
+  <p>{b("portfolio_lede", profile["portfolio_lede"])}</p>
   <div class="portfolio">{groups}</div>
   <div style="margin-top:2mm">
     <span class="ts-caption">Capability model · 核心能力</span>
     <div class="capability" style="margin-top:3mm">{caps}</div>
   </div>
-  {page_foot(profile, 3, total, heading)}
+  {page_foot(data, 3, total, "服务覆盖")}
 </section>'''
 
 
-def cjk(value):
-    """Numbers stay in the mono face; a value written in Chinese goes back to the serif."""
-    return ' data-long' if any('\u4e00' <= ch <= '\u9fff' for ch in value) else ''
+def number(text):
+    found = re.search(r'[\d.]+', text)
+    return float(found.group()) if found else 0.0
 
 
 def delta_strip(case):
-    """Before and after, when the case states both. Two bars to scale plus the gain."""
-    facts = {f['k']: f['v'] for f in case['facts']}
+    """Before and after, when the case states both. Recomputed on the page when either value changes."""
+    facts = {f['k']: (i, f['v']) for i, f in enumerate(case['facts'])}
     pairs = [(k, k.replace('前', '后')) for k in facts if '前' in k and k.replace('前', '后') in facts]
     if not pairs:
         return ''
-    before_key, after_key = pairs[0]
-    import re as _re
-
-    def number(text):
-        found = _re.search(r'[\d.]+', text)
-        return float(found.group()) if found else 0.0
-    b, a = number(facts[before_key]), number(facts[after_key])
-    if not b or not a:
+    bk, ak = pairs[0]
+    (bi, bv), (ai, av) = facts[bk], facts[ak]
+    bn, an = number(bv), number(av)
+    if not bn or not an:
         return ''
-    wide = max(b, a)
-    gain = (a - b) / b * 100
-    return (f'<div class="delta">'
-            f'<span class="side"><span class="k">{esc(before_key)}</span><span class="v">{esc(facts[before_key])}</span></span>'
-            f'<span class="bars"><i style="width:{b / wide * 100:.0f}%"></i><i class="after" style="width:{a / wide * 100:.0f}%"></i></span>'
-            f'<span class="side" style="text-align:right"><span class="k">{esc(after_key)}</span><span class="v">{esc(facts[after_key])}</span>'
-            f'<span class="gain">+{gain:.0f}%</span></span></div>')
+    wide = max(bn, an)
+    gain = (an - bn) / bn * 100
+    cid = case['id']
+    return (f'<div class="delta" data-delta="{esc(cid)}" data-before="cases.{cid}.facts.{bi}.v" data-after="cases.{cid}.facts.{ai}.v">'
+            f'<span class="side"><span class="k">{b(P("cases.", cid, ".facts.", bi, ".k"), bk)}</span><span class="v" data-delta-before>{esc(bv)}</span></span>'
+            f'<span class="bars"><i data-delta-bar="before" style="width:{bn / wide * 100:.0f}%"></i><i class="after" data-delta-bar="after" style="width:{an / wide * 100:.0f}%"></i></span>'
+            f'<span class="side" style="text-align:right"><span class="k">{b(P("cases.", cid, ".facts.", ai, ".k"), ak)}</span><span class="v" data-delta-after>{esc(av)}</span>'
+            f'<span class="gain" data-delta-gain>{"+" if gain >= 0 else ""}{gain:.0f}%</span></span></div>')
 
 
 def page_case(profile, case, data, no, total):
-    delta = delta_strip(case)
-    names = {c['id']: c['title'] for c in profile['capabilities']}
-    caps = ''.join(f'<span class="ts-badge ts-badge-outline">{esc(names[c])}</span>' for c in case.get('capabilities', []))
-    src = data['sources'][profile['source']]
-    facts = ''.join(f'<div><span class="k">{esc(f["k"])}</span><span class="v">{esc(f["v"])}</span></div>'
-                    for f in case['facts'])
+    cid = case['id']
+    facts = ''.join(
+        f'<div><span class="k">{b(P("cases.", cid, ".facts.", i, ".k"), f["k"])}</span><span class="v">{b(P("cases.", cid, ".facts.", i, ".v"), f["v"])}</span></div>'
+        for i, f in enumerate(case['facts']))
     results = ''.join(
-        f'<div class="r"><span class="m">{esc(r["metric"])}<small>{esc(r["window"])} · {esc(r["grade"])}</small></span>'
-        f'<span class="v"{cjk(r["value"])}>{esc(r["value"])}</span></div>'
+        f'<div class="r"><span class="m">{b(P("cases.", cid, ".results.", r["id"], ".metric"), r["metric"])}<small>{b(P("cases.", cid, ".results.", r["id"], ".window"), r["window"])} · {b(P("cases.", cid, ".results.", r["id"], ".grade"), r["grade"])}</small></span>'
+        f'{b(P("cases.", cid, ".results.", r["id"], ".value"), r["value"], cls="v", extra=(" data-long" if CJK.search(r["value"]) else ""))}</div>'
         for r in case['results'])
-    return f'''<section class="page" id="{esc(case["id"])}">
-  <div class="page-head">
-    <div><span class="ts-caption">Selected case · 选摘案例</span><h2>{esc(case["title"])}</h2></div>
-    <span class="meta">{esc(profile["en"])}</span>
-  </div>
+    names = {c['id']: c['title'] for c in profile['capabilities']}
+    caps = ''.join(f'<span class="ts-badge ts-badge-outline">{b(P("capabilities.", c, ".title"), names[c])}</span>' for c in case.get('capabilities', []))
+    src = data['sources'][profile['source']]
+    return f'''<section class="page" id="{esc(cid)}">
+  {page_head("Selected case · 选摘案例", b(P("cases.", cid, ".title"), case["title"]), profile)}
   <div class="facts">{facts}</div>
-  {delta}
+  {delta_strip(case)}
   <div class="cards-2 fill">
-    <div class="block"><span class="ts-caption">Product strategy · 产品策略</span><p>{esc(case["strategy"])}</p></div>
+    <div class="block"><span class="ts-caption">Product strategy · 产品策略</span><p>{b(P("cases.", cid, ".strategy"), case["strategy"])}</p></div>
     <div class="block"><span class="ts-caption">Business result · 经营结果</span><div class="results">{results}</div></div>
   </div>
   <div class="case-foot">
     <div><span class="ts-caption">Capabilities exercised · 本案涉及能力</span><div class="strip">{caps}</div></div>
     <p class="note">数字出处：{esc(src["label"])}（{esc(src["kind"])}，{esc(src["date"])}），等级 {esc(src["grade"])}。口径与全部条目见第 {total} 页。</p>
   </div>
-  {page_foot(profile, no, total, case["title"])}
+  {page_foot(data, no, total, b(P("cases.", cid, ".title"), case["title"]))}
 </section>'''
 
 
@@ -303,22 +380,17 @@ def page_sources(profile, data, no, total):
         label = entry.get('metric') or entry.get('zh') or entry.get('title', '')
         value = entry.get('value') or entry.get('scale') or ''
         window = entry.get('window') or entry.get('note') or entry.get('region') or ''
-        cat = data['categories'][entry.get('type', 'case' if 'metric' in entry else 'figure')]['zh'] \
-            if entry.get('type') in data['categories'] else data['categories']['case']['zh']
+        cat = data['categories'][entry.get('type', 'case')]['zh'] if entry.get('type') in data['categories'] else data['categories']['case']['zh']
         rows += (f'<tr><td>{esc(label)}</td><td class="ts-mono">{esc(value)}</td><td>{esc(window)}</td>'
                  f'<td>{esc(cat)}</td><td><span class="grade">{esc(entry["grade"])}</span></td>'
                  f'<td>{esc(src["label"])} · {esc(src["kind"])} · {esc(src["date"])}</td></tr>')
     grades = ''.join(f'<div><b class="ts-mono">{esc(k)}</b> {esc(v)}</div>' for k, v in data['grades'].items())
-    items = ''.join(f'<li>{esc(i["text"])}</li>' for i in data['open_items']
-                    if i['profile'] in ('*', profile['id']))
+    items = ''.join(f'<li>{esc(i["text"])}</li>' for i in data['open_items'] if i['profile'] in ('*', profile['id']))
     edits = ''.join(f'<li>「{esc(e["from"])}」改为「{esc(e["to"])}」—— {esc(e["why"])}</li>'
                     for e in data['lexicon_edits'] if e['profile'] == profile['id'])
     return f'''<section class="page" id="sources">
-  <div class="page-head">
-    <div><span class="ts-caption">Sources and definitions</span><h2>数据出处与口径</h2></div>
-    <span class="meta">{esc(profile["en"])}</span>
-  </div>
-  <p style="font-size:9.5pt">本页列出前面每一个数字的口径、类别、证据等级与出处。</p>
+  {page_head("Sources and definitions", "数据出处与口径", profile)}
+  <p style="font-size:9.5pt">本页列出前面每一个数字的口径、类别、证据等级与出处。页面上改动的数值不改变其等级与出处；换了来源，请在 profiles.json 中登记新的 source。</p>
   <div class="grades">{grades}</div>
   <table class="ts-table-ledger sourcetable">
     <thead><tr><th>指标</th><th>数值</th><th>口径 / 窗口</th><th>类别</th><th>等级</th><th>出处</th></tr></thead>
@@ -328,91 +400,72 @@ def page_sources(profile, data, no, total):
     <div class="block"><span class="ts-caption">Open items · 待核</span><ul class="notes">{items}</ul></div>
     {'<div class="block" data-lexicon-note><span class="ts-caption">Lexicon edits · 语汇调整</span><ul class="notes">' + edits + '</ul></div>' if edits else '<div></div>'}
   </div>
-  {page_foot(profile, no, total, "出处与口径")}
+  {page_foot(data, no, total, "出处与口径")}
 </section>'''
-
-
-def switchbar(profile):
-    boxes = ''.join(
-        f'<label class="ts-tag"><input type="checkbox" value="{esc(t["zh"])}"{" checked" if t["show"] else ""}> {esc(t["zh"])}</label>'
-        for t in profile['titles_aux'])
-    return f'''<div class="ts-container">
-  <div class="switchbar">
-    <span class="ts-caption">辅助职务 · 最多显示 3 个</span>
-    {boxes}
-    <span class="hint">此处为预览；正式显示以 people/profiles.json 中的 show 字段为准，改后运行 python3 scripts/build_profiles.py。</span>
-    <span class="over" hidden>已超过 3 个</span>
-  </div>
-</div>'''
 
 
 def render_full(profile, data):
     cases = profile['cases']
     total = 4 + len(cases)
-    pages = [cover(profile, data, total), page_profile(profile, total), page_portfolio(profile, total)]
+    pages = [cover(profile, data, total), page_profile(profile, data, total), page_portfolio(profile, data, total)]
     pages += [page_case(profile, c, data, 4 + i, total) for i, c in enumerate(cases)]
     pages.append(page_sources(profile, data, total, total))
-    body = '\n'.join(pages)
     title = f'{profile["name"]} {profile["en"]} · {profile["title_main"]} · 完整版 · 侍天 TIANSIGHT'
     return f'''{head(title)}
-{shell_head(profile, "完整版 Full", f"profile-{profile['id']}-1p.html", "一页版")}
-{switchbar(profile)}
+{embedded(profile, data)}
+{backstage(profile, data, "完整版 Full", P("profile-", profile["id"], "-1p.html"), "一页版")}
 <main id="top" class="pages">
-{body}
+{chr(10).join(pages)}
 </main>
-<script src="profile.js"></script>
+<script src="profile-edit.js"></script>
 </body>
 </html>
 '''
 
 
 def render_onepage(profile, data):
-    aux = [t for t in profile['titles_aux'] if t['show']][:MAX_AUX]
-    aux_html = ''.join(f'<span>{esc(t["zh"])}</span>' for t in aux)
-    figs = ''.join(
-        f'<div class="fig"><span class="v">{esc(f["value"])}'
-        + (f'<small>{esc(f["unit"])}</small>' if f.get('unit') else '')
-        + f'</span><span class="l">{esc(f["label"])}</span><span class="n">{esc(f["zh"])}</span></div>'
-        for f in profile['figures'])
+    figs = ''.join(figure_block(i, f) for i, f in enumerate(profile['figures']))
     photo = root / 'people' / profile['photo']
-    portrait = (f'<img src="{esc(profile["photo"])}" alt="{esc(profile["name"])}">' if photo.is_file()
+    portrait = (f'<img src="{esc(profile["photo"])}" alt="{esc(profile["name"])}" data-bind-src="photo">' if photo.is_file()
                 else '<span class="ts-caption" style="text-align:center;padding:3mm">肖像待补</span>')
-    caps = ''.join(f'<span class="ts-badge ts-badge-outline">{esc(c["title"])}</span>' for c in profile['capabilities'])
+    caps = ''.join(f'<span class="ts-badge ts-badge-outline">{b(P("capabilities.", c["id"], ".title"), c["title"])}</span>' for c in profile['capabilities'])
     cases = ''
     for case in [c for c in profile['cases'] if 'onepage' in c['show_in']]:
-        meta = ' · '.join(f['v'] for f in case['facts'][:3])
-        items = ''.join(f'<li><span>{esc(r["metric"])}</span><b>{esc(r["value"])}</b></li>' for r in case['results'][:3])
-        cases += (f'<div class="c"><h2>{esc(case["title"])}</h2><span class="meta">{esc(meta)}</span>'
-                  f'<ul>{items}</ul></div>')
+        cid = case['id']
+        meta = ' · '.join(b(f'cases.{cid}.facts.{i}.v', f['v']) for i, f in enumerate(case['facts'][:3]))
+        items = ''.join(f'<li>{b(P("cases.", cid, ".results.", r["id"], ".metric"), r["metric"])}<b>{b(P("cases.", cid, ".results.", r["id"], ".value"), r["value"])}</b></li>'
+                        for r in case['results'][:3])
+        cases += f'<div class="c"><h2>{b(P("cases.", cid, ".title"), case["title"])}</h2><span class="meta">{meta}</span><ul>{items}</ul></div>'
     if profile.get('brands'):
-        coverage = '服务品牌：' + '、'.join(b['group'] for b in profile['brands'])
+        coverage = '服务品牌：' + '、'.join(b(f'brands.{g["id"]}.group', g['group']) for g in profile['brands'])
     else:
-        coverage = '服务覆盖：' + '、'.join(s['group'] for s in profile['services'])
+        coverage = '服务覆盖：' + '、'.join(b(f'services.{s["id"]}.group', s['group']) for s in profile['services'])
     src = data['sources'][profile['source']]
     title = f'{profile["name"]} {profile["en"]} · {profile["title_main"]} · 一页版 · 侍天 TIANSIGHT'
     return f'''{head(title)}
-{shell_head(profile, "一页版 One page", f"profile-{profile['id']}.html", "完整版")}
+{embedded(profile, data)}
+{backstage(profile, data, "一页版 One page", P("profile-", profile["id"], ".html"), "完整版")}
 <main id="top" class="pages">
 <section class="page onepage" id="onepage">
   <div class="page-head">
-    <div><span class="ts-caption">侍天 Tiansight ｜ A Member of the Table AI Alliance</span><span class="domain-line">{esc(profile["domain"])}</span></div>
-    <span class="meta">{esc(data["version"])} · {esc(data["issued"])}</span>
+    <div class="lockup">{mark(data, "8mm")}<div><span class="ts-caption"><span data-bind="branding.wordmark">{esc(data["branding"]["wordmark"])}</span> ｜ <span data-bind="branding.alliance">{esc(data["branding"]["alliance"])}</span></span>{b("domain", profile["domain"], cls="domain-line")}</div></div>
+    {cobrand_slot(profile, data)}
   </div>
   <div class="hero">
     <div class="portrait">{portrait}</div>
     <div>
-      <h1>{esc(profile["name"])}<span class="ts-caption" style="margin-left:3mm">{esc(profile["en"])}</span></h1>
+      <h1>{b("name", profile["name"])}<span class="ts-caption" style="margin-left:3mm">{b("en", profile["en"])}</span></h1>
       <div class="titles" style="margin-top:2mm">
-        <span class="main">{esc(profile["title_main"])}</span>
-        <div class="aux">{aux_html}</div>
+        {b("title_main", profile["title_main"], cls="main")}
+        {aux_slot(profile)}
       </div>
-      <p style="margin-top:3mm">{esc(profile["lede"])}</p>
-      <p class="ts-latin" lang="en" style="margin-top:2mm;color:var(--gold);font-size:9.5pt"><em>「{esc(profile["quote"])}」</em></p>
+      <p style="margin-top:3mm">{b("lede", profile["lede"])}</p>
+      <p class="ts-latin" lang="en" style="margin-top:2mm;color:var(--gold);font-size:9.5pt"><em>「{b("quote", profile["quote"])}」</em></p>
     </div>
     <div class="figures">{figs}</div>
   </div>
   <div class="page-rule"></div>
-  <p style="font-size:9pt">{esc(profile["summary"][0])}</p>
+  <p style="font-size:9pt">{b("summary.0", profile["summary"][0])}</p>
   <div>
     <span class="ts-caption">Capability model · 核心能力</span>
     <div class="strip" style="margin-top:2mm">{caps}</div>
@@ -423,12 +476,13 @@ def render_onepage(profile, data):
   </div>
   <div>
     <span class="ts-caption">Coverage · 覆盖</span>
-    <p style="font-size:9pt;margin-top:1.5mm">{esc(coverage)}</p>
+    <p style="font-size:9pt;margin-top:1.5mm">{coverage}</p>
   </div>
   <p class="foot-note">数字口径与出处见完整版第 {4 + len(profile["cases"])} 页。本页数字来源：{esc(src["label"])}（{esc(src["kind"])}，{esc(src["date"])}），等级 {esc(src["grade"])}，客户可见前请逐条确认。</p>
-  {page_foot(profile, 1, 1, profile["domain_zh"])}
+  {page_foot(data, 1, 1, b("domain_zh", profile["domain_zh"]))}
 </section>
 </main>
+<script src="profile-edit.js"></script>
 </body>
 </html>
 '''
@@ -439,13 +493,10 @@ def render_index(data):
     for profile in data['profiles']:
         aux = ' · '.join(t['zh'] for t in profile['titles_aux'] if t['show'])
         counts = {}
-        for key in ('figures', 'principles', 'capabilities', 'brands', 'services', 'roles', 'education', 'trainings', 'cases'):
+        for key in LISTS:
             for entry in profile.get(key, []):
-                cat = entry.get('type', 'case')
-                counts[cat] = counts.get(cat, 0) + 1
-        chips = ''.join(
-            f'<span class="ts-badge ts-badge-outline">{esc(data["categories"][c]["zh"])} {n}</span>'
-            for c, n in sorted(counts.items()))
+                counts[entry['type']] = counts.get(entry['type'], 0) + 1
+        chips = ''.join(f'<span class="ts-badge ts-badge-outline">{esc(data["categories"][c]["zh"])} {n}</span>' for c, n in sorted(counts.items()))
         cards += f'''<article class="ts-card" data-index="{esc(profile["order"])}">
       <span class="ts-caption">{esc(profile["domain"])}</span>
       <h2 class="ts-card-title">{esc(profile["name"])} {esc(profile["en"])}</h2>
@@ -457,18 +508,16 @@ def render_index(data):
         <a href="profile-{esc(profile["id"])}-1p.html">一页版</a>
       </div>
     </article>'''
-    vocab = ''.join(
-        f'<tr><td class="ts-mono">{esc(key)}</td><td>{esc(v["zh"])}</td><td>{esc(v["en"])}</td><td class="ts-small ts-muted">{esc(v["note"])}</td></tr>'
-        for key, v in data['categories'].items())
+    vocab = ''.join(f'<tr><td class="ts-mono">{esc(k)}</td><td>{esc(v["zh"])}</td><td>{esc(v["en"])}</td><td class="ts-small ts-muted">{esc(v["note"])}</td></tr>'
+                    for k, v in data['categories'].items())
     grades = ''.join(f'<tr><td class="ts-mono">{esc(k)}</td><td>{esc(v)}</td></tr>' for k, v in data['grades'].items())
-    items = ''.join(f'<li>{esc(i["text"])}<span class="ts-small ts-muted">（{esc("全部" if i["profile"] == "*" else i["profile"])}）</span></li>'
-                    for i in data['open_items'])
+    items = ''.join(f'<li>{esc(i["text"])}<span class="ts-small ts-muted">（{esc("全部" if i["profile"] == "*" else i["profile"])}）</span></li>' for i in data['open_items'])
     return f'''{head('联合创始人履历库 · 侍天 TIANSIGHT')}
 <main id="top" class="ts-container ts-section">
   <div class="ts-heading">
     <span class="ts-caption">Co-founder profiles · {esc(data["version"])} · {esc(data["issued"])}</span>
     <h1>联合创始人履历库</h1>
-    <p class="ts-sub">一份 <code>people/profiles.json</code> 驱动两种版本：完整版七页、一页版一页。每条经历归入下方类别，每个数字带出处与证据等级。主职务统一为「侍天联合创始人」，辅助职务在数据中开关，最多显示三个。</p>
+    <p class="ts-sub">一份 <code>people/profiles.json</code> 驱动两种版本：完整版七页、一页版一页。每条经历归入下方类别，每个数字带出处与证据等级。主职务统一为「侍天联合创始人」，辅助职务在数据中开关，最多显示三个。页面上每个值都可在后台编辑、以 JSON 导入导出，架构见 <a href="../docs/profile-architecture.md">docs/profile-architecture.md</a>，数据契约见 <a href="profiles.schema.json">profiles.schema.json</a>。</p>
   </div>
   <div class="profile-cards" style="margin-top:var(--space-7)">{cards}</div>
   <div style="margin-top:var(--space-8)">
@@ -493,7 +542,7 @@ def render_index(data):
     <span class="ts-caption">待核</span>
     <div><ul style="margin:0;padding-left:1.2em">{items}</ul></div>
   </div>
-  <p class="ts-small ts-muted" style="margin-top:var(--space-6)">生成命令：<code>python3 scripts/build_profiles.py</code>。数据源：<code>people/profiles.json</code>。</p>
+  <p class="ts-small ts-muted" style="margin-top:var(--space-6)">生成命令：<code>python3 scripts/build_profiles.py</code>。PDF 与单文件：<code>node scripts/export_profiles.mjs</code>。数据源：<code>people/profiles.json</code>。</p>
 </main>
 </body>
 </html>
@@ -520,8 +569,7 @@ def main(check=False):
     stale = [p for p, text in files.items() if not p.is_file() or p.read_text(encoding='utf-8') != text]
     if check:
         if stale:
-            print('stale: ' + ', '.join(sorted(p.relative_to(root).as_posix() for p in stale))
-                  + ' — run python3 scripts/build_profiles.py')
+            print('stale: ' + ', '.join(sorted(p.relative_to(root).as_posix() for p in stale)) + ' — run python3 scripts/build_profiles.py')
             return 1
         print(f'profiles are up to date ({len(files)} pages)')
         return 0

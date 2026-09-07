@@ -115,7 +115,7 @@ for consumer in ('deck', 'website', 'report', 'people'):
         problems.append(f'{consumer}: banned or sans-serif font family')
     for url in re.findall(r'(?:src|href)="(https?://[^"]+)"', html):
         problems.append(f'{consumer}: loads remote resource {url}')
-    for ref in set(re.findall(r'(?:src|href)="([^"#:]+)"', html)):
+    for ref in set(re.findall(r'(?<![\w-])(?:src|href)="([^"#:]+)"', html)):
         if (folder / ref).is_file():
             continue
         if PHOTO.search(ref):

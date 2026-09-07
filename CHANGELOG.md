@@ -2,6 +2,13 @@
 
 Versions follow the published brand guide. The system version is in `brand/VERSION`.
 
+## v0.6 · 2026-09-07 · Profiles as a live view
+
+- Every printed value on a profile page is bound to its path in the profile object; the profile JSON travels inside the page. `people/profile-edit.js` adds a 后台 bar: edit in place, import JSON (file, paste, `?data=URL`, `postMessage`), export JSON, export PDF, reset. Derived displays (the before-and-after strip) redraw from their inputs.
+- `people/profiles.schema.json`: the data contract other systems validate against. `docs/profile-architecture.md`: values at run time, structure at build time, and where a host system plugs in.
+- Logo positions: the 侍天 mark on every cover, header and footer; a reserved co-brand slot on the cover and the one-page version, blank in print until filled.
+- `scripts/export_profiles.mjs`: PDFs and self-contained single-file HTML per profile.
+
 ## v0.6 · 2026-09-07 · Co-founder profiles
 
 - `people/profiles.json`: a classified履历 library for 边江 and 郭峰, transcribed from the A4 profiles they supplied. Ten categories, four evidence grades, every number bound to a source.

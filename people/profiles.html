@@ -17,7 +17,7 @@
   <div class="ts-heading">
     <span class="ts-caption">Co-founder profiles · v0.1 · 2026-09-07</span>
     <h1>联合创始人履历库</h1>
-    <p class="ts-sub">一份 <code>people/profiles.json</code> 驱动两种版本：完整版七页、一页版一页。每条经历归入下方类别，每个数字带出处与证据等级。主职务统一为「侍天联合创始人」，辅助职务在数据中开关，最多显示三个。</p>
+    <p class="ts-sub">一份 <code>people/profiles.json</code> 驱动两种版本：完整版七页、一页版一页。每条经历归入下方类别，每个数字带出处与证据等级。主职务统一为「侍天联合创始人」，辅助职务在数据中开关，最多显示三个。页面上每个值都可在后台编辑、以 JSON 导入导出，架构见 <a href="../docs/profile-architecture.md">docs/profile-architecture.md</a>，数据契约见 <a href="profiles.schema.json">profiles.schema.json</a>。</p>
   </div>
   <div class="profile-cards" style="margin-top:var(--space-7)"><article class="ts-card" data-index="壹">
       <span class="ts-caption">RESTAURANT BRAND STRATEGY</span>
@@ -62,7 +62,7 @@
     <span class="ts-caption">待核</span>
     <div><ul style="margin:0;padding-left:1.2em"><li>封面写「原海底捞高级品牌总监」，简介写「呷哺呷哺、海底捞品牌高级经理」，职级表述需本人确认。<span class="ts-small ts-muted">（bian-jiang）</span></li><li>履历中的全部数字均为本人提供，等级 E4，客户可见版本前请逐条确认或降级表述。<span class="ts-small ts-muted">（全部）</span></li><li>联系方式与照片为占位；照片请放 people/photos/ 下，文件名见数据中的 photo 字段。<span class="ts-small ts-muted">（全部）</span></li><li>profiles.json 与 people/people.json 的五人名册尚未对应，待创始人顺序确认后补 people_id。<span class="ts-small ts-muted">（全部）</span></li></ul></div>
   </div>
-  <p class="ts-small ts-muted" style="margin-top:var(--space-6)">生成命令：<code>python3 scripts/build_profiles.py</code>。数据源：<code>people/profiles.json</code>。</p>
+  <p class="ts-small ts-muted" style="margin-top:var(--space-6)">生成命令：<code>python3 scripts/build_profiles.py</code>。PDF 与单文件：<code>node scripts/export_profiles.mjs</code>。数据源：<code>people/profiles.json</code>。</p>
 </main>
 </body>
 </html>

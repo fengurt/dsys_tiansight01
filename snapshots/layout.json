@@ -1,7 +1,7 @@
 {
  "index.html@desktop": {
   "overflow": false,
-  "height": 1391,
+  "height": 1411,
   "headings": [
    1,
    7,
@@ -22,7 +22,7 @@
  },
  "index.html@mobile": {
   "overflow": false,
-  "height": 2933,
+  "height": 2992,
   "headings": [
    1,
    7,
@@ -379,7 +379,7 @@
  },
  "people/profiles.html@desktop": {
   "overflow": false,
-  "height": 2167,
+  "height": 2198,
   "headings": [
    1,
    2,
@@ -400,7 +400,7 @@
  },
  "people/profiles.html@mobile": {
   "overflow": false,
-  "height": 3385,
+  "height": 3502,
   "headings": [
    1,
    2,
@@ -421,19 +421,19 @@
  },
  "people/profile-bian-jiang.html@desktop": {
   "overflow": false,
-  "height": 8282,
+  "height": 8281,
   "headings": [
    1,
-   6,
+   7,
    22
   ],
   "sections": 7,
   "cards": 0,
   "charts": 2,
-  "images": 0,
+  "images": 8,
   "h1": [
    301,
-   665,
+   675,
    444,
    62
   ],
@@ -442,19 +442,19 @@
  },
  "people/profile-bian-jiang-1p.html@desktop": {
   "overflow": false,
-  "height": 1299,
+  "height": 1402,
   "headings": [
    1,
-   3,
+   4,
    0
   ],
   "sections": 1,
   "cards": 0,
   "charts": 2,
-  "images": 0,
+  "images": 2,
   "h1": [
    452,
-   313,
+   417,
    338,
    38
   ],
@@ -463,19 +463,19 @@
  },
  "people/profile-guo-feng.html@desktop": {
   "overflow": false,
-  "height": 8282,
+  "height": 8281,
   "headings": [
    1,
-   6,
+   7,
    22
   ],
   "sections": 7,
   "cards": 0,
   "charts": 2,
-  "images": 0,
+  "images": 8,
   "h1": [
    301,
-   665,
+   675,
    444,
    62
   ],
@@ -484,19 +484,19 @@
  },
  "people/profile-guo-feng-1p.html@desktop": {
   "overflow": false,
-  "height": 1299,
+  "height": 1402,
   "headings": [
    1,
-   3,
+   4,
    0
   ],
   "sections": 1,
   "cards": 0,
   "charts": 2,
-  "images": 0,
+  "images": 2,
   "h1": [
    452,
-   298,
+   402,
    338,
    38
   ],

@@ -3,6 +3,13 @@
   "version": "v0.1",
   "issued": "2026-09-07",
   "note": "联合创始人履历库。每条经历都归入 categories 中的一类，每个数字都带出处与证据等级。原始材料为本人提供的 A4 Profile（郭峰、边江），转录后未经第三方核验，等级一律 E4，客户可见前须由本人确认。",
+  "branding": {
+    "logo": "../brand/logo.png",
+    "wordmark": "侍天 Tiansight",
+    "alliance": "A Member of the Table AI Alliance",
+    "cobrand_label": "合作方 LOGO 位",
+    "cobrand_logo": ""
+  },
   "categories": {
     "role": {
       "zh": "任职经历",
@@ -570,7 +577,12 @@
           ]
         }
       ],
-      "keywords": "Table AI Alliance | Brand Strategy | Menu Architecture | Restaurant Growth"
+      "keywords": "Table AI Alliance | Brand Strategy | Menu Architecture | Restaurant Growth",
+      "cobrand": {
+        "label": "",
+        "logo": ""
+      },
+      "portfolio_lede": "深入全案服务中国超过 100 个品牌，中国餐饮排行 TOP50 占到 60%。"
     },
     {
       "id": "guo-feng",
@@ -978,7 +990,12 @@
           ]
         }
       ],
-      "keywords": "Table AI Alliance | OPC Global | AI Engineering | Organization Development"
+      "keywords": "Table AI Alliance | OPC Global | AI Engineering | Organization Development",
+      "cobrand": {
+        "label": "",
+        "logo": ""
+      },
+      "portfolio_lede": "面向高净值人群、家族办公室、顶奢品牌、政府机构、顶尖学府与企业组织，提供战略、教育、品牌、资产管理与 AI 工程一体化服务。"
     }
   ],
   "lexicon_edits": [
