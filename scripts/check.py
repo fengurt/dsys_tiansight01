@@ -130,7 +130,7 @@ for consumer in ('deck', 'website', 'report', 'people'):
         problems.append(f'{consumer}: undeclared token --{missing}')
     if consumer in ('website', 'people'):
         # A block marked data-lexicon-note documents the substitutions, so it quotes the avoided words.
-        prose = re.sub(r'<div class="block" data-lexicon-note>.*?</div>\s*</div>', '', html, flags=re.S)
+        prose = re.sub(r'<div[^>]*data-lexicon-note>.*?</ul>\s*</div>', '', html, flags=re.S)
         for word in ('赋能', '抓手', '闭环', '包治百病', '颠覆', '爆款', '裂变', '解决方案', '打法'):
             if word in prose:
                 problems.append(f'{consumer}: avoided lexicon "{word}"')
