@@ -1,7 +1,7 @@
 {
  "index.html@desktop": {
   "overflow": false,
-  "height": 1352,
+  "height": 1411,
   "headings": [
    1,
    7,
@@ -22,7 +22,7 @@
  },
  "index.html@mobile": {
   "overflow": false,
-  "height": 2816,
+  "height": 3011,
   "headings": [
    1,
    7,
@@ -43,19 +43,19 @@
  },
  "brand/index.html@desktop": {
   "overflow": false,
-  "height": 13835,
+  "height": 14358,
   "headings": [
    1,
    12,
    24
   ],
   "sections": 12,
-  "cards": 46,
+  "cards": 47,
   "charts": 4,
   "images": 7,
   "h1": [
    208,
-   3451,
+   3974,
    1024,
    62
   ],
@@ -64,19 +64,19 @@
  },
  "brand/index.html@mobile": {
   "overflow": false,
-  "height": 24152,
+  "height": 24966,
   "headings": [
    1,
    12,
    24
   ],
   "sections": 12,
-  "cards": 46,
+  "cards": 47,
   "charts": 4,
   "images": 7,
   "h1": [
    24,
-   5431,
+   6241,
    342,
    79
   ],
@@ -85,7 +85,7 @@
  },
  "website/index.html@desktop": {
   "overflow": false,
-  "height": 7457,
+  "height": 7458,
   "headings": [
    1,
    11,
@@ -106,7 +106,7 @@
  },
  "website/index.html@mobile": {
   "overflow": false,
-  "height": 13418,
+  "height": 13450,
   "headings": [
    1,
    11,
@@ -181,7 +181,7 @@
   "images": 29,
   "h1": [
    88,
-   347,
+   346,
    1104,
    92
   ],
@@ -358,7 +358,7 @@
  },
  "dist/example.html@mobile": {
   "overflow": false,
-  "height": 1622,
+  "height": 1623,
   "headings": [
    1,
    3,
@@ -375,6 +375,132 @@
    79
   ],
   "title": "接入示例 · 侍天 TIANSIGHT",
+  "errors": []
+ },
+ "people/profiles.html@desktop": {
+  "overflow": false,
+  "height": 2458,
+  "headings": [
+   1,
+   2,
+   0
+  ],
+  "sections": 0,
+  "cards": 2,
+  "charts": 0,
+  "images": 0,
+  "h1": [
+   48,
+   122,
+   1184,
+   62
+  ],
+  "title": "联合创始人履历库 · 侍天 TIANSIGHT",
+  "errors": []
+ },
+ "people/profiles.html@mobile": {
+  "overflow": false,
+  "height": 3411,
+  "headings": [
+   1,
+   2,
+   0
+  ],
+  "sections": 0,
+  "cards": 2,
+  "charts": 0,
+  "images": 0,
+  "h1": [
+   24,
+   108,
+   342,
+   40
+  ],
+  "title": "联合创始人履历库 · 侍天 TIANSIGHT",
+  "errors": []
+ },
+ "people/profile-bian-jiang.html@desktop": {
+  "overflow": false,
+  "height": 8173,
+  "headings": [
+   1,
+   10,
+   17
+  ],
+  "sections": 7,
+  "cards": 0,
+  "charts": 2,
+  "images": 15,
+  "h1": [
+   622,
+   393,
+   353,
+   67
+  ],
+  "title": "边江 BIAN JIANG · 侍天联合创始人 · 完整版 · 侍天 TIANSIGHT",
+  "errors": []
+ },
+ "people/profile-bian-jiang-1p.html@desktop": {
+  "overflow": false,
+  "height": 1294,
+  "headings": [
+   1,
+   6,
+   0
+  ],
+  "sections": 1,
+  "cards": 0,
+  "charts": 2,
+  "images": 3,
+  "h1": [
+   509,
+   301,
+   467,
+   44
+  ],
+  "title": "边江 BIAN JIANG · 侍天联合创始人 · 一页版 · 侍天 TIANSIGHT",
+  "errors": []
+ },
+ "people/profile-guo-feng.html@desktop": {
+  "overflow": false,
+  "height": 8173,
+  "headings": [
+   1,
+   10,
+   17
+  ],
+  "sections": 7,
+  "cards": 0,
+  "charts": 2,
+  "images": 15,
+  "h1": [
+   622,
+   393,
+   353,
+   67
+  ],
+  "title": "郭峰 GUO FENG · 侍天联合创始人 · 完整版 · 侍天 TIANSIGHT",
+  "errors": []
+ },
+ "people/profile-guo-feng-1p.html@desktop": {
+  "overflow": false,
+  "height": 1294,
+  "headings": [
+   1,
+   6,
+   0
+  ],
+  "sections": 1,
+  "cards": 0,
+  "charts": 2,
+  "images": 3,
+  "h1": [
+   509,
+   301,
+   467,
+   44
+  ],
+  "title": "郭峰 GUO FENG · 侍天联合创始人 · 一页版 · 侍天 TIANSIGHT",
   "errors": []
  }
 }

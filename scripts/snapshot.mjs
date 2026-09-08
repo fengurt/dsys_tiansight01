@@ -33,6 +33,11 @@ const PAGES = [
   { file: 'people/social.html', vps: ['desktop'] },
   { file: 'html-system/sample/index.html', vps: ['desktop', 'mobile'] },
   { file: 'dist/example.html', vps: ['desktop', 'mobile'] },
+  { file: 'people/profiles.html', vps: ['desktop', 'mobile'] },
+  { file: 'people/profile-bian-jiang.html', vps: ['desktop'] },
+  { file: 'people/profile-bian-jiang-1p.html', vps: ['desktop'] },
+  { file: 'people/profile-guo-feng.html', vps: ['desktop'] },
+  { file: 'people/profile-guo-feng-1p.html', vps: ['desktop'] },
 ];
 const args = process.argv.slice(2);
 const update = args.includes('--update');

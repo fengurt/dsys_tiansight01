@@ -2,6 +2,29 @@
 
 Versions follow the published brand guide. The system version is in `brand/VERSION`.
 
+## v0.6 · 2026-09-07 · Profiles as a live view
+
+- Every printed value on a profile page is bound to its path in the profile object; the profile JSON travels inside the page. `people/profile-edit.js` adds a 后台 bar: edit in place, import JSON (file, paste, `?data=URL`, `postMessage`), export JSON, export PDF, reset. Derived displays (the before-and-after strip) redraw from their inputs.
+- `people/profiles.schema.json`: the data contract other systems validate against. `docs/profile-architecture.md`: values at run time, structure at build time, and where a host system plugs in.
+- Logo positions: the 侍天 mark on every cover, header and footer; a reserved co-brand slot on the cover and the one-page version, blank in print until filled.
+- `scripts/export_profiles.mjs`: PDFs and self-contained single-file HTML per profile.
+
+## v0.6 · 2026-09-07 · Co-founder profiles
+
+- `people/profiles.json`: a classified履历 library for 边江 and 郭峰, transcribed from the A4 profiles they supplied. Ten categories, four evidence grades, every number bound to a source.
+- `scripts/build_profiles.py`: builds a seven-page 完整版 and a one-page 一页版 per person plus the library index, and refuses to build on an undeclared source, an unknown category, a case naming a capability the profile does not have, or more than three auxiliary titles.
+- Fixed main title 侍天联合创始人; auxiliary titles switch on the `show` flag, with a screen-only preview on the full page.
+- Case pages carry a before-and-after strip drawn from the stated facts, and each names the capabilities it exercised.
+- New `.ts-scroll-x` utility so a wide table scrolls in its own box instead of widening the page.
+- The avoided-lexicon check now covers `people/` as well as `website/`; the block that documents a substitution is exempt.
+
+## v0.6 · 2026-09-07 · Contrast audit
+
+- `scripts/check_contrast.py`: computes all thirty colour pairings the system uses against WCAG 2.1, compositing translucent tokens over their ground, and verifies the ratios printed in the specimen. Wired into the gate.
+- Fixed by the audit: the focus ring is now solid gold (2.2:1 → 6.0:1), control borders use the new `--control-border` token (2.2:1 → 3.4:1), the chart benchmark line reaches 3.3:1, and the chart axis line uses the axis colour.
+- Two pairings the published guide mandates are recorded as waivers with what carries the meaning instead: bright gold as key numbers and as the first data series on light grounds. Open question 2 asks the brand owner to settle the first.
+- `scripts/export_tokens.py` now fails on a token that matches no group instead of filing it under "other".
+
 ## v0.6 · 2026-09-07 · Distribution
 
 - `dist/`: one-file bundle `tiansight.css` (latest channel) and `tiansight-v0.6.css` (pinned), plus `tokens.json`, `icons.svg` and a working `example.html`, built by `scripts/build_dist.py` and verified by the gate.

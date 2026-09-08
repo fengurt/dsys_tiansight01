@@ -17,7 +17,7 @@ root = Path(__file__).resolve().parents[1]
 css = (root / 'brand' / 'tokens.css').read_text()
 
 GROUPS = [
-    ('color', re.compile(r'^(surface|paper|ink-primary|charcoal|gold|gold-hi|gold-deep|ink-muted|seal|line|line-strong|card-border|rule|watermark|scrim|focus|text.*|positive|negative|chart-.*)$')),
+    ('color', re.compile(r'^(surface|paper|ink-primary|charcoal|gold|gold-hi|gold-deep|ink-muted|seal|line|line-strong|card-border|control-border|rule|watermark|scrim|focus|text.*|positive|negative|chart-.*)$')),
     ('font', re.compile(r'^(font-.*|weight-.*)$')),
     ('typography', re.compile(r'^(text-.*|leading-.*|tracking-.*|measure-.*)$')),
     ('space', re.compile(r'^space-\d+$')),
@@ -33,7 +33,7 @@ def group_of(name):
     for g, rx in GROUPS:
         if rx.match(name):
             return g
-    return 'other'
+    raise SystemExit(f'--{name} matches no group in GROUPS; add it so the export stays typed')
 
 
 def parse_block(block):

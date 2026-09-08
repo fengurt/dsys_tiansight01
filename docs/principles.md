@@ -29,7 +29,9 @@ Three durations (`--dur-fast` 120ms, `--dur-base` 220ms, `--dur-reveal` 700ms) a
 
 ## 6. Reachable by everyone
 
-Every page has a `lang`, one `h1`, a `<main>`, a skip link where there is a header, heading levels that never skip, labels on every control, names on every button and link, and a visible focus ring of 2px gold. Body text holds 4.5:1 against its ground; large gold display text is used only where it clears 3:1. `scripts/lint_html.py` enforces the structural part; the specimen shows the rest.
+Every page has a `lang`, one `h1`, a `<main>`, a skip link where there is a header, heading levels that never skip, labels on every control, names on every button and link, and a visible focus ring of solid gold. `scripts/lint_html.py` enforces the structure.
+
+Colour is audited, not asserted: `scripts/check_contrast.py` computes every pairing the system actually uses, compositing translucent tokens over their ground first. Body text needs 4.5:1, large text and any boundary a user must see needs 3:1, and decoration needs nothing but must stay decoration. Where the published guide mandates a colour that falls short, the pairing is listed as a waiver with what carries the meaning instead, never quietly reclassified as decorative.
 
 ## 7. Offline and reproducible
 

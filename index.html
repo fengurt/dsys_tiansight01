@@ -81,7 +81,7 @@
       <span class="ts-caption">People</span>
       <h2 class="ts-card-title">联合创始人</h2>
       <p>一份 people.json 驱动区块、名片与社媒人物卡。</p>
-      <div class="links"><a href="people/blocks.html"><svg class="ts-icon ts-icon-sm"><use href="#ts-arrow-right"/></svg> 区块</a><a href="people/namecards.html">名片</a><a href="people/social.html">社媒</a></div>
+      <div class="links"><a href="people/profiles.html"><svg class="ts-icon ts-icon-sm"><use href="#ts-arrow-right"/></svg> 履历库</a><a href="people/blocks.html">区块</a><a href="people/namecards.html">名片</a><a href="people/social.html">社媒</a></div>
     </article>
     <article class="ts-card" data-index="陆">
       <span class="ts-caption">HTML report system</span>
@@ -101,6 +101,8 @@
     <span class="ts-caption">Build commands</span>
     <pre class="ts-mono" style="margin-top:var(--space-3);padding:var(--space-4);border:1px solid var(--line);background:var(--paper)">python3 scripts/build_report.py     # report/index.html from template + data
 python3 scripts/build_people.py     # team page, blocks, name cards, social, deck slides
+python3 scripts/build_profiles.py   # co-founder profiles: full version and one page
+node scripts/export_profiles.mjs    # profile PDFs and single-file HTML into people/export/
 python3 scripts/sync_icons.py       # inline brand/icons.svg into pages with markers
 node scripts/export_people.mjs      # social PNGs and name card PDF
 python3 html-system/build_deck.py html-system/sample   # manifest → report
@@ -108,6 +110,7 @@ python3 html-system/check_report.py html-system/sample --layout
 python3 scripts/export_tokens.py    # brand/tokens.json (DTCG) from tokens.css
 python3 scripts/build_dist.py       # dist/tiansight.css bundle for other sites
 python3 scripts/lint_html.py        # accessibility and structure lint on every page
+python3 scripts/check_contrast.py   # WCAG audit of every colour pairing in use
 node scripts/snapshot.mjs --update  # refresh layout baseline after an intended change
 python3 scripts/check.py --render   # guide conformance, build freshness, lint, layout regression</pre>
   </div>
