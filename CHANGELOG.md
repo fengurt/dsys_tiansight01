@@ -2,6 +2,15 @@
 
 Versions follow the published brand guide. The system version is in `brand/VERSION`.
 
+## v0.7 · 2026-09-09 · Rulings
+
+- Open questions 1, 2, 3, 10 and 11 closed by the brand owner (`docs/foundation-review.md`): primary button stays the ink field with gold hairline; tagline 智慧领航者 sets in deep gold at every size; `--gold-deep` keeps its own token at the same hex; 增长 stays verbatim in the promise line; deck opener and closer return to pale manuscript with the compass watermark, charcoal limited to the fourth tier card.
+- Mark lockup: the mark already reads 侍天, so the CN name is no longer set beside it — header lockups and footers pair the mark with "Tiansight" only (website, team page, specimen, hub, deck, report, people templates and builder).
+- Published into `brand/tokens.css`: gold ramp 100–700 with `--gold-hover` / `--gold-press`; four shadow steps for dialogs; interface type steps `--type-ui/table/badge/tick`; semantic chart set for reports; inverse-surface tokens for the single charcoal card. Guide §1, §2, §3, §5, §7 amended.
+- `components.css`: secondary, quiet and nav hovers darken along the gold ramp instead of swapping tokens; open dialogs carry `--shadow-3`; `.ts-wordmark b` deprecated.
+- `deck.css`: `.slide.charcoal` and `.mark-tile` rules removed.
+- `check.py` 8g: charcoal never a page ground, one charcoal card per section, tagline never bright gold on pale, semantic chart colours report-only, no CN name beside the mark, ramp values.
+
 ## v0.6 · 2026-09-07 · Distribution
 
 - `dist/`: one-file bundle `tiansight.css` (latest channel) and `tiansight-v0.6.css` (pinned), plus `tokens.json`, `icons.svg` and a working `example.html`, built by `scripts/build_dist.py` and verified by the gate.

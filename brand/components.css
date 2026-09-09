@@ -50,7 +50,7 @@
   font-weight: var(--weight-body);
   letter-spacing: var(--tracking-tagline);
   margin-inline-end: calc(-1 * var(--tracking-tagline));
-  color: var(--text-key);
+  color: var(--text-tagline);
 }
 .ts-lockup > hr, .ts-divider {
   width: 72px; margin: 0; border-top: 1px solid var(--rule);
@@ -201,9 +201,11 @@
 .ts-button:hover { border-color: var(--gold); background: var(--paper); color: var(--charcoal); }
 .ts-button:active { transform: translateY(1px); }                     /* stamp press */
 .ts-button-secondary { background: transparent; border-color: var(--gold); color: var(--gold); }
-.ts-button-secondary:hover { background: var(--ink-primary); }
+.ts-button-secondary:hover { background: var(--ink-primary); color: var(--gold-hover); border-color: var(--gold-hover); }
+.ts-button-secondary:active { color: var(--gold-press); border-color: var(--gold-press); }
 .ts-button-quiet { background: transparent; border-color: transparent; color: var(--gold); padding-inline: var(--space-3); }
-.ts-button-quiet:hover { background: transparent; border-color: transparent; color: var(--charcoal); }
+.ts-button-quiet:hover { background: transparent; border-color: transparent; color: var(--gold-hover); }
+.ts-button-quiet:active { color: var(--gold-press); }
 .ts-button-charcoal { background: var(--charcoal); border-color: var(--charcoal); color: var(--surface); }
 .ts-button-charcoal:hover { background: var(--charcoal); border-color: var(--gold); color: var(--gold-hi); }
 .ts-button-lg { min-height: 52px; padding: 14px 32px; font-size: var(--text-body); }
@@ -288,7 +290,9 @@
 .ts-lockup-row .ts-wordmark {
   display: flex; flex-direction: column; gap: 2px;
 }
-.ts-lockup-row .ts-wordmark b { font-family: var(--font-cn); font-size: 1.25rem; font-weight: var(--weight-title); letter-spacing: var(--tracking-display); line-height: 1; }
+.ts-lockup-row .ts-wordmark { justify-content: center; }
+.ts-lockup-row .ts-wordmark .ts-caption { font-size: var(--text-small); color: var(--charcoal); }
+.ts-lockup-row .ts-wordmark b { /* deprecated v0.7: the mark already reads 侍天, never repeat it beside the mark */ font-family: var(--font-cn); font-size: 1.25rem; font-weight: var(--weight-title); letter-spacing: var(--tracking-display); line-height: 1; }
 .ts-lockup-row .ts-alliance { border-left: 1px solid var(--gold); padding-left: var(--space-4); margin-left: var(--space-2); }
 
 /* ── Navigation: hairline, gold rules, active = bright gold rule ─ */
@@ -297,7 +301,7 @@
   border-bottom: 1px solid transparent; padding-block: var(--space-2);
   color: var(--text); font-size: var(--text-small);
 }
-.ts-nav a:hover { border-bottom-color: var(--gold); color: var(--gold); }
+.ts-nav a:hover { border-bottom-color: var(--gold-hover); color: var(--gold-hover); }
 .ts-nav a[aria-current="page"] { border-bottom-color: var(--gold-hi); color: var(--charcoal); }
 .ts-header {
   position: sticky; top: 0; z-index: var(--z-sticky);
@@ -446,6 +450,7 @@
 /* ── Dialog: native <dialog>, paper panel, corner ticks ───── */
 .ts-dialog { border: 1px solid var(--card-border); border-radius: var(--radius); background: var(--paper); color: var(--text); padding: var(--card-pad-lg); max-width: min(560px, calc(100vw - 2 * var(--gutter))); box-shadow: none; }
 .ts-dialog::backdrop { background: var(--scrim); }
+.ts-dialog[open] { box-shadow: var(--shadow-3); }   /* the one shadowed surface (v0.7) */
 .ts-dialog h2, .ts-dialog h3 { margin-bottom: var(--space-3); }
 .ts-dialog .actions { display: flex; gap: var(--space-3); justify-content: flex-end; margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--line); }
 .ts-dialog[open] { animation: ts-rise var(--dur-base) var(--ease-out) both; }

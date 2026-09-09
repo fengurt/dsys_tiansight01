@@ -17,16 +17,17 @@ root = Path(__file__).resolve().parents[1]
 css = (root / 'brand' / 'tokens.css').read_text()
 
 GROUPS = [
-    ('color', re.compile(r'^(surface|paper|ink-primary|charcoal|gold|gold-hi|gold-deep|ink-muted|seal|line|line-strong|card-border|rule|watermark|scrim|focus|text.*|positive|negative|chart-.*)$')),
+    ('color', re.compile(r'^(surface|paper|ink-primary|charcoal|gold|gold-hi|gold-deep|gold-\d+|gold-hover|gold-press|ink-muted|seal|line|line-strong|card-border|rule|watermark|scrim|focus|text.*|positive|negative|chart-.*|surface-inverse|muted-on-inverse|line-inverse)$')),
+    ('shadow', re.compile(r'^shadow-\d$')),
     ('font', re.compile(r'^(font-.*|weight-.*)$')),
-    ('typography', re.compile(r'^(text-.*|leading-.*|tracking-.*|measure-.*)$')),
+    ('typography', re.compile(r'^(type-.*|text-.*|leading-.*|tracking-.*|measure-.*)$')),
     ('space', re.compile(r'^space-\d+$')),
     ('layout', re.compile(r'^(container|columns|gutter|section-gap|card-pad.*|swatch|mark-.*)$')),
     ('shape', re.compile(r'^radius.*$')),
     ('motion', re.compile(r'^(dur-.*|ease.*)$')),
     ('z', re.compile(r'^z-.*$')),
 ]
-TYPES = {'color': 'color', 'font': 'fontFamily', 'typography': 'dimension', 'space': 'dimension', 'layout': 'dimension', 'shape': 'dimension', 'motion': 'duration', 'z': 'number'}
+TYPES = {'shadow': 'shadow', 'color': 'color', 'font': 'fontFamily', 'typography': 'dimension', 'space': 'dimension', 'layout': 'dimension', 'shape': 'dimension', 'motion': 'duration', 'z': 'number'}
 
 
 def group_of(name):

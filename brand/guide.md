@@ -38,11 +38,16 @@ We equip every valuable mid-to-high-end F&B chain with a "see-clearly, move-beta
 | `--ink-muted` | 素墨灰 Ink Muted | `#706758` | secondary / supporting text 辅助文字 |
 | `--seal` | 朱红 Vermillion | `#8C3228` | seal, negation (✕), warnings — ≤5% 印章·否定 |
 
+**Gold ramp (v0.7):** `--gold-100` `#F3E7CF` · `--gold-300` `#D4A862` · `--gold-400` `#A8842F` · `--gold-500` `#76551F` · `--gold-600` `#5C4218` · `--gold-700` `#3F2D0F`. Hover sets one step darker than the base (`--gold-hover` = 600), press two (`--gold-press` = 700). `--gold-deep` stays its own token at the same hex as `--gold` (Q3).
+
+**Inverse surface (v0.7):** `--surface-inverse` = 玄墨, `--text-on-inverse` = 淡墨纸, `--muted-on-inverse`, `--line-inverse`. One card per view (the 百年共创 tier); never a page ground.
+
 **Surfaces (derived, on pale manuscript):**
 - panel / raised: `#FFFDF8`
 - primary field: `#EFE6D2`
 - hairline: `rgba(23,19,13,0.18)` · hairline-strong: `rgba(23,19,13,0.34)`
 - card border: `rgba(118,85,31,0.34)`
+- shadow (dialogs and overlays only, cards stay bordered — v0.7): `--shadow-1` `0 1px 2px rgba(23,19,13,.08)` · `--shadow-2` `0 2px 6px .10` · `--shadow-3` `0 6px 18px .12` · `--shadow-4` `0 14px 40px .16`
 
 **Rule ratios (≈ ):**
 - pale surfaces ≈ 78% of any view.
@@ -71,9 +76,10 @@ We equip every valuable mid-to-high-end F&B chain with a "see-clearly, move-beta
 | `small` | 14 / 1.8 | 300 | supporting |
 | `caption` | 13 / 1.4 | 400 | UPPERCASE, `+0.34em`, color `--gold-deep` |
 | `mono` | 13 / 1.5 | 400 | IBM Plex Mono |
+| `ui` · `table` · `badge` · `tick` | 16 · 14 · 12 · 11 | 400 | interface steps for dense data surfaces (v0.7); never for running text |
 
 **Signature patterns:**
-- Tagline 智慧领航者 — `letter-spacing: 0.5em`, color `--gold-hi`.
+- Tagline 智慧领航者 — `letter-spacing: 0.5em`, color `--gold-deep` at every size (Q2, v0.7). Bright gold `--gold-hi` is 1.9:1 on pale and is reserved for figures at 28px and above, active states, and charcoal grounds.
 - Pair every CN heading with a small UPPERCASE EN caption in `--gold-deep`.
 
 **Bilingual display rules:**
@@ -91,6 +97,7 @@ We equip every valuable mid-to-high-end F&B chain with a "see-clearly, move-beta
 - **Misuse ✕:** never rotate, never recolor, never stretch.
 - **Clear space:** at least one full compass-ring radius on all sides.
 - **Minimum size:** 24px height for inline; 64px for hero placement.
+- **Lockup (v0.7):** the published mark already reads 侍天. Never set the CN name beside it; a lockup pairs the mark with the Latin caption `Tiansight` (UPPERCASE-tracked, `--charcoal`) and, where needed, the Table AI Alliance line behind a 1px `--gold` rule.
 - **No third-party mark coupling** in a single lockup; pair tiansight marks only with Table AI Alliance wordmark, separated by a 1px `--gold` rule.
 
 ---
@@ -113,7 +120,7 @@ We equip every valuable mid-to-high-end F&B chain with a "see-clearly, move-beta
 | 复利 / 长效 | 包治百病 / 颠覆 |
 | 模型 / 体系 | 解决方案 / 打法 |
 | 数据校准 | 数据补全 |
-| 单店跑通 → 模型锁定 → 体系连锁 → 智能领航 | 增长 / 爆款 / 裂变 |
+| 单店跑通 → 模型锁定 → 体系连锁 → 智能领航 | 增长 / 爆款 / 裂变 (增长 survives only verbatim in the promise line 「增长在何处、利润失于何处」 — Q10) |
 
 ---
 
@@ -129,6 +136,7 @@ We equip every valuable mid-to-high-end F&B chain with a "see-clearly, move-beta
 
 **Charts / data viz:**
 - 1 color series = `--gold-hi`; 2 = `--gold-hi` + `--charcoal`; 3 = `--gold-hi` + `--charcoal` + `--seal`.
+- Semantic set (v0.7, reports only, when 增长 must be told from 关注): `--chart-growth` `#4E6B3F` · `--chart-caution` `#B98B2A` · `--chart-benchmark-solid` `#6E6355` · `--chart-loss` = `--seal`. Decks and the website keep the three-series rule.
 - Always label axis ticks in `--ink-muted`; never use `--seal` for positive data points.
 
 ---
@@ -150,7 +158,7 @@ We equip every valuable mid-to-high-end F&B chain with a "see-clearly, move-beta
 ## 7. Layout / 版式
 
 - Generous negative space on pale manuscript; center key lockups, left-align dense spec content.
-- 1–2 background tones max (`--surface` + `--paper`). Vermillion is a spark, never a field.
+- 1–2 background tones max (`--surface` + `--paper`) — decks included: opener and closer sit on pale with the compass watermark (Q11, v0.7). Charcoal appears only as `.ts-card-charcoal`, one card per view. Vermillion is a spark, never a field.
 - Cover pattern: EN caption → 侍天 display lockup → gold divider → tagline (0.5em) → CN sub-line, compass watermark behind.
 - Print/PDF-ready: fixed canvas, pale manuscript background bleeds full-page.
 - Grid: 12-column; max content width 1280px; side gutter 48px desktop / 24px mobile.
@@ -189,4 +197,4 @@ A tiansight artifact is "done" when:
 
 ---
 
-*tiansight 侍天 Design System · 数字员工 · 餐饮陪跑 · A Member of the Table AI Alliance · v0.6 · Hong Kong*
+*tiansight 侍天 Design System · 数字员工 · 餐饮陪跑 · A Member of the Table AI Alliance · v0.7 · Hong Kong*

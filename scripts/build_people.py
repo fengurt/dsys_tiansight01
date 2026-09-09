@@ -79,14 +79,14 @@ def slide_team(base):
     return (f'<section class="slide paper" data-label="联合创始人">\n  <span class="ts-caption">{esc(GROUP["en"])} · 团队</span>\n'
             f'  <div class="body" style="gap:28px">\n    <h2>{esc(GROUP["title"])}</h2>\n    <div class="founders">{cells}</div>\n'
             f'    <p class="note" style="margin:0">{esc(GROUP["lede"])}</p>\n  </div>\n'
-            f'  <div class="footer"><span class="brand"><img src="{base["brand"]}logo.png" alt="">侍天 Tiansight</span><span class="page"></span></div>\n</section>')
+            f'  <div class="footer"><span class="brand"><img src="{base["brand"]}logo.png" alt="">Tiansight</span><span class="page"></span></div>\n</section>')
 
 
 def slide_spotlight(p, base):
     return (f'<section class="slide" data-label="创始人 · {esc(p["order"])}">\n  <span class="ts-caption">{esc(GROUP["en"])} · {esc(p["order"])}</span>\n'
             f'  <div class="body spotlight">\n    {portrait(p, base)}\n    <div class="ts-stack" style="gap:18px">{identity(p)}'
             f'<p>{esc(p["bio"])}</p><blockquote class="ts-quote">「{esc(p["quote"])}」<footer>{esc(p["name"])}</footer></blockquote></div>\n  </div>\n'
-            f'  <div class="footer"><span class="brand"><img src="{base["brand"]}logo.png" alt="">侍天 Tiansight</span><span class="page"></span></div>\n</section>')
+            f'  <div class="footer"><span class="brand"><img src="{base["brand"]}logo.png" alt="">Tiansight</span><span class="page"></span></div>\n</section>')
 
 
 # ── name cards ───────────────────────────────────────────────────────

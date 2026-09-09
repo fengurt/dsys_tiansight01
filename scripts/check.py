@@ -193,7 +193,42 @@ if f'"version": "{version}"' not in (brand / 'tokens.json').read_text():
 if not (root / 'dist' / f'tiansight-{version}.css').is_file():
     problems.append(f'dist/tiansight-{version}.css missing: run python3 scripts/build_dist.py')
 
+# Append to scripts/check.py before "# 9. Supplied export is intact" — v0.7 assertions.
+
+# 8g. v0.7 rulings
+# Q11: charcoal never a page ground; only .ts-card-charcoal, at most one per page/slide
+for consumer in ('deck', 'website', 'report'):
+    for page in sorted((root / consumer).glob('*.html')):
+        html = page.read_text()
+        if re.search(r'<(section|body|main)[^>]*class="[^"]*ts-ground-charcoal', html):
+            problems.append(f'{page.relative_to(root)}: charcoal used as a page ground (guide §7)')
+        for sect in re.findall(r'<section[^>]*>.*?</section>', html, re.S):
+            if sect.count('ts-card-charcoal') > 1:
+                problems.append(f'{page.relative_to(root)}: more than one charcoal card in a section')
+# Q2: tagline never in bright gold outside charcoal scopes
+if re.search(r'\.ts-tagline\s*\{[^}]*--gold-hi', components):
+    problems.append('components.css: .ts-tagline uses --gold-hi on pale (ruling Q2)')
+# p5: semantic chart colours stay in report/
+for consumer in ('deck', 'website', 'brand'):
+    text = ''.join(p.read_text() for p in (root / consumer).glob('*.html')) + ''.join(p.read_text() for p in (root / consumer).glob('*.css') if p.name != 'tokens.css')
+    for tokname in ('chart-growth', 'chart-caution', 'chart-benchmark-solid', 'chart-loss'):
+        if f'var(--{tokname})' in text:
+            problems.append(f'{consumer}: --{tokname} is report-only (guide §5)')
+# Mark lockup: the CN name is never set beside the mark
+for rel in ('brand/index.html', 'website/index.html', 'website/team.html', 'deck/index.html', 'report/index.html', 'index.html', 'people/templates/team.html', 'report/template.html'):
+    if '<span class="ts-wordmark"><b>侍天</b>' in (root / rel).read_text():
+        problems.append(f'{rel}: CN name repeated beside the mark (guide §3 lockup)')
+# gold ramp and shadow tokens declared with the published values
+for tokname, hexval in (('gold-100', '#F3E7CF'), ('gold-300', '#D4A862'), ('gold-400', '#A8842F'), ('gold-500', '#76551F'), ('gold-600', '#5C4218'), ('gold-700', '#3F2D0F')):
+    if (token_value(tokname) or '').lower() != hexval.lower():
+        problems.append(f'tokens.css --{tokname} != {hexval}')
+
 # 9. Supplied export is intact
+exported_tokens = json.loads((brand / 'tokens.json').read_text())
+for group, name, expected_type in (('color', 'gold-600', 'color'), ('shadow', 'shadow-3', 'shadow'), ('typography', 'type-ui', 'dimension')):
+    if exported_tokens.get(group, {}).get(name, {}).get('$type') != expected_type:
+        problems.append(f'tokens.json: {name} must be {group}/{expected_type}')
+
 export = root / 'TIANSIGHT 侍天 Design System'
 manifest = json.loads((export / '_ds_manifest.json').read_text())
 for entry in manifest['components']:
