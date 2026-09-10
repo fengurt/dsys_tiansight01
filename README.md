@@ -14,15 +14,28 @@ For the browser gate, install its existing runtime dependency once with `npm ins
 
 Docs: [principles](docs/principles.md) · [quickstart](docs/quickstart.md) · [contributing](docs/contributing.md) · [changelog](CHANGELOG.md) · [distribution](dist/README.md). System version: `brand/VERSION`.
 
+## Automatic preview deployment
+
+The public preview is configured for [tiansight.apuch.art](https://tiansight.apuch.art). `.github/workflows/pages.yml` rebuilds and validates on every push to `main`, then publishes the staged `_site/` artifact. Pull requests run the same build/check job without deploying. No provider secrets or manual configuration are needed for later deployments.
+
+```sh
+python3 scripts/build_preview.py   # rebuild consumers, validate, stage public files
+python3 -m http.server 8000 --bind 127.0.0.1 --directory _site
+```
+
+The builder publishes the hub, brand specimen, website, deck, report, people examples, documentation and CSS distribution. Archived exports and `reference/source/` are excluded. `/build.json` identifies the deployed commit and system version. GitHub's `github-pages` environment serialises releases. The workflow uses the portable static gate; the existing browser snapshot comparison remains a local check because fonts and baseline geometry depend on the host environment.
+
+One-time DNS: `tiansight.apuch.art` must have a DNS-only CNAME to `fengurt.github.io`. The custom domain is set in GitHub Pages settings; the checked-in `CNAME` also records it. Enable Enforce HTTPS after GitHub issues the certificate. To roll back, revert the unwanted change on `main` and push; the same workflow rebuilds and redeploys that source.
+
 ## Sharing the system with other sites
 
 `dist/tiansight.css` is the whole foundation in one file. Another team adds one line and gets the fonts, tokens, element defaults and every component:
 
 ```html
-<link rel="stylesheet" href="https://fengurt.github.io/dsys_tiansight01/dist/tiansight.css">
+<link rel="stylesheet" href="https://tiansight.apuch.art/dist/tiansight.css">
 ```
 
-That URL is the **latest channel**: every push updates every site linking it. `dist/tiansight-v0.7.css` is the current content pinned to a version; `dist/tiansight-v0.6.css` remains available for sites that want to move deliberately. `dist/tokens.json` carries the tokens as data, `dist/icons.svg` the sprite, and `dist/example.html` is a working page to copy. Serving needs GitHub Pages switched on (settings → Pages → deploy from `main`, root); see [dist/README.md](dist/README.md). Rebuild with `python3 scripts/build_dist.py`.
+That URL is the **latest channel**: every push updates every site linking it. `dist/tiansight-v0.7.css` is the current content pinned to a version; `dist/tiansight-v0.6.css` remains available for sites that want to move deliberately. `dist/tokens.json` carries the tokens as data, `dist/icons.svg` the sprite, and `dist/example.html` is a working page to copy. GitHub Pages uses the `Publish preview` Actions workflow; see [dist/README.md](dist/README.md). Rebuild with `python3 scripts/build_dist.py`.
 
 | Surface | URL | Notes |
 |---|---|---|
