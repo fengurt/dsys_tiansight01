@@ -17,7 +17,7 @@ root = Path(__file__).resolve().parents[1]
 css = (root / 'brand' / 'tokens.css').read_text()
 
 GROUPS = [
-    ('color', re.compile(r'^(surface|paper|ink-primary|charcoal|gold|gold-hi|gold-deep|gold-\d+|gold-hover|gold-press|ink-muted|seal|line|line-strong|card-border|rule|watermark|scrim|focus|text.*|positive|negative|chart-.*|surface-inverse|muted-on-inverse|line-inverse)$')),
+    ('color', re.compile(r'^(surface|paper|ink-primary|charcoal|gold|gold-hi|gold-deep|gold-\d+|gold-hover|gold-press|ink-muted|seal|line|line-strong|card-border|control-border|rule|watermark|scrim|focus|color-.*|text|text-muted|text-key|text-tagline|text-on-.*|positive|negative|chart-.*|surface-inverse|muted-on-inverse|line-inverse)$')),
     ('shadow', re.compile(r'^shadow-\d$')),
     ('font', re.compile(r'^(font-.*|weight-.*)$')),
     ('typography', re.compile(r'^(type-.*|text-.*|leading-.*|tracking-.*|measure-.*)$')),
@@ -40,6 +40,8 @@ def group_of(name):
 def parse_block(block):
     out = {}
     for m in re.finditer(r'--([a-z0-9-]+):\s*([^;]+);(?:\s*/\*\s*(.*?)\s*\*/)?', block):
+        if m.group(1) in out:
+            raise ValueError(f'Duplicate token: --{m.group(1)}')
         out[m.group(1)] = (m.group(2).strip(), (m.group(3) or '').strip())
     return out
 

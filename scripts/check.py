@@ -60,7 +60,7 @@ if missing_fonts:
     notes.append('webfonts not yet supplied: ' + ', '.join(missing_fonts))
 
 # 4. Foundation policy: serif fallbacks only, no banned families, no raw colour outside tokens.css
-for name, css in (('tokens.css', tokens), ('base.css', base), ('components.css', components)):
+for name, css in (('tokens.css', tokens), ('base.css', base), ('components.css', components), ('product.css', (brand / 'product.css').read_text())):
     for family in re.findall(r'--font-[a-z]+:\s*([^;]+);', css):
         if 'sans-serif' in family:
             problems.append(f'{name}: sans-serif fallback in font stack')
@@ -175,6 +175,10 @@ for label, cmd in (('tokens.json', [sys.executable, str(root / 'scripts' / 'expo
     run = subprocess.run(cmd, capture_output=True, text=True)
     if run.returncode != 0:
         problems.append(f'{label}: ' + run.stdout.strip().replace('\n', ' '))
+
+product_tests = subprocess.run([sys.executable, str(root / 'scripts/test_product.py')], capture_output=True, text=True)
+if product_tests.returncode:
+    problems.append('product: ' + product_tests.stderr)
 
 # 8e. Layout regression (opt-in: needs the global Playwright install)
 if '--render' in sys.argv:

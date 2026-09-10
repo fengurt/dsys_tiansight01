@@ -2,6 +2,14 @@
 
 Versions follow the published brand guide. The system version is in `brand/VERSION`.
 
+## v0.7 · 2026-09-10 · Connected product distribution
+
+- Deterministic, namespaced product foundation with per-asset hashes, reusable application patterns, safe DOM runtime and chart theme access.
+- Self-hosted WOFF2 subsets with provenance and OFL licenses.
+- Separate caption color/size tokens; token export rejects duplicate declarations and preserves typography types.
+- Gold focus/control borders and functional chart marks. Existing versioned CSS pins remain frozen; new content-addressed outputs are generated.
+- Product unit tests and reviewed specimen layout baselines. See `docs/product-distribution.md` for consumer ownership and upgrades.
+
 ## v0.7 · 2026-09-09 · Rulings
 
 - Open questions 1, 2, 3, 10 and 11 closed by the brand owner (`docs/foundation-review.md`): primary button stays the ink field with gold hairline; tagline 智慧领航者 sets in deep gold at every size; `--gold-deep` keeps its own token at the same hex; 增长 stays verbatim in the promise line; deck opener and closer return to pale manuscript with the compass watermark, charcoal limited to the fourth tier card.

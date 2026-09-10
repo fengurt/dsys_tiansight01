@@ -18,7 +18,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const globalRoot = execSync('npm root -g').toString().trim();
-const { chromium } = await import(resolve(globalRoot, 'playwright/index.mjs'));
+const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || resolve(globalRoot, 'playwright/index.mjs'));
 
 const VIEWPORTS = { desktop: { width: 1280, height: 900 }, mobile: { width: 390, height: 844 } };
 const PAGES = [

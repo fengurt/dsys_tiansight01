@@ -35,7 +35,7 @@ def build():
             rel = path.relative_to(ROOT)
             if 'templates' in rel.parts or 'export' in rel.parts:
                 continue
-            if path.suffix.lower() in {'.html', '.css', '.js', '.json', '.csv', '.svg', '.png', '.jpg', '.jpeg', '.webp', '.woff2', '.md'}:
+            if path.suffix.lower() in {'.html', '.css', '.js', '.json', '.csv', '.svg', '.png', '.jpg', '.jpeg', '.webp', '.woff2', '.md'} or (path.suffix == '.txt' and path.name.startswith('OFL-') and 'fonts' in rel.parts):
                 paths.append(path)
     for path in paths:
         if path.is_symlink() or ROOT not in path.resolve().parents:
@@ -52,6 +52,9 @@ def build():
     problems = [(page, errors) for page, errors in problems if errors]
     assert not problems, problems
     assert (OUT / 'brand/index.html').is_file()
+    manifest = json.loads((OUT / 'dist/product/manifest.json').read_text())
+    for name in manifest['files']:
+        assert (OUT / 'dist/product' / name).is_file(), f'Missing product asset: {name}'
     assert not (OUT / '.git').exists() and not (OUT / 'reference/source').exists()
     print(f'PASS: staged {len(paths)} preview files in _site; HTML links resolve')
 

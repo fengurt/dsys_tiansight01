@@ -1,7 +1,7 @@
 {
  "index.html@desktop": {
   "overflow": false,
-  "height": 1322,
+  "height": 1320,
   "headings": [
    1,
    7,
@@ -13,7 +13,7 @@
   "images": 1,
   "h1": [
    48,
-   212,
+   210,
    1184,
    62
   ],
@@ -22,7 +22,7 @@
  },
  "index.html@mobile": {
   "overflow": false,
-  "height": 2755,
+  "height": 2801,
   "headings": [
    1,
    7,
@@ -34,7 +34,7 @@
   "images": 1,
   "h1": [
    24,
-   180,
+   178,
    342,
    40
   ],
@@ -43,13 +43,13 @@
  },
  "brand/index.html@desktop": {
   "overflow": false,
-  "height": 13809,
+  "height": 14629,
   "headings": [
    1,
-   12,
+   13,
    24
   ],
-  "sections": 12,
+  "sections": 13,
   "cards": 46,
   "charts": 4,
   "images": 7,
@@ -64,13 +64,13 @@
  },
  "brand/index.html@mobile": {
   "overflow": false,
-  "height": 24163,
+  "height": 25040,
   "headings": [
    1,
-   12,
+   13,
    24
   ],
-  "sections": 12,
+  "sections": 13,
   "cards": 46,
   "charts": 4,
   "images": 7,
@@ -85,7 +85,7 @@
  },
  "website/index.html@desktop": {
   "overflow": false,
-  "height": 7457,
+  "height": 7456,
   "headings": [
    1,
    11,
@@ -106,7 +106,7 @@
  },
  "website/index.html@mobile": {
   "overflow": false,
-  "height": 13448,
+  "height": 13472,
   "headings": [
    1,
    11,
@@ -127,7 +127,7 @@
  },
  "website/team.html@desktop": {
   "overflow": false,
-  "height": 3632,
+  "height": 3608,
   "headings": [
    1,
    3,
@@ -148,7 +148,7 @@
  },
  "website/team.html@mobile": {
   "overflow": false,
-  "height": 6194,
+  "height": 6133,
   "headings": [
    1,
    3,
@@ -211,7 +211,7 @@
  },
  "people/blocks.html@desktop": {
   "overflow": false,
-  "height": 3040,
+  "height": 2968,
   "headings": [
    1,
    0,
@@ -232,7 +232,7 @@
  },
  "people/blocks.html@mobile": {
   "overflow": false,
-  "height": 5343,
+  "height": 5341,
   "headings": [
    1,
    0,
@@ -358,7 +358,7 @@
  },
  "dist/example.html@mobile": {
   "overflow": false,
-  "height": 1622,
+  "height": 1621,
   "headings": [
    1,
    3,

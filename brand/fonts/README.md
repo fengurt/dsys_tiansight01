@@ -1,23 +1,7 @@
-# Webfonts
+# Self-hosted webfonts
 
-`brand/fonts.css` expects these files here. None are bundled; all three families are
-published under the SIL Open Font License and may be self-hosted.
+127 WOFF2 unicode subsets (6,757,536 bytes) supply Noto Serif SC variable 300–700, Noto Serif normal variable 400–700/italic 400, and IBM Plex Mono 400/500.
 
-| File | Family · weight | Source |
-|---|---|---|
-| `NotoSerifSC-Light.woff2` | Noto Serif SC 300 | github.com/notofonts/noto-cjk (Serif, SC) |
-| `NotoSerifSC-Regular.woff2` | Noto Serif SC 400 | same |
-| `NotoSerifSC-Medium.woff2` | Noto Serif SC 500 | same |
-| `NotoSerifSC-SemiBold.woff2` | Noto Serif SC 600 | same |
-| `NotoSerifSC-Bold.woff2` | Noto Serif SC 700 | same |
-| `NotoSerif-Regular.woff2` | Noto Serif 400 | github.com/notofonts/latin-greek-cyrillic |
-| `NotoSerif-Italic.woff2` | Noto Serif 400 italic | same |
-| `NotoSerif-Bold.woff2` | Noto Serif 700 | same |
-| `IBMPlexMono-Regular.woff2` | IBM Plex Mono 400 | github.com/IBM/plex |
-| `IBMPlexMono-Medium.woff2` | IBM Plex Mono 500 | same |
+`sources.json` records each upstream URL, byte size and SHA-256. Filenames use the first 24 hash characters. `brand/fonts.css` preserves the original unicode ranges so browsers fetch only subsets needed by the current text. Fonts are served locally, not from Google at runtime; system serif fallbacks remain available.
 
-Noto Serif SC is large (several MB per weight). For the web, subset to the characters the
-consumers use (GB 2312 level 1 plus the brand's copy is a reasonable floor) with
-`pyftsubset` from fonttools, keeping `--flavor=woff2`. Print and deck exports can use the
-full fonts. Until the files exist, browsers fall back to the local serifs listed in
-`brand/tokens.css`; `scripts/check.py` reports which files are still missing.
+The three `OFL-*.txt` files contain upstream licenses and are copied into the product distribution with the fonts. Preserve provenance and licenses when updating these assets. Older frozen CSS channels retain their historical fallback declarations.
