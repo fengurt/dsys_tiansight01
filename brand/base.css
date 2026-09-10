@@ -81,7 +81,7 @@ th {
   font-weight: var(--weight-body);
   letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
-  color: var(--text-caption);
+  color: var(--color-caption);
   border-top: 0;
   border-bottom: 1px solid var(--rule);
 }
@@ -100,7 +100,7 @@ td.ts-num, th.ts-num { text-align: right; }
   line-height: var(--leading-caption);
   letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
-  color: var(--text-caption);
+  color: var(--color-caption);
 }
 .ts-latin { font-family: var(--font-en); }
 .ts-muted { color: var(--text-muted); }

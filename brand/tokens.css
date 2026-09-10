@@ -24,12 +24,14 @@
   --rule: var(--gold);                     /* structural rule, 1px */
   --watermark: rgba(118, 85, 31, 0.10);    /* compass ring behind heroes */
   --scrim: rgba(23, 19, 13, 0.55);
-  --focus: rgba(118, 85, 31, 0.5);
+  --focus: var(--gold);
+  --control-border: var(--gold);
 
   /* text roles */
   --text: var(--charcoal);
   --text-muted: var(--ink-muted);
-  --text-caption: var(--gold-deep);
+  --color-caption: var(--gold-deep);
+  --chart-functional: var(--gold);
   --text-key: var(--gold-hi);              /* key numbers 28px+, active states — never body-size on pale */
   --text-tagline: var(--gold-deep);        /* 智慧领航者 at every size (ruling Q2 v0.7) */
   --text-on-charcoal: var(--surface);

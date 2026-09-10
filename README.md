@@ -29,6 +29,8 @@ One-time DNS: `tiansight.apuch.art` must have a DNS-only CNAME to `fengurt.githu
 
 ## Sharing the system with other sites
 
+Product applications should use the verified, namespaced [connected product distribution](docs/product-distribution.md), not a live CDN dependency. Build with `python3 scripts/build_product.py`, test with `python3 scripts/test_product.py`, and consume `dist/product/manifest.json` at a reviewed commit. The normal builder/gate also checks this bundle. `PLAYWRIGHT_MODULE=/absolute/path/to/playwright/index.mjs` selects a local browser-test dependency. Existing version-named CSS pins are frozen snapshots; new builds also emit content-hash filenames.
+
 `dist/tiansight.css` is the whole foundation in one file. Another team adds one line and gets the fonts, tokens, element defaults and every component:
 
 ```html

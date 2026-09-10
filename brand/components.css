@@ -467,3 +467,46 @@ th[aria-sort="descending"]::after { content: " ↓"; color: var(--gold); }
 .ts-input:disabled, .ts-select:disabled, .ts-textarea:disabled { opacity: 0.4; cursor: not-allowed; background: var(--surface); }
 .ts-input:read-only { background: var(--surface); color: var(--text-muted); }
 .ts-card[aria-selected="true"], .ts-card.selected { border-color: var(--gold); box-shadow: inset 0 0 0 1px var(--gold); }
+.ts-page-header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-6); flex-wrap: wrap; margin-bottom: var(--space-6); }
+.ts-page-title { margin: 0; font-size: var(--text-h3); line-height: var(--leading-h3); }
+.ts-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-3); }
+.ts-filter-bar { display: flex; align-items: end; flex-wrap: wrap; gap: var(--space-4); padding: var(--space-4); background: var(--ink-primary); border: 1px solid var(--line); }
+.ts-table-wrap { max-width: 100%; overflow-x: auto; overscroll-behavior-inline: contain; }
+.ts-table { width: 100%; border-collapse: collapse; font-size: var(--type-table); color: var(--text); background: var(--paper); }
+.ts-table :where(th,td) { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.ts-table th { background: var(--ink-primary); color: var(--color-caption); font-weight: var(--weight-title); }
+.ts-table tbody tr:hover { background: var(--surface); }
+.ts-table tr[aria-selected="true"] { background: var(--ink-primary); }
+.ts-table :where(td,th).ts-num { text-align: right; }
+.ts-feedback { display: grid; justify-items: center; gap: var(--space-3); padding: var(--space-8) var(--space-4); color: var(--text-muted); text-align: center; }
+.ts-feedback[data-state="error"] { color: var(--seal); }
+.ts-notifications { position: fixed; z-index: var(--z-modal); right: var(--space-4); bottom: var(--space-4); display: grid; gap: var(--space-2); max-width: min(28rem,calc(100vw - 2 * var(--space-4))); }
+.ts-notification { background: var(--paper); color: var(--text); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: var(--space-3) var(--space-4); box-shadow: var(--shadow-2); }
+.ts-notification[data-state="error"] { color: var(--seal); border-color: var(--seal); }
+.ts-dialog-title { margin: 0; font-size: var(--text-h3); }
+.ts-dialog-header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
+.ts-dialog-body { padding-block: var(--space-4); }
+.ts-dialog-footer { display: flex; justify-content: flex-end; gap: var(--space-3); flex-wrap: wrap; }
+.ts-dialog { max-height: calc(100dvh - 2 * var(--space-4)); overflow: auto; }
+.ts-drawer { margin: 0 0 0 auto; min-height: 100dvh; max-height: 100dvh; width: min(36rem,100vw); }
+.ts-pagination { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-3); flex-wrap: wrap; }
+.ts-kpi-value { font-family: var(--font-mono); color: var(--text); font-size: var(--text-h3); font-variant-numeric: tabular-nums; }
+.ts-chart-frame { min-width: 0; background: var(--paper); color: var(--text); border: 1px solid var(--line); padding: var(--space-4); }
+.ts-evidence { color: var(--text-muted); border-top: 1px solid var(--line); padding-top: var(--space-3); font-size: var(--text-small); }
+.ts-breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2); color: var(--text-muted); font-size: var(--text-small); }
+.ts-breadcrumb a { color: var(--gold); }
+.ts-breadcrumb [aria-current="page"] { color: var(--text); }
+@media (max-width: 640px) {
+  .ts-filter-bar > * { max-width: 100%; }
+  .ts-page-header { gap: var(--space-3); }
+  .ts-dialog { max-width: calc(100vw - 2 * var(--space-4)); padding: var(--space-4); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ts-root *, .ts-root *::before, .ts-root *::after { animation-duration: .01ms; transition-duration: .01ms; scroll-behavior: auto; }
+}
+@media print {
+  .ts-root { background: var(--paper); }
+  .ts-notifications, .ts-root [data-ts-screen-only] { display: none; }
+  .ts-table-wrap { overflow: visible; }
+  .ts-table th { print-color-adjust: exact; }
+}
